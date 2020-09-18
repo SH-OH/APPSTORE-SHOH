@@ -13,8 +13,8 @@ final class SearchedCVCell: UICollectionViewCell, Reusable {
     @IBOutlet private weak var cellLabel: UILabel!
     @IBOutlet private weak var bottomLine: UIView!
     
-    func configure(_ recent: String, isLast: Bool) {
-        cellLabel.text = recent
+    func configure(_ searched: String, isLast: Bool) {
+        cellLabel.text = searched
         bottomLine.isHidden = isLast
     }
 }

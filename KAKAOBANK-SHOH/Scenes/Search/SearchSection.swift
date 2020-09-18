@@ -15,6 +15,7 @@ enum SearchSection {
 enum SearchSectionItem {
     case recentSearched(String)
     case recentFound((foundKeywords: String, curSearchKeyword: String))
+    case result(SearchResultCellReactor.Data)
 }
 
 extension SearchSection: SectionModelType {

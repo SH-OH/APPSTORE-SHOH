@@ -7,6 +7,7 @@
 //
 
 import ReactorKit
+import Foundation
 
 final class SearchViewReactor: Reactor {
     
@@ -18,6 +19,8 @@ final class SearchViewReactor: Reactor {
     enum Mutation {
         case setSearchedSections([SearchSection])
         case setFoundSections([SearchSection])
+        case setResultSections([SearchSection])
+        case setShowResultView(Bool)
     }
     
     
@@ -27,6 +30,8 @@ final class SearchViewReactor: Reactor {
         
         var searchedSections: [SearchSection]
         var foundSections: [SearchSection]
+        var resultSections: [SearchSection]
+        var showResultView: Bool
     }
     
     let initialState: State
@@ -47,7 +52,9 @@ final class SearchViewReactor: Reactor {
         self.initialState = State(
 //            recentSearchedList: UserdefaultsManager.getStringArray(.recentSearchedKeywords)
             searchedSections: testList,
-            foundSections: []
+            foundSections: [],
+            resultSections: [],
+            showResultView: false
         )
     }
     
@@ -75,9 +82,23 @@ final class SearchViewReactor: Reactor {
         case .search(let reponseText):
             let search: Observable<Mutation> = SearchUseCase()
                 .search(reponseText)
+                .do(onSuccess: { (_) in
+                    var list = UserdefaultsManager.getStringArray(.recentSearchedKeywords)
+                    if !list.contains(reponseText) {
+                        list.append(reponseText)
+                    }
+                })
+                .compactMap { $0.results }
                 .asObservable()
-                .map { _ in Mutation.setSearchedSections([])}
-            return .empty()
+                .map { [convertModel] in convertModel($0) }
+                .flatMap { Observable.from($0) }
+                .map { SearchSectionItem.result($0)}
+                .toArray().asObservable()
+                .map { [SearchSection.section(items: $0)] }
+                .map { Mutation.setResultSections($0) }
+            
+            return search
+                .concat(Observable.just(Mutation.setShowResultView(true)))
         }
     }
     
@@ -90,7 +111,61 @@ final class SearchViewReactor: Reactor {
         case let .setSearchedSections(searchedSections):
             newState.searchedSections = searchedSections
             return newState
+        case let .setResultSections(resultSections):
+            newState.resultSections = resultSections
+            return newState
+        case let .setShowResultView(showResultView):
+            newState.showResultView = showResultView
+            return newState
         }
     }
     
+}
+
+extension SearchViewReactor {
+    private func convertModel(_ models: [SearchResult]) -> [SearchResultCellReactor.Data] {
+        models.compactMap({ (result) -> SearchResultCellReactor.Data in
+            
+            let userCount = result.userRatingCountForCurrentVersion ?? 0
+            let max = userCount >= 10000 ? 2 : 3
+            let regexResult = GlobalFunc
+                .regex("\(userCount)", pattern: "^[0-9]{1,\(max)}[^0]$")
+            
+            var toArray = (regexResult.first ?? "0").map { $0 }
+            if toArray.count > 1 {
+                toArray.insert(".", at: 1)
+            }
+            var userRatingCount = toArray.map { String($0) }.joined()
+            
+            switch userCount {
+            case 1000..<10000:
+                userRatingCount.append("천")
+            case 10000...:
+                userRatingCount.append("만")
+            default:
+                break
+            }
+            
+            let screenshotUrls = result.screenshotUrls?
+                .compactMap { URL(string: $0) }
+            
+            
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            numberFormatter.minimumFractionDigits = 2
+            numberFormatter.maximumFractionDigits = 2
+            
+            let averageUserRatingForCurrentVersion = numberFormatter.string(from: (result.averageUserRatingForCurrentVersion ?? 0)
+                as NSNumber) ?? "0"
+             
+            return SearchResultCellReactor.Data(
+                artworkUrl60: URL(string: (result.artworkUrl60 ?? "")),
+                trackName: result.trackName,
+                description: result.description,
+                averageUserRatingForCurrentVersion: Double(averageUserRatingForCurrentVersion),
+                userRatingCountForCurrentVersion: averageUserRatingForCurrentVersion,
+                screenshotUrls: screenshotUrls
+            )
+        })
+    }
 }

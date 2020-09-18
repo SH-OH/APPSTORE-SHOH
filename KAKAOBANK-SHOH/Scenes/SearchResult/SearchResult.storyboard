@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kqm-nd-UeL">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Search Result View Controller-->
+        <scene sceneID="yd9-af-y5k">
+            <objects>
+                <viewController storyboardIdentifier="SearchResultViewController" id="kqm-nd-UeL" customClass="SearchResultViewController" customModule="KAKAOBANK_SHOH" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="l0X-tb-ZMb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HR9-Tw-Z40">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xAd-QQ-rVP">
+                                    <size key="itemSize" width="370" height="290"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SearchResultCell" id="bc5-un-yit" customClass="SearchResultCell" customModule="KAKAOBANK_SHOH" customModuleProvider="target">
+                                        <rect key="frame" x="-11.5" y="0.0" width="398" height="290"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="e6n-uk-QdY">
+                                            <rect key="frame" x="0.0" y="0.0" width="398" height="290"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AMX-G4-uA8" customClass="IBImageView" customModule="KAKAOBANK_SHOH" customModuleProvider="target">
+                                                    <rect key="frame" x="15" y="15" width="60" height="60"/>
+                                                    <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="60" id="KGS-ER-UcG"/>
+                                                        <constraint firstAttribute="width" constant="60" id="zgN-ZF-KNR"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" systemColor="systemGray4Color" red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="카카오뱅크 - 같지만 다른 은행" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TVm-3A-Gln">
+                                                    <rect key="frame" x="85" y="15" width="213" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="공인인증서 필요없는 모바일은행" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="un5-xi-v9f">
+                                                    <rect key="frame" x="85" y="39" width="213" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="RpS-OM-enC" userLabel="01.star">
+                                                    <rect key="frame" x="85" y="60" width="15" height="15"/>
+                                                    <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="15" id="PL5-0L-EYW"/>
+                                                        <constraint firstAttribute="width" constant="15" id="kni-VC-jEn"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="grD-df-bGq" userLabel="02.star">
+                                                    <rect key="frame" x="100" y="60" width="15" height="15"/>
+                                                    <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="15" id="dBG-4d-lCu"/>
+                                                        <constraint firstAttribute="width" constant="15" id="dRA-Zr-lju"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="5If-Uo-W1S" userLabel="03.star">
+                                                    <rect key="frame" x="115" y="60" width="15" height="15"/>
+                                                    <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="15" id="fbz-rd-FYQ"/>
+                                                        <constraint firstAttribute="width" constant="15" id="jzb-ZX-fSo"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="UpG-L7-MZ3" userLabel="04.star">
+                                                    <rect key="frame" x="130" y="60" width="15" height="15"/>
+                                                    <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="15" id="OS2-nL-7A3"/>
+                                                        <constraint firstAttribute="height" constant="15" id="byE-67-ebl"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="cmb-eu-57A" userLabel="05.star">
+                                                    <rect key="frame" x="145" y="60" width="15" height="15"/>
+                                                    <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="15" id="IFC-mY-ByT"/>
+                                                        <constraint firstAttribute="width" constant="15" id="exo-tQ-5oO"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sw3-m8-IeX" customClass="IBButton" customModule="KAKAOBANK_SHOH" customModuleProvider="target">
+                                                    <rect key="frame" x="313" y="30" width="70" height="30"/>
+                                                    <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="FuY-WZ-Rtp"/>
+                                                        <constraint firstAttribute="width" constant="70" id="LwF-Sj-vYk"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                    <state key="normal" title="열기"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="15"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2.57천" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUn-rN-kmu">
+                                                    <rect key="frame" x="177" y="59" width="41" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pL0-xD-taj" userLabel="01.스크린샷" customClass="IBImageView" customModule="KAKAOBANK_SHOH" customModuleProvider="target">
+                                                    <rect key="frame" x="66.5" y="105" width="81.5" height="145"/>
+                                                    <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" systemColor="systemGray4Color" red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BKg-sG-l2J" userLabel="02.스크린샷" customClass="IBImageView" customModule="KAKAOBANK_SHOH" customModuleProvider="target">
+                                                    <rect key="frame" x="158" y="105" width="82" height="145"/>
+                                                    <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" systemColor="systemGray4Color" red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gj2-nK-ukz" userLabel="03.스크린샷" customClass="IBImageView" customModule="KAKAOBANK_SHOH" customModuleProvider="target">
+                                                    <rect key="frame" x="250" y="105" width="81.5" height="145"/>
+                                                    <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" systemColor="systemGray4Color" red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="un5-xi-v9f" firstAttribute="trailing" secondItem="TVm-3A-Gln" secondAttribute="trailing" id="0C6-yA-CFQ"/>
+                                                <constraint firstItem="gj2-nK-ukz" firstAttribute="leading" secondItem="BKg-sG-l2J" secondAttribute="trailing" constant="10" id="0j6-gs-ARq"/>
+                                                <constraint firstItem="UpG-L7-MZ3" firstAttribute="leading" secondItem="5If-Uo-W1S" secondAttribute="trailing" id="12T-eH-ZJC"/>
+                                                <constraint firstItem="Sw3-m8-IeX" firstAttribute="centerY" secondItem="AMX-G4-uA8" secondAttribute="centerY" id="1up-Ni-Eiq"/>
+                                                <constraint firstItem="un5-xi-v9f" firstAttribute="top" secondItem="TVm-3A-Gln" secondAttribute="bottom" constant="3" id="24E-Q7-oyT"/>
+                                                <constraint firstAttribute="bottom" secondItem="BKg-sG-l2J" secondAttribute="bottom" constant="40" id="2R0-cH-AKv"/>
+                                                <constraint firstItem="grD-df-bGq" firstAttribute="bottom" secondItem="RpS-OM-enC" secondAttribute="bottom" id="2kH-nm-IIn"/>
+                                                <constraint firstItem="5If-Uo-W1S" firstAttribute="leading" secondItem="grD-df-bGq" secondAttribute="trailing" id="35j-8E-9N1"/>
+                                                <constraint firstItem="gj2-nK-ukz" firstAttribute="width" secondItem="BKg-sG-l2J" secondAttribute="width" id="5EZ-bN-ZPP"/>
+                                                <constraint firstItem="BKg-sG-l2J" firstAttribute="centerX" secondItem="e6n-uk-QdY" secondAttribute="centerX" id="68G-L5-hLT"/>
+                                                <constraint firstItem="AMX-G4-uA8" firstAttribute="leading" secondItem="e6n-uk-QdY" secondAttribute="leading" constant="15" id="7Li-vg-Rcb"/>
+                                                <constraint firstItem="Sw3-m8-IeX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="TVm-3A-Gln" secondAttribute="trailing" constant="15" id="7mo-v4-asf"/>
+                                                <constraint firstItem="pL0-xD-taj" firstAttribute="height" secondItem="BKg-sG-l2J" secondAttribute="height" id="Gm4-FW-c1o"/>
+                                                <constraint firstItem="UpG-L7-MZ3" firstAttribute="bottom" secondItem="5If-Uo-W1S" secondAttribute="bottom" id="IbY-sp-dTT"/>
+                                                <constraint firstItem="RpS-OM-enC" firstAttribute="leading" secondItem="un5-xi-v9f" secondAttribute="leading" id="JCC-Nn-XND"/>
+                                                <constraint firstItem="RUn-rN-kmu" firstAttribute="leading" secondItem="cmb-eu-57A" secondAttribute="trailing" constant="17" id="KKh-tG-5Ps"/>
+                                                <constraint firstItem="5If-Uo-W1S" firstAttribute="bottom" secondItem="grD-df-bGq" secondAttribute="bottom" id="La5-4G-B76"/>
+                                                <constraint firstItem="gj2-nK-ukz" firstAttribute="height" secondItem="BKg-sG-l2J" secondAttribute="height" id="Ojx-u0-G9U"/>
+                                                <constraint firstItem="pL0-xD-taj" firstAttribute="centerY" secondItem="BKg-sG-l2J" secondAttribute="centerY" id="PND-hu-mcP"/>
+                                                <constraint firstItem="TVm-3A-Gln" firstAttribute="leading" secondItem="AMX-G4-uA8" secondAttribute="trailing" constant="10" id="Uf0-gn-kZ6"/>
+                                                <constraint firstItem="RUn-rN-kmu" firstAttribute="centerY" secondItem="cmb-eu-57A" secondAttribute="centerY" id="W00-gE-EfC"/>
+                                                <constraint firstItem="BKg-sG-l2J" firstAttribute="top" secondItem="AMX-G4-uA8" secondAttribute="bottom" constant="30" id="Y6J-PL-bmx"/>
+                                                <constraint firstItem="cmb-eu-57A" firstAttribute="bottom" secondItem="UpG-L7-MZ3" secondAttribute="bottom" id="YEF-Da-OCE"/>
+                                                <constraint firstItem="pL0-xD-taj" firstAttribute="width" secondItem="BKg-sG-l2J" secondAttribute="width" id="ZgT-l8-EJm"/>
+                                                <constraint firstItem="RpS-OM-enC" firstAttribute="bottom" secondItem="AMX-G4-uA8" secondAttribute="bottom" id="qbk-pq-vw0"/>
+                                                <constraint firstItem="AMX-G4-uA8" firstAttribute="top" secondItem="e6n-uk-QdY" secondAttribute="top" constant="15" id="qbq-CA-0KA"/>
+                                                <constraint firstAttribute="trailing" secondItem="Sw3-m8-IeX" secondAttribute="trailing" constant="15" id="rQv-h2-vUo"/>
+                                                <constraint firstItem="BKg-sG-l2J" firstAttribute="leading" secondItem="pL0-xD-taj" secondAttribute="trailing" constant="10" id="rjN-jn-dzv"/>
+                                                <constraint firstItem="un5-xi-v9f" firstAttribute="leading" secondItem="TVm-3A-Gln" secondAttribute="leading" id="sX4-RW-v8b"/>
+                                                <constraint firstItem="cmb-eu-57A" firstAttribute="leading" secondItem="UpG-L7-MZ3" secondAttribute="trailing" id="tm5-Ju-pM8"/>
+                                                <constraint firstItem="grD-df-bGq" firstAttribute="leading" secondItem="RpS-OM-enC" secondAttribute="trailing" id="vdc-uK-eDC"/>
+                                                <constraint firstItem="TVm-3A-Gln" firstAttribute="top" secondItem="AMX-G4-uA8" secondAttribute="top" id="wWL-5P-bh3"/>
+                                                <constraint firstItem="gj2-nK-ukz" firstAttribute="centerY" secondItem="BKg-sG-l2J" secondAttribute="centerY" id="xYm-nb-caj"/>
+                                                <constraint firstItem="BKg-sG-l2J" firstAttribute="width" secondItem="BKg-sG-l2J" secondAttribute="height" multiplier="392:696" id="y6e-AV-Fsu"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="artworkImage" destination="AMX-G4-uA8" id="Was-4Q-Rwp"/>
+                                            <outlet property="descriptionLabel" destination="un5-xi-v9f" id="Uqb-nT-OkN"/>
+                                            <outlet property="openButton" destination="Sw3-m8-IeX" id="KUj-VW-Dhw"/>
+                                            <outlet property="ratingCountLabel" destination="RUn-rN-kmu" id="Edg-fQ-wxu"/>
+                                            <outlet property="screenShotImage01" destination="pL0-xD-taj" id="qSH-F2-4j0"/>
+                                            <outlet property="screenShotImage02" destination="BKg-sG-l2J" id="xBX-Sh-EQ3"/>
+                                            <outlet property="screenShotImage03" destination="gj2-nK-ukz" id="ouf-bg-d2N"/>
+                                            <outlet property="starRatingImage01" destination="RpS-OM-enC" id="Clz-0f-apw"/>
+                                            <outlet property="starRatingImage02" destination="grD-df-bGq" id="oj1-dm-sNT"/>
+                                            <outlet property="starRatingImage03" destination="5If-Uo-W1S" id="cj7-vh-v2K"/>
+                                            <outlet property="starRatingImage04" destination="UpG-L7-MZ3" id="0Zz-IU-mcq"/>
+                                            <outlet property="starRatingImage05" destination="cmb-eu-57A" id="D5X-Wy-vcj"/>
+                                            <outlet property="trackNameLabel" destination="TVm-3A-Gln" id="6BL-us-V0C"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="8fc-yN-7bG" firstAttribute="bottom" secondItem="HR9-Tw-Z40" secondAttribute="bottom" id="8M9-J6-J7L"/>
+                            <constraint firstItem="HR9-Tw-Z40" firstAttribute="leading" secondItem="8fc-yN-7bG" secondAttribute="leading" id="bI1-zQ-lxw"/>
+                            <constraint firstItem="HR9-Tw-Z40" firstAttribute="top" secondItem="8fc-yN-7bG" secondAttribute="top" id="mSu-5I-vAM"/>
+                            <constraint firstItem="8fc-yN-7bG" firstAttribute="trailing" secondItem="HR9-Tw-Z40" secondAttribute="trailing" id="sMB-pG-4Rm"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="8fc-yN-7bG"/>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="HR9-Tw-Z40" id="ZTN-mc-OeE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x1w-Mw-ujl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-642.39999999999998" y="48.125937031484263"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="star" catalog="system" width="128" height="116"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
+    </resources>
+</document>

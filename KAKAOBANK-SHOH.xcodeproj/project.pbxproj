@@ -45,6 +45,14 @@
 		CB1CE0F72514C36700508BBF /* FoundCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE0F62514C36700508BBF /* FoundCVCell.swift */; };
 		CB1CE0F92514D56B00508BBF /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE0F82514D56B00508BBF /* UILabel+Extensions.swift */; };
 		CB1CE0FB2514D7C400508BBF /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE0FA2514D7C400508BBF /* Array+Extensions.swift */; };
+		CB1CE0FE251509EC00508BBF /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE0FD251509EC00508BBF /* SearchResultViewController.swift */; };
+		CB1CE100251509F600508BBF /* SearchResult.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB1CE0FF251509F600508BBF /* SearchResult.storyboard */; };
+		CB1CE10225150A6200508BBF /* SearchResultViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE10125150A6200508BBF /* SearchResultViewReactor.swift */; };
+		CB1CE10425150CB800508BBF /* IBView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE10325150CB800508BBF /* IBView.swift */; };
+		CB1CE106251519A900508BBF /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE105251519A900508BBF /* SearchResultCell.swift */; };
+		CB1CE10825151B7000508BBF /* SearchResultCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE10725151B7000508BBF /* SearchResultCellReactor.swift */; };
+		CB1CE10A2515210200508BBF /* NetworkManager+UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE1092515210200508BBF /* NetworkManager+UIImageView.swift */; };
+		CB1CE10C251531D400508BBF /* GlobalFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE10B251531D400508BBF /* GlobalFunc.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +107,14 @@
 		CB1CE0F62514C36700508BBF /* FoundCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundCVCell.swift; sourceTree = "<group>"; };
 		CB1CE0F82514D56B00508BBF /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		CB1CE0FA2514D7C400508BBF /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		CB1CE0FD251509EC00508BBF /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		CB1CE0FF251509F600508BBF /* SearchResult.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchResult.storyboard; sourceTree = "<group>"; };
+		CB1CE10125150A6200508BBF /* SearchResultViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewReactor.swift; sourceTree = "<group>"; };
+		CB1CE10325150CB800508BBF /* IBView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBView.swift; sourceTree = "<group>"; };
+		CB1CE105251519A900508BBF /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		CB1CE10725151B7000508BBF /* SearchResultCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCellReactor.swift; sourceTree = "<group>"; };
+		CB1CE1092515210200508BBF /* NetworkManager+UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkManager+UIImageView.swift"; sourceTree = "<group>"; };
+		CB1CE10B251531D400508BBF /* GlobalFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunc.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,9 +237,10 @@
 		CB1CE0BF25147BEB00508BBF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				CB1CE0C425147C5400508BBF /* Protocol */,
-				CB1CE0C325147C4300508BBF /* Managers */,
+				CB1CE10B251531D400508BBF /* GlobalFunc.swift */,
 				CB1CE0C225147C3300508BBF /* Extensions */,
+				CB1CE0C325147C4300508BBF /* Managers */,
+				CB1CE0C425147C5400508BBF /* Protocol */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -243,6 +260,7 @@
 			children = (
 				CB1CE0C725147C7900508BBF /* NetworkManager.swift */,
 				CB1CE0C925147C8600508BBF /* UserdefaultsManager.swift */,
+				CB1CE1092515210200508BBF /* NetworkManager+UIImageView.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -261,6 +279,7 @@
 				CB1CE0E325148BD700508BBF /* Base */,
 				CB1CE0D525147E3700508BBF /* Main */,
 				CB1CE0DC251489B200508BBF /* Search */,
+				CB1CE0FC251509AE00508BBF /* SearchResult */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -300,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				CB1CE0E425148BDF00508BBF /* BaseViewController.swift */,
+				CB1CE10325150CB800508BBF /* IBView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -326,6 +346,18 @@
 				CB1CE0ED25149E8200508BBF /* StoryboardType.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		CB1CE0FC251509AE00508BBF /* SearchResult */ = {
+			isa = PBXGroup;
+			children = (
+				CB1CE0FF251509F600508BBF /* SearchResult.storyboard */,
+				CB1CE105251519A900508BBF /* SearchResultCell.swift */,
+				CB1CE10725151B7000508BBF /* SearchResultCellReactor.swift */,
+				CB1CE0FD251509EC00508BBF /* SearchResultViewController.swift */,
+				CB1CE10125150A6200508BBF /* SearchResultViewReactor.swift */,
+			);
+			path = SearchResult;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -453,6 +485,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB1CE100251509F600508BBF /* SearchResult.storyboard in Resources */,
 				CB1CE08025147A1300508BBF /* LaunchScreen.storyboard in Resources */,
 				CB1CE07D25147A1300508BBF /* Assets.xcassets in Resources */,
 				CB1CE07B25147A1000508BBF /* Main.storyboard in Resources */,
@@ -482,20 +515,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB1CE0CA25147C8600508BBF /* UserdefaultsManager.swift in Sources */,
+				CB1CE0FE251509EC00508BBF /* SearchResultViewController.swift in Sources */,
+				CB1CE10A2515210200508BBF /* NetworkManager+UIImageView.swift in Sources */,
 				CB1CE0C825147C7900508BBF /* NetworkManager.swift in Sources */,
 				CB1CE0D225147CCE00508BBF /* SearchModel.swift in Sources */,
+				CB1CE106251519A900508BBF /* SearchResultCell.swift in Sources */,
 				CB1CE0FB2514D7C400508BBF /* Array+Extensions.swift in Sources */,
 				CB1CE0F52514B53000508BBF /* SearchedCVCell.swift in Sources */,
 				CB1CE07425147A1000508BBF /* AppDelegate.swift in Sources */,
 				CB1CE0E525148BDF00508BBF /* BaseViewController.swift in Sources */,
+				CB1CE10225150A6200508BBF /* SearchResultViewReactor.swift in Sources */,
 				CB1CE0F22514B4D200508BBF /* SearchSection.swift in Sources */,
 				CB1CE0CD25147CBB00508BBF /* APIDomain.swift in Sources */,
 				CB1CE0DB2514878600508BBF /* AppLaunch.swift in Sources */,
 				CB1CE0E0251489F600508BBF /* SearchViewController.swift in Sources */,
+				CB1CE10C251531D400508BBF /* GlobalFunc.swift in Sources */,
 				CB1CE0F02514AA7D00508BBF /* MainTabBarViewReactor.swift in Sources */,
 				CB1CE0E225148B3100508BBF /* SearchViewReactor.swift in Sources */,
 				CB1CE0EE25149E8200508BBF /* StoryboardType.swift in Sources */,
 				CB1CE0EB25149A7F00508BBF /* MainTabBarController.swift in Sources */,
+				CB1CE10425150CB800508BBF /* IBView.swift in Sources */,
+				CB1CE10825151B7000508BBF /* SearchResultCellReactor.swift in Sources */,
 				CB1CE0F92514D56B00508BBF /* UILabel+Extensions.swift in Sources */,
 				CB1CE07625147A1000508BBF /* SceneDelegate.swift in Sources */,
 				CB1CE0CF25147CC200508BBF /* ErrorHandler.swift in Sources */,

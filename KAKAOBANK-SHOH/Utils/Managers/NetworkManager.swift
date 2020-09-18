@@ -18,7 +18,8 @@ class NetworkManager {
     }
     
     enum Queue {
-        static let defaultQueue: DispatchQueue = DispatchQueue(label: "queue.NetworkManager.default")
+        static let defaultQueue: DispatchQueue = DispatchQueue(label: "queue.NetworkManager.default", qos: .utility)
+        static let imageQueue: DispatchQueue = DispatchQueue(label: "queue.NetworkManager.imageCache", qos: .utility)
     }
     
     static let shared = NetworkManager()
@@ -84,10 +85,12 @@ class NetworkManager {
         }
     }
     
-    func retrieveImage(_ url: URL, queue: DispatchQueue = Queue.defaultQueue) -> Single<UIImage> {
+    func retrieveImage(_ url: URL, queue: DispatchQueue = Queue.imageQueue) -> Single<UIImage> {
         return Single<UIImage>.create { (observer) -> Disposable in
             if let cachedImage = self.getImage(url.absoluteString) {
-                observer(.success(cachedImage))
+                DispatchQueue.main.async {
+                    observer(.success(cachedImage))
+                }
                 return Disposables.create()
             }
             let request = URLRequest(url: url,
@@ -97,13 +100,19 @@ class NetworkManager {
                 case .success(let data):
                     guard let image = UIImage(data: data) else {
                         let _error = ErrorHandler.check(nil)
-                        observer(.error(_error))
+                        DispatchQueue.main.async {
+                            observer(.error(_error))
+                        }
                         return
                     }
-                    self.setImage(url.absoluteString, image: image)
-                    observer(.success(image))
+                    DispatchQueue.main.async {
+                        self.setImage(url.absoluteString, image: image)
+                        observer(.success(image))
+                    }
                 case .failure(let error):
-                    observer(.error(error))
+                    DispatchQueue.main.async {
+                        observer(.error(error))
+                    }
                 }
             }
             return Disposables.create {
