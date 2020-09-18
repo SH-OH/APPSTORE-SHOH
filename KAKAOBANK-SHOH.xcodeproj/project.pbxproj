@@ -1,0 +1,595 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CB1CE07425147A1000508BBF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE07325147A1000508BBF /* AppDelegate.swift */; };
+		CB1CE07625147A1000508BBF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE07525147A1000508BBF /* SceneDelegate.swift */; };
+		CB1CE07825147A1000508BBF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE07725147A1000508BBF /* ViewController.swift */; };
+		CB1CE07B25147A1000508BBF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB1CE07925147A1000508BBF /* Main.storyboard */; };
+		CB1CE07D25147A1300508BBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB1CE07C25147A1300508BBF /* Assets.xcassets */; };
+		CB1CE08025147A1300508BBF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB1CE07E25147A1300508BBF /* LaunchScreen.storyboard */; };
+		CB1CE08B25147A1400508BBF /* KAKAOBANK_SHOHTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE08A25147A1400508BBF /* KAKAOBANK_SHOHTests.swift */; };
+		CB1CE09625147A1400508BBF /* KAKAOBANK_SHOHUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE09525147A1400508BBF /* KAKAOBANK_SHOHUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CB1CE08725147A1300508BBF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB1CE06825147A1000508BBF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CB1CE06F25147A1000508BBF;
+			remoteInfo = "KAKAOBANK-SHOH";
+		};
+		CB1CE09225147A1400508BBF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB1CE06825147A1000508BBF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CB1CE06F25147A1000508BBF;
+			remoteInfo = "KAKAOBANK-SHOH";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CB1CE07025147A1000508BBF /* KAKAOBANK-SHOH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KAKAOBANK-SHOH.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB1CE07325147A1000508BBF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CB1CE07525147A1000508BBF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		CB1CE07725147A1000508BBF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CB1CE07A25147A1000508BBF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CB1CE07C25147A1300508BBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CB1CE07F25147A1300508BBF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CB1CE08125147A1300508BBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB1CE08625147A1300508BBF /* KAKAOBANK-SHOHTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "KAKAOBANK-SHOHTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB1CE08A25147A1400508BBF /* KAKAOBANK_SHOHTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KAKAOBANK_SHOHTests.swift; sourceTree = "<group>"; };
+		CB1CE08C25147A1400508BBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB1CE09125147A1400508BBF /* KAKAOBANK-SHOHUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "KAKAOBANK-SHOHUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB1CE09525147A1400508BBF /* KAKAOBANK_SHOHUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KAKAOBANK_SHOHUITests.swift; sourceTree = "<group>"; };
+		CB1CE09725147A1400508BBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CB1CE06D25147A1000508BBF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB1CE08325147A1300508BBF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB1CE08E25147A1400508BBF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CB1CE06725147A1000508BBF = {
+			isa = PBXGroup;
+			children = (
+				CB1CE07225147A1000508BBF /* KAKAOBANK-SHOH */,
+				CB1CE08925147A1300508BBF /* KAKAOBANK-SHOHTests */,
+				CB1CE09425147A1400508BBF /* KAKAOBANK-SHOHUITests */,
+				CB1CE07125147A1000508BBF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CB1CE07125147A1000508BBF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CB1CE07025147A1000508BBF /* KAKAOBANK-SHOH.app */,
+				CB1CE08625147A1300508BBF /* KAKAOBANK-SHOHTests.xctest */,
+				CB1CE09125147A1400508BBF /* KAKAOBANK-SHOHUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CB1CE07225147A1000508BBF /* KAKAOBANK-SHOH */ = {
+			isa = PBXGroup;
+			children = (
+				CB1CE07325147A1000508BBF /* AppDelegate.swift */,
+				CB1CE07525147A1000508BBF /* SceneDelegate.swift */,
+				CB1CE07725147A1000508BBF /* ViewController.swift */,
+				CB1CE07925147A1000508BBF /* Main.storyboard */,
+				CB1CE07C25147A1300508BBF /* Assets.xcassets */,
+				CB1CE07E25147A1300508BBF /* LaunchScreen.storyboard */,
+				CB1CE08125147A1300508BBF /* Info.plist */,
+			);
+			path = "KAKAOBANK-SHOH";
+			sourceTree = "<group>";
+		};
+		CB1CE08925147A1300508BBF /* KAKAOBANK-SHOHTests */ = {
+			isa = PBXGroup;
+			children = (
+				CB1CE08A25147A1400508BBF /* KAKAOBANK_SHOHTests.swift */,
+				CB1CE08C25147A1400508BBF /* Info.plist */,
+			);
+			path = "KAKAOBANK-SHOHTests";
+			sourceTree = "<group>";
+		};
+		CB1CE09425147A1400508BBF /* KAKAOBANK-SHOHUITests */ = {
+			isa = PBXGroup;
+			children = (
+				CB1CE09525147A1400508BBF /* KAKAOBANK_SHOHUITests.swift */,
+				CB1CE09725147A1400508BBF /* Info.plist */,
+			);
+			path = "KAKAOBANK-SHOHUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CB1CE06F25147A1000508BBF /* KAKAOBANK-SHOH */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB1CE09A25147A1400508BBF /* Build configuration list for PBXNativeTarget "KAKAOBANK-SHOH" */;
+			buildPhases = (
+				CB1CE06C25147A1000508BBF /* Sources */,
+				CB1CE06D25147A1000508BBF /* Frameworks */,
+				CB1CE06E25147A1000508BBF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "KAKAOBANK-SHOH";
+			productName = "KAKAOBANK-SHOH";
+			productReference = CB1CE07025147A1000508BBF /* KAKAOBANK-SHOH.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CB1CE08525147A1300508BBF /* KAKAOBANK-SHOHTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB1CE09D25147A1400508BBF /* Build configuration list for PBXNativeTarget "KAKAOBANK-SHOHTests" */;
+			buildPhases = (
+				CB1CE08225147A1300508BBF /* Sources */,
+				CB1CE08325147A1300508BBF /* Frameworks */,
+				CB1CE08425147A1300508BBF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CB1CE08825147A1300508BBF /* PBXTargetDependency */,
+			);
+			name = "KAKAOBANK-SHOHTests";
+			productName = "KAKAOBANK-SHOHTests";
+			productReference = CB1CE08625147A1300508BBF /* KAKAOBANK-SHOHTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CB1CE09025147A1400508BBF /* KAKAOBANK-SHOHUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB1CE0A025147A1400508BBF /* Build configuration list for PBXNativeTarget "KAKAOBANK-SHOHUITests" */;
+			buildPhases = (
+				CB1CE08D25147A1400508BBF /* Sources */,
+				CB1CE08E25147A1400508BBF /* Frameworks */,
+				CB1CE08F25147A1400508BBF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CB1CE09325147A1400508BBF /* PBXTargetDependency */,
+			);
+			name = "KAKAOBANK-SHOHUITests";
+			productName = "KAKAOBANK-SHOHUITests";
+			productReference = CB1CE09125147A1400508BBF /* KAKAOBANK-SHOHUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CB1CE06825147A1000508BBF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1170;
+				LastUpgradeCheck = 1170;
+				ORGANIZATIONNAME = "SH-OH";
+				TargetAttributes = {
+					CB1CE06F25147A1000508BBF = {
+						CreatedOnToolsVersion = 11.7;
+					};
+					CB1CE08525147A1300508BBF = {
+						CreatedOnToolsVersion = 11.7;
+						TestTargetID = CB1CE06F25147A1000508BBF;
+					};
+					CB1CE09025147A1400508BBF = {
+						CreatedOnToolsVersion = 11.7;
+						TestTargetID = CB1CE06F25147A1000508BBF;
+					};
+				};
+			};
+			buildConfigurationList = CB1CE06B25147A1000508BBF /* Build configuration list for PBXProject "KAKAOBANK-SHOH" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CB1CE06725147A1000508BBF;
+			productRefGroup = CB1CE07125147A1000508BBF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CB1CE06F25147A1000508BBF /* KAKAOBANK-SHOH */,
+				CB1CE08525147A1300508BBF /* KAKAOBANK-SHOHTests */,
+				CB1CE09025147A1400508BBF /* KAKAOBANK-SHOHUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CB1CE06E25147A1000508BBF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB1CE08025147A1300508BBF /* LaunchScreen.storyboard in Resources */,
+				CB1CE07D25147A1300508BBF /* Assets.xcassets in Resources */,
+				CB1CE07B25147A1000508BBF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB1CE08425147A1300508BBF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB1CE08F25147A1400508BBF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CB1CE06C25147A1000508BBF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB1CE07825147A1000508BBF /* ViewController.swift in Sources */,
+				CB1CE07425147A1000508BBF /* AppDelegate.swift in Sources */,
+				CB1CE07625147A1000508BBF /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB1CE08225147A1300508BBF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB1CE08B25147A1400508BBF /* KAKAOBANK_SHOHTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB1CE08D25147A1400508BBF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB1CE09625147A1400508BBF /* KAKAOBANK_SHOHUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CB1CE08825147A1300508BBF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CB1CE06F25147A1000508BBF /* KAKAOBANK-SHOH */;
+			targetProxy = CB1CE08725147A1300508BBF /* PBXContainerItemProxy */;
+		};
+		CB1CE09325147A1400508BBF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CB1CE06F25147A1000508BBF /* KAKAOBANK-SHOH */;
+			targetProxy = CB1CE09225147A1400508BBF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CB1CE07925147A1000508BBF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB1CE07A25147A1000508BBF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CB1CE07E25147A1300508BBF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB1CE07F25147A1300508BBF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CB1CE09825147A1400508BBF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CB1CE09925147A1400508BBF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CB1CE09B25147A1400508BBF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7Q8VF9RM3U;
+				INFOPLIST_FILE = "KAKAOBANK-SHOH/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "SH-OH.KAKAOBANK-SHOH";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CB1CE09C25147A1400508BBF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7Q8VF9RM3U;
+				INFOPLIST_FILE = "KAKAOBANK-SHOH/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "SH-OH.KAKAOBANK-SHOH";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CB1CE09E25147A1400508BBF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7Q8VF9RM3U;
+				INFOPLIST_FILE = "KAKAOBANK-SHOHTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "SH-OH.KAKAOBANK-SHOHTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KAKAOBANK-SHOH.app/KAKAOBANK-SHOH";
+			};
+			name = Debug;
+		};
+		CB1CE09F25147A1400508BBF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7Q8VF9RM3U;
+				INFOPLIST_FILE = "KAKAOBANK-SHOHTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "SH-OH.KAKAOBANK-SHOHTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KAKAOBANK-SHOH.app/KAKAOBANK-SHOH";
+			};
+			name = Release;
+		};
+		CB1CE0A125147A1400508BBF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7Q8VF9RM3U;
+				INFOPLIST_FILE = "KAKAOBANK-SHOHUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "SH-OH.KAKAOBANK-SHOHUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "KAKAOBANK-SHOH";
+			};
+			name = Debug;
+		};
+		CB1CE0A225147A1400508BBF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7Q8VF9RM3U;
+				INFOPLIST_FILE = "KAKAOBANK-SHOHUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "SH-OH.KAKAOBANK-SHOHUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "KAKAOBANK-SHOH";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CB1CE06B25147A1000508BBF /* Build configuration list for PBXProject "KAKAOBANK-SHOH" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB1CE09825147A1400508BBF /* Debug */,
+				CB1CE09925147A1400508BBF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CB1CE09A25147A1400508BBF /* Build configuration list for PBXNativeTarget "KAKAOBANK-SHOH" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB1CE09B25147A1400508BBF /* Debug */,
+				CB1CE09C25147A1400508BBF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CB1CE09D25147A1400508BBF /* Build configuration list for PBXNativeTarget "KAKAOBANK-SHOHTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB1CE09E25147A1400508BBF /* Debug */,
+				CB1CE09F25147A1400508BBF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CB1CE0A025147A1400508BBF /* Build configuration list for PBXNativeTarget "KAKAOBANK-SHOHUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB1CE0A125147A1400508BBF /* Debug */,
+				CB1CE0A225147A1400508BBF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CB1CE06825147A1000508BBF /* Project object */;
+}
