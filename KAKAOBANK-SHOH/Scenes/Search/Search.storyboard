@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--검색-->
+        <scene sceneID="zL5-iS-Fl8">
+            <objects>
+                <viewController storyboardIdentifier="SearchViewController" id="WQc-iZ-Y4x" customClass="SearchViewController" customModule="KAKAOBANK_SHOH" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8ib-O3-hLu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e41-g4-czc" userLabel="SearchBar HStack">
+                                <rect key="frame" x="10" y="0.0" width="300" height="56"/>
+                                <subviews>
+                                    <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="App Store" translatesAutoresizingMaskIntoConstraints="NO" id="mdK-vP-CeW">
+                                        <rect key="frame" x="0.0" y="0.0" width="260" height="56"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ena-fE-wbt">
+                                        <rect key="frame" x="260" y="0.0" width="40" height="56"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="vYy-qG-d6W"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="취소"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sg4-vd-2sQ" userLabel="-----------------">
+                                <rect key="frame" x="0.0" y="56" width="320" height="1"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="d1l-jW-c0c"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="최근 검색어" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="chm-Kf-FEv">
+                                <rect key="frame" x="10" y="72" width="300" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PIJ-9g-U29" userLabel="최근 검색어 CV">
+                                <rect key="frame" x="10" y="102" width="300" height="466"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="AGC-19-Pt5">
+                                    <size key="itemSize" width="298" height="80"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SearchedCVCell" id="Aq1-gU-lt6" customClass="SearchedCVCell" customModule="KAKAOBANK_SHOH" customModuleProvider="target">
+                                        <rect key="frame" x="1" y="0.0" width="298" height="80"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Cu4-bg-tyL">
+                                            <rect key="frame" x="0.0" y="0.0" width="298" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="카카오뱅크" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zL0-4g-tl6">
+                                                    <rect key="frame" x="5" y="29.5" width="283" height="21.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eil-wA-QE7" userLabel="------------">
+                                                    <rect key="frame" x="5" y="79" width="293" height="1"/>
+                                                    <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="MB3-9B-jdL"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="zL0-4g-tl6" firstAttribute="centerY" secondItem="Cu4-bg-tyL" secondAttribute="centerY" id="1T8-gH-deu"/>
+                                                <constraint firstItem="Eil-wA-QE7" firstAttribute="leading" secondItem="zL0-4g-tl6" secondAttribute="leading" id="3qo-DN-Eht"/>
+                                                <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="zL0-4g-tl6" secondAttribute="trailing" constant="10" id="CmJ-7d-mW7"/>
+                                                <constraint firstAttribute="bottom" secondItem="Eil-wA-QE7" secondAttribute="bottom" id="S2l-CX-NBa"/>
+                                                <constraint firstAttribute="trailing" secondItem="Eil-wA-QE7" secondAttribute="trailing" id="W76-FR-UdH"/>
+                                                <constraint firstItem="zL0-4g-tl6" firstAttribute="leading" secondItem="Cu4-bg-tyL" secondAttribute="leading" constant="5" id="yGT-0e-x4t"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="bottomLine" destination="Eil-wA-QE7" id="OU5-kQ-PNX"/>
+                                            <outlet property="cellLabel" destination="zL0-4g-tl6" id="Pv9-cE-khz"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="aul-t7-D95" userLabel="검색된 최근 검색어 CV">
+                                <rect key="frame" x="10" y="57" width="300" height="511"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GWv-tX-amu">
+                                    <size key="itemSize" width="294" height="60"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FoundCVCell" id="3iP-Bf-dUS" customClass="FoundCVCell" customModule="KAKAOBANK_SHOH" customModuleProvider="target">
+                                        <rect key="frame" x="3" y="0.0" width="294" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Axt-Sl-tUZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="294" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="magnifyingglass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="blK-aF-8Y6">
+                                                    <rect key="frame" x="10" y="18.5" width="25" height="23"/>
+                                                    <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="25" id="50y-OP-c5i"/>
+                                                        <constraint firstAttribute="height" constant="25" id="5QQ-ux-z5b"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="카카오뱅크" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ycg-UT-W6v">
+                                                    <rect key="frame" x="40" y="20" width="244" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Ycg-UT-W6v" firstAttribute="leading" secondItem="blK-aF-8Y6" secondAttribute="trailing" constant="5" id="B3r-Pg-oT4"/>
+                                                <constraint firstItem="blK-aF-8Y6" firstAttribute="leading" secondItem="Axt-Sl-tUZ" secondAttribute="leading" constant="10" id="E7N-CM-111"/>
+                                                <constraint firstItem="blK-aF-8Y6" firstAttribute="centerY" secondItem="Axt-Sl-tUZ" secondAttribute="centerY" id="roJ-wZ-inY"/>
+                                                <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="Ycg-UT-W6v" secondAttribute="trailing" constant="10" id="sWz-Fx-Dwh"/>
+                                                <constraint firstItem="Ycg-UT-W6v" firstAttribute="centerY" secondItem="blK-aF-8Y6" secondAttribute="centerY" id="t8x-8b-6sf"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="cellLabel" destination="Ycg-UT-W6v" id="ljp-2M-Qbs"/>
+                                            <outlet property="magImage" destination="blK-aF-8Y6" id="9pr-GO-7v7"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="chm-Kf-FEv" firstAttribute="leading" secondItem="e41-g4-czc" secondAttribute="leading" id="03d-zf-LCC"/>
+                            <constraint firstItem="BZx-El-4zY" firstAttribute="trailing" secondItem="e41-g4-czc" secondAttribute="trailing" constant="10" id="39z-Im-mZS"/>
+                            <constraint firstItem="BZx-El-4zY" firstAttribute="top" secondItem="e41-g4-czc" secondAttribute="top" id="E8A-eN-3PC"/>
+                            <constraint firstItem="PIJ-9g-U29" firstAttribute="top" secondItem="chm-Kf-FEv" secondAttribute="bottom" id="Fyp-97-aNm"/>
+                            <constraint firstItem="sg4-vd-2sQ" firstAttribute="top" secondItem="e41-g4-czc" secondAttribute="bottom" id="JSt-hr-pJh"/>
+                            <constraint firstItem="PIJ-9g-U29" firstAttribute="trailing" secondItem="e41-g4-czc" secondAttribute="trailing" id="N3Z-tR-gcS"/>
+                            <constraint firstItem="aul-t7-D95" firstAttribute="leading" secondItem="e41-g4-czc" secondAttribute="leading" id="Tyu-uU-66k"/>
+                            <constraint firstItem="sg4-vd-2sQ" firstAttribute="leading" secondItem="8ib-O3-hLu" secondAttribute="leading" id="aF3-GV-4dP"/>
+                            <constraint firstItem="chm-Kf-FEv" firstAttribute="top" secondItem="sg4-vd-2sQ" secondAttribute="bottom" constant="15" id="atd-BA-J5Y"/>
+                            <constraint firstItem="BZx-El-4zY" firstAttribute="bottom" secondItem="aul-t7-D95" secondAttribute="bottom" id="b8w-Ri-r0b"/>
+                            <constraint firstItem="aul-t7-D95" firstAttribute="trailing" secondItem="e41-g4-czc" secondAttribute="trailing" id="hcL-hj-g4X"/>
+                            <constraint firstItem="e41-g4-czc" firstAttribute="leading" secondItem="BZx-El-4zY" secondAttribute="leading" constant="10" id="hkN-za-MU3"/>
+                            <constraint firstItem="aul-t7-D95" firstAttribute="top" secondItem="sg4-vd-2sQ" secondAttribute="bottom" id="ncb-yv-ABw"/>
+                            <constraint firstItem="chm-Kf-FEv" firstAttribute="trailing" secondItem="e41-g4-czc" secondAttribute="trailing" id="oNa-HN-jEY"/>
+                            <constraint firstItem="sg4-vd-2sQ" firstAttribute="trailing" secondItem="8ib-O3-hLu" secondAttribute="trailing" id="qhh-qD-kMm"/>
+                            <constraint firstItem="PIJ-9g-U29" firstAttribute="bottom" secondItem="BZx-El-4zY" secondAttribute="bottom" id="rmJ-wM-8IT"/>
+                            <constraint firstItem="PIJ-9g-U29" firstAttribute="leading" secondItem="e41-g4-czc" secondAttribute="leading" id="wW7-Kw-Vcx"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="BZx-El-4zY"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="검색" largeTitleDisplayMode="always" id="yvV-x7-wNJ"/>
+                    <connections>
+                        <outlet property="cancelButton" destination="ena-fE-wbt" id="I6Z-GD-dlD"/>
+                        <outlet property="recentFoundCV" destination="aul-t7-D95" id="kcx-D6-dUw"/>
+                        <outlet property="recentSearchedCV" destination="PIJ-9g-U29" id="bKg-XV-MDA"/>
+                        <outlet property="searchBar" destination="mdK-vP-CeW" id="2QM-rU-bEW"/>
+                        <outlet property="separator" destination="sg4-vd-2sQ" id="Od0-PK-73b"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x4k-9p-qxO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="138.75" y="110.91549295774648"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+    </resources>
+</document>
