@@ -31,6 +31,13 @@ final class SearchResultCell: UICollectionViewCell, Reusable, StoryboardView {
     @IBOutlet private weak var openButton: IBButton!
     
     func bind(reactor: SearchResultCellReactor) {
+        openButton.rx.tap
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (_) in
+                let vc = StoryboardType.SearchDetail.viewController(SearchDetailViewController.self)
+                reactor.navigationController.pushViewController(vc, animated: true)
+            }).disposed(by: disposeBag)
+        
         reactor.state.map { $0.artworkUrl }
             .compactMap { $0 }
             .distinctUntilChanged()
@@ -47,10 +54,17 @@ final class SearchResultCell: UICollectionViewCell, Reusable, StoryboardView {
             .bind(to: descriptionLabel.rx.text)
             .disposed(by: disposeBag)
         
+        bindRatingImage(reactor)
+        bindScreenShot(reactor)
+    }
+}
+
+// MARK: - Binding
+extension SearchResultCell {
+    private func bindRatingImage(_ reactor: SearchResultCellReactor) {
         let sharedRating = reactor.state.map { $0.rating }
             .distinctUntilChanged()
             .share(replay: 1)
-            
         sharedRating
             .compactMap { $0[safe: 0] }
             .bind(to: starRatingImage01.rx.ratingImage)
@@ -76,7 +90,8 @@ final class SearchResultCell: UICollectionViewCell, Reusable, StoryboardView {
             .distinctUntilChanged()
             .bind(to: ratingCountLabel.rx.text)
             .disposed(by: disposeBag)
-        
+    }
+    private func bindScreenShot(_ reactor: SearchResultCellReactor) {
         let sharedUrls = reactor.state.map { $0.screenshotUrls }
             .compactMap { $0 }
             .distinctUntilChanged()

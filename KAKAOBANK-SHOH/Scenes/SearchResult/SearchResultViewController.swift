@@ -26,7 +26,7 @@ final class SearchResultViewController: BaseViewController, StoryboardView {
         
         reactor.state.map { $0.resultSections }
             .distinctUntilChanged()
-            .bind(to: collectionView.rx.items(dataSource: dataSource()))
+            .bind(to: collectionView.rx.items(dataSource: dataSource(navigationController)))
             .disposed(by: disposeBag)
     }
 }

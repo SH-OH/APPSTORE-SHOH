@@ -8,6 +8,7 @@
 
 import Foundation
 import ReactorKit
+import UIKit
 
 final class SearchResultCellReactor: Reactor {
     
@@ -22,7 +23,7 @@ final class SearchResultCellReactor: Reactor {
     }
     
     enum Action {
-        
+        case open
     }
     
     enum Mutation {
@@ -39,8 +40,9 @@ final class SearchResultCellReactor: Reactor {
     }
     
     let initialState: State
+    let navigationController: UINavigationController
     
-    init(data: Data) {
+    init(data: Data, navigationController: UINavigationController) {
         self.initialState = .init(
             artworkUrl: data.artworkUrl60,
             trackName: data.trackName,
@@ -49,6 +51,7 @@ final class SearchResultCellReactor: Reactor {
             userRatingCount: data.userRatingCountForCurrentVersion,
             screenshotUrls: data.screenshotUrls
         )
+        self.navigationController = navigationController
     }
     
 }
