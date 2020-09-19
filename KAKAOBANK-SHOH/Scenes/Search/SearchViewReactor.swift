@@ -12,28 +12,34 @@ import RxCocoa
 
 final class SearchViewReactor: Reactor {
     
+    enum ShowViewType { case 최근검색어화면, 히스토리검색화면, 검색결과화면 }
+    
     enum Action {
         case recentFind(text: String)
-        case showResult(text: String?)
+        case show(ShowViewType)
+        case setCurShowType(ShowViewType)
     }
     
     enum Mutation {
         case setSearchedSections([SearchSection])
         case setFoundSections([SearchSection])
-        case setShowResultView(Bool)
         case setCurSearchBarValue(String)
+        case setShowViewType(ShowViewType)
+        case setCurShowType(ShowViewType)
     }
     
     
     struct State {
         var searchedSections: [SearchSection]
         var foundSections: [SearchSection]
-        var showResultView: Bool
         var curSearchBarValue: String
+        var showViewType: ShowViewType = .최근검색어화면
+        var curShowType: ShowViewType = .최근검색어화면
     }
     
     let initialState: State
-//    let searchBarValueRelay: PublishRelay<String?>
+    
+    let curShowType: PublishRelay<ShowViewType> = .init()
     
     init() {
         let testList = [
@@ -44,18 +50,17 @@ final class SearchViewReactor: Reactor {
             "구글맵",
             "진에어",
             "grab",
-            ].map {
-            SearchSection.section(items: [.recentSearched("\($0)")])
-        }
+        ]
+        let makeItems = testList
+            .map { SearchSectionItem.recentSearched($0) }
+        let testSection = [SearchSection.recentSearched(makeItems)]
         
         self.initialState = State(
 //            recentSearchedList: UserdefaultsManager.getStringArray(.recentSearchedKeywords)
-            searchedSections: testList,
+            searchedSections: testSection,
             foundSections: [],
-            showResultView: false,
             curSearchBarValue: ""
         )
-//        self.searchBarValueRelay = .init()
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -76,17 +81,15 @@ final class SearchViewReactor: Reactor {
                 .map { ($0, responseText) }
                 .map { SearchSectionItem.recentFound($0) }
                 .toArray().asObservable()
-                .map { [SearchSection.section(items: $0)] }
+                .map { [SearchSection.recentFound($0)] }
                 .map { Mutation.setFoundSections($0)}
+            
             return find
                 .concat(Observable.just(Mutation.setCurSearchBarValue(responseText)))
-        case .showResult(let responseText):
-            let setShowResultView: Observable<Mutation> = Observable.just(responseText)
-                .map { !($0?.isEmpty ?? true) }
-                .map { Mutation.setShowResultView($0) }
-            
-            return setShowResultView
-                .concat(Observable.just(Mutation.setCurSearchBarValue(responseText ?? "")))
+        case let .show(showType):
+            return Observable.just(Mutation.setShowViewType(showType))
+        case let .setCurShowType(curShowType):
+            return Observable.just(Mutation.setCurShowType(curShowType))
         }
     }
     
@@ -99,61 +102,16 @@ final class SearchViewReactor: Reactor {
         case let .setSearchedSections(searchedSections):
             newState.searchedSections = searchedSections
             return newState
-        case let .setShowResultView(showResultView):
-            newState.showResultView = showResultView
-            return newState
         case let .setCurSearchBarValue(curSearchBarValue):
             newState.curSearchBarValue = curSearchBarValue
             return newState
+        case let .setShowViewType(showType):
+            newState.showViewType = showType
+            print("show tyep 언제??? \(showType)")
+            return newState
+        case let .setCurShowType(curShowType):
+            newState.curShowType = curShowType
+            return newState
         }
-    }
-    
-}
-
-extension SearchViewReactor {
-    private func convertModel(_ models: [SearchResult]) -> [SearchResultCellReactor.Data] {
-        models.compactMap({ (result) -> SearchResultCellReactor.Data in
-            
-            let userCount = result.userRatingCountForCurrentVersion ?? 0
-            let max = userCount >= 10000 ? 2 : 3
-            let regexResult = GlobalFunc
-                .regex("\(userCount)", pattern: "^[0-9]{1,\(max)}[^0]$")
-            
-            var toArray = (regexResult.first ?? "0").map { $0 }
-            if toArray.count > 1 {
-                toArray.insert(".", at: 1)
-            }
-            var userRatingCount = toArray.map { String($0) }.joined()
-            
-            switch userCount {
-            case 1000..<10000:
-                userRatingCount.append("천")
-            case 10000...:
-                userRatingCount.append("만")
-            default:
-                break
-            }
-            
-            let screenshotUrls = result.screenshotUrls?
-                .compactMap { URL(string: $0) }
-            
-            
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .decimal
-            numberFormatter.minimumFractionDigits = 2
-            numberFormatter.maximumFractionDigits = 2
-            
-            let averageUserRatingForCurrentVersion = numberFormatter.string(from: (result.averageUserRatingForCurrentVersion ?? 0)
-                as NSNumber) ?? "0"
-             
-            return SearchResultCellReactor.Data(
-                artworkUrl60: URL(string: (result.artworkUrl60 ?? "")),
-                trackName: result.trackName,
-                description: result.description,
-                averageUserRatingForCurrentVersion: Double(averageUserRatingForCurrentVersion),
-                userRatingCountForCurrentVersion: averageUserRatingForCurrentVersion,
-                screenshotUrls: screenshotUrls
-            )
-        })
     }
 }

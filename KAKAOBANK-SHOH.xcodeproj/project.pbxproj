@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CB1179E72515BB4C00D9A410 /* SearchDataSouces.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1179E62515BB4C00D9A410 /* SearchDataSouces.swift */; };
+		CB1179E925161CBD00D9A410 /* Reactive+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1179E825161CBD00D9A410 /* Reactive+Extensions.swift */; };
 		CB1CE07425147A1000508BBF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE07325147A1000508BBF /* AppDelegate.swift */; };
 		CB1CE07625147A1000508BBF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE07525147A1000508BBF /* SceneDelegate.swift */; };
 		CB1CE07B25147A1000508BBF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB1CE07925147A1000508BBF /* Main.storyboard */; };
@@ -42,8 +43,8 @@
 		CB1CE0EE25149E8200508BBF /* StoryboardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE0ED25149E8200508BBF /* StoryboardType.swift */; };
 		CB1CE0F02514AA7D00508BBF /* MainTabBarViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE0EF2514AA7D00508BBF /* MainTabBarViewReactor.swift */; };
 		CB1CE0F22514B4D200508BBF /* SearchSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE0F12514B4D200508BBF /* SearchSection.swift */; };
-		CB1CE0F52514B53000508BBF /* SearchedCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE0F42514B53000508BBF /* SearchedCVCell.swift */; };
-		CB1CE0F72514C36700508BBF /* FoundCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE0F62514C36700508BBF /* FoundCVCell.swift */; };
+		CB1CE0F52514B53000508BBF /* RecentCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE0F42514B53000508BBF /* RecentCVCell.swift */; };
+		CB1CE0F72514C36700508BBF /* HistoryCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE0F62514C36700508BBF /* HistoryCVCell.swift */; };
 		CB1CE0F92514D56B00508BBF /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE0F82514D56B00508BBF /* UILabel+Extensions.swift */; };
 		CB1CE0FB2514D7C400508BBF /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE0FA2514D7C400508BBF /* Array+Extensions.swift */; };
 		CB1CE0FE251509EC00508BBF /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE0FD251509EC00508BBF /* SearchResultViewController.swift */; };
@@ -75,6 +76,7 @@
 
 /* Begin PBXFileReference section */
 		CB1179E62515BB4C00D9A410 /* SearchDataSouces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDataSouces.swift; sourceTree = "<group>"; };
+		CB1179E825161CBD00D9A410 /* Reactive+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+Extensions.swift"; sourceTree = "<group>"; };
 		CB1CE07025147A1000508BBF /* KAKAOBANK-SHOH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KAKAOBANK-SHOH.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB1CE07325147A1000508BBF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB1CE07525147A1000508BBF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,8 +107,8 @@
 		CB1CE0ED25149E8200508BBF /* StoryboardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardType.swift; sourceTree = "<group>"; };
 		CB1CE0EF2514AA7D00508BBF /* MainTabBarViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewReactor.swift; sourceTree = "<group>"; };
 		CB1CE0F12514B4D200508BBF /* SearchSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSection.swift; sourceTree = "<group>"; };
-		CB1CE0F42514B53000508BBF /* SearchedCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedCVCell.swift; sourceTree = "<group>"; };
-		CB1CE0F62514C36700508BBF /* FoundCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundCVCell.swift; sourceTree = "<group>"; };
+		CB1CE0F42514B53000508BBF /* RecentCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentCVCell.swift; sourceTree = "<group>"; };
+		CB1CE0F62514C36700508BBF /* HistoryCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCVCell.swift; sourceTree = "<group>"; };
 		CB1CE0F82514D56B00508BBF /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		CB1CE0FA2514D7C400508BBF /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		CB1CE0FD251509EC00508BBF /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 			children = (
 				CB1CE0FA2514D7C400508BBF /* Array+Extensions.swift */,
 				CB1CE0C025147C2200508BBF /* Cell+Extensions.swift */,
+				CB1179E825161CBD00D9A410 /* Reactive+Extensions.swift */,
 				CB1CE0F82514D56B00508BBF /* UILabel+Extensions.swift */,
 			);
 			path = Extensions;
@@ -308,8 +311,8 @@
 			isa = PBXGroup;
 			children = (
 				CB1CE0DD251489CA00508BBF /* Search.storyboard */,
-				CB1CE0F62514C36700508BBF /* FoundCVCell.swift */,
-				CB1CE0F42514B53000508BBF /* SearchedCVCell.swift */,
+				CB1CE0F62514C36700508BBF /* HistoryCVCell.swift */,
+				CB1CE0F42514B53000508BBF /* RecentCVCell.swift */,
 				CB1CE0F12514B4D200508BBF /* SearchSection.swift */,
 				CB1CE0DF251489F600508BBF /* SearchViewController.swift */,
 				CB1CE0E125148B3100508BBF /* SearchViewReactor.swift */,
@@ -524,7 +527,7 @@
 				CB1CE0D225147CCE00508BBF /* SearchModel.swift in Sources */,
 				CB1CE106251519A900508BBF /* SearchResultCell.swift in Sources */,
 				CB1CE0FB2514D7C400508BBF /* Array+Extensions.swift in Sources */,
-				CB1CE0F52514B53000508BBF /* SearchedCVCell.swift in Sources */,
+				CB1CE0F52514B53000508BBF /* RecentCVCell.swift in Sources */,
 				CB1CE07425147A1000508BBF /* AppDelegate.swift in Sources */,
 				CB1CE0E525148BDF00508BBF /* BaseViewController.swift in Sources */,
 				CB1CE10225150A6200508BBF /* SearchResultViewReactor.swift in Sources */,
@@ -543,8 +546,9 @@
 				CB1CE07625147A1000508BBF /* SceneDelegate.swift in Sources */,
 				CB1CE0CF25147CC200508BBF /* ErrorHandler.swift in Sources */,
 				CB1CE0E925148D6C00508BBF /* SearchUseCase.swift in Sources */,
-				CB1CE0F72514C36700508BBF /* FoundCVCell.swift in Sources */,
+				CB1CE0F72514C36700508BBF /* HistoryCVCell.swift in Sources */,
 				CB1179E72515BB4C00D9A410 /* SearchDataSouces.swift in Sources */,
+				CB1179E925161CBD00D9A410 /* Reactive+Extensions.swift in Sources */,
 				CB1CE0C125147C2200508BBF /* Cell+Extensions.swift in Sources */,
 				CB1CE0C625147C5B00508BBF /* Reusable.swift in Sources */,
 			);

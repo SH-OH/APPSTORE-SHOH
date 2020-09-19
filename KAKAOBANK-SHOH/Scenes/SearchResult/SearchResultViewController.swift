@@ -20,12 +20,12 @@ final class SearchResultViewController: BaseViewController, StoryboardView {
         
         reactor.state.map { $0.responseText }
             .distinctUntilChanged()
-            .debounce(.milliseconds(500), scheduler: MainScheduler.instance)
             .map { SearchResultViewReactor.Action.search(reponseText: $0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.resultSections }
+            .distinctUntilChanged()
             .bind(to: collectionView.rx.items(dataSource: dataSource()))
             .disposed(by: disposeBag)
     }

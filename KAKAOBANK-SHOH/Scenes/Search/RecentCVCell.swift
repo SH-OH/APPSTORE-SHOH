@@ -1,5 +1,5 @@
 //
-//  SearchedCVCell.swift
+//  RecentCVCell.swift
 //  KAKAOBANK-SHOH
 //
 //  Created by Oh Sangho on 2020/09/18.
@@ -8,7 +8,7 @@
 
 import UIKit.UICollectionViewCell
 
-final class SearchedCVCell: UICollectionViewCell, Reusable {
+final class RecentCVCell: UICollectionViewCell, Reusable {
     
     @IBOutlet private weak var cellLabel: UILabel!
     @IBOutlet private weak var bottomLine: UIView!

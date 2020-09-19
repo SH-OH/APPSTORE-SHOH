@@ -18,6 +18,7 @@ final class SearchResultCellReactor: Reactor {
         let averageUserRatingForCurrentVersion: Double?
         let userRatingCountForCurrentVersion: String?
         let screenshotUrls: [URL]?
+        let updateDate: Date
     }
     
     enum Action {

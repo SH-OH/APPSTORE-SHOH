@@ -16,13 +16,13 @@ extension SearchDataSource {
         return .init(configureCell: { (ds, cv, ip, item) -> UICollectionViewCell in
             switch item {
             case let .recentSearched(keyword):
-                let cell = cv.dequeue(SearchedCVCell.self, for: ip)
+                let cell = cv.dequeue(RecentCVCell.self, for: ip)
                 let count = ds.sectionModels.first?.items.count ?? 1
                 let isLast = ip.row == count-1
                 cell.configure(keyword, isLast: isLast)
                 return cell
             case let .recentFound((foundKeywords, curSearchKeyword)):
-                let cell = cv.dequeue(FoundCVCell.self, for: ip)
+                let cell = cv.dequeue(HistoryCVCell.self, for: ip)
                 cell.configure(foundKeywords,
                                curSearchKeyword)
                 return cell

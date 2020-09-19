@@ -1,5 +1,5 @@
 //
-//  FoundCVCell.swift
+//  HistoryCVCell.swift
 //  KAKAOBANK-SHOH
 //
 //  Created by Oh Sangho on 2020/09/18.
@@ -8,7 +8,7 @@
 
 import UIKit.UICollectionViewCell
 
-final class FoundCVCell: UICollectionViewCell, Reusable {
+final class HistoryCVCell: UICollectionViewCell, Reusable {
     
     @IBOutlet private weak var magImage: UIImageView!
     @IBOutlet private weak var cellLabel: UILabel!

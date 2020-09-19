@@ -30,6 +30,7 @@ final class SearchResultViewReactor: Reactor {
     init(searchViewReactor: SearchViewReactor) {
         self.initialState = .init()
         self.searchViewReactor = searchViewReactor
+        print("[init!!!]\(String(describing: self))")
     }
     
     deinit {
@@ -39,14 +40,15 @@ final class SearchResultViewReactor: Reactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .search(let responseText):
-            let search: Observable<Mutation> = SearchUseCase().search(responseText)
+            let search: Observable<Mutation> = SearchUseCase()
+                .search(responseText)
                 .compactMap { $0.results }
                 .asObservable()
-                .map { [convertModel] in convertModel($0) }
+                .compactMap { [weak self] in self?.convertModel($0) }
                 .flatMap { Observable.from($0) }
-                .map { SearchSectionItem.result($0)}
+                .map { SearchSectionItem.result($0) }
                 .toArray().asObservable()
-                .map { [SearchSection.section(items: $0)] }
+                .map { [SearchSection.result($0)] }
                 .map { Mutation.setResultSections($0) }
             
             return search
@@ -54,10 +56,12 @@ final class SearchResultViewReactor: Reactor {
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
-        
-        let setResponseText: Observable<Mutation> = searchViewReactor
-            .state.map { $0.curSearchBarValue }
+        let setResponseText: Observable<Mutation> = searchViewReactor.curShowType
+            .filter { $0 == .검색결과화면 }
+            .withLatestFrom(searchViewReactor.state.map { $0.curSearchBarValue})
+            .distinctUntilChanged()
             .map { Mutation.setResponseText($0)}
+        
         return Observable.merge(mutation, setResponseText)
     }
     
@@ -76,7 +80,8 @@ final class SearchResultViewReactor: Reactor {
 
 extension SearchResultViewReactor {
     private func convertModel(_ models: [SearchResult]) -> [SearchResultCellReactor.Data] {
-        models.compactMap({ (result) -> SearchResultCellReactor.Data in
+        let now = Date()
+        return models.compactMap({ (result) -> SearchResultCellReactor.Data in
             
             let userCount = result.userRatingCountForCurrentVersion ?? 0
             let max = userCount >= 10000 ? 2 : 3
@@ -117,7 +122,8 @@ extension SearchResultViewReactor {
                 description: result.description,
                 averageUserRatingForCurrentVersion: Double(averageUserRatingForCurrentVersion),
                 userRatingCountForCurrentVersion: userRatingCount,
-                screenshotUrls: screenshotUrls
+                screenshotUrls: screenshotUrls,
+                updateDate: now
             )
         })
     }
