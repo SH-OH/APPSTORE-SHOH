@@ -18,3 +18,11 @@ extension Reactive where Base: UICollectionView {
         )
     }
 }
+
+extension Reactive where Base: UIImageView {
+    var ratingImage: Binder<Double> {
+        return Binder(base) { imageView, rating in
+            imageView.setRatingImage(CGFloat(rating))
+        }
+    }
+}

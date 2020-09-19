@@ -130,14 +130,23 @@ extension SearchResultViewReactor {
             numberFormatter.minimumFractionDigits = 2
             numberFormatter.maximumFractionDigits = 2
             
-            let averageUserRatingForCurrentVersion = numberFormatter.string(from: (result.averageUserRatingForCurrentVersion ?? 0)
-                as NSNumber) ?? "0"
-             
+            let averageUserRatingForCurrentVersion = numberFormatter
+                .string(from: (result.averageUserRatingForCurrentVersion ?? 0) as NSNumber) ?? "0"
+            let ratingToDouble = Double(averageUserRatingForCurrentVersion) ?? 0
+            
+            var ratingArray: [Double] = []
+            for index in 0..<5 {
+                var rating = ratingToDouble-Double(index)
+                rating = rating <= 0 ? 0 : rating
+                rating = rating >= 1 ? 1 : rating
+                ratingArray.append(rating)
+            }
+            
             return SearchResultCellReactor.Data(
                 artworkUrl60: URL(string: (result.artworkUrl60 ?? "")),
                 trackName: result.trackName,
                 description: result.description,
-                averageUserRatingForCurrentVersion: Double(averageUserRatingForCurrentVersion),
+                ratingArray: ratingArray,
                 userRatingCountForCurrentVersion: userRatingCount,
                 screenshotUrls: screenshotUrls,
                 updateDate: now

@@ -22,7 +22,6 @@ final class SearchResultCell: UICollectionViewCell, Reusable, StoryboardView {
     @IBOutlet private weak var starRatingImage03: UIImageView!
     @IBOutlet private weak var starRatingImage04: UIImageView!
     @IBOutlet private weak var starRatingImage05: UIImageView!
-    
     @IBOutlet private weak var ratingCountLabel: UILabel!
     
     @IBOutlet private weak var screenShotImage01: IBImageView!
@@ -48,12 +47,30 @@ final class SearchResultCell: UICollectionViewCell, Reusable, StoryboardView {
             .bind(to: descriptionLabel.rx.text)
             .disposed(by: disposeBag)
         
-        // 별 레이팅은 draw 처리 만들어야되니까 일단 기달..
-//        reactor.state.map { $0.rating }
-//            .distinctUntilChanged()
-//            .bind(to: descriptionLabel.rx.text)
-//            .disposed(by: disposeBag)
-        
+        let sharedRating = reactor.state.map { $0.rating }
+            .distinctUntilChanged()
+            .share(replay: 1)
+            
+        sharedRating
+            .compactMap { $0[safe: 0] }
+            .bind(to: starRatingImage01.rx.ratingImage)
+            .disposed(by: disposeBag)
+        sharedRating
+            .compactMap { $0[safe: 1] }
+            .bind(to: starRatingImage02.rx.ratingImage)
+            .disposed(by: disposeBag)
+        sharedRating
+            .compactMap { $0[safe: 2] }
+            .bind(to: starRatingImage03.rx.ratingImage)
+            .disposed(by: disposeBag)
+        sharedRating
+            .compactMap { $0[safe: 3] }
+            .bind(to: starRatingImage04.rx.ratingImage)
+            .disposed(by: disposeBag)
+        sharedRating
+            .compactMap { $0[safe: 4] }
+            .bind(to: starRatingImage05.rx.ratingImage)
+            .disposed(by: disposeBag)
         
         reactor.state.map { $0.userRatingCount }
             .distinctUntilChanged()

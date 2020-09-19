@@ -15,7 +15,7 @@ final class SearchResultCellReactor: Reactor {
         let artworkUrl60: URL?
         let trackName: String?
         let description: String?
-        let averageUserRatingForCurrentVersion: Double?
+        let ratingArray: [Double]
         let userRatingCountForCurrentVersion: String?
         let screenshotUrls: [URL]?
         let updateDate: Date
@@ -33,7 +33,7 @@ final class SearchResultCellReactor: Reactor {
         var artworkUrl: URL?
         var trackName: String?
         var description: String?
-        var rating: Double?
+        var rating: [Double]
         var userRatingCount: String?
         var screenshotUrls: [URL]?
     }
@@ -45,7 +45,7 @@ final class SearchResultCellReactor: Reactor {
             artworkUrl: data.artworkUrl60,
             trackName: data.trackName,
             description: data.description,
-            rating: data.averageUserRatingForCurrentVersion,
+            rating: data.ratingArray,
             userRatingCount: data.userRatingCountForCurrentVersion,
             screenshotUrls: data.screenshotUrls
         )
