@@ -39,8 +39,9 @@ final class SearchResultViewReactor: Reactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .search(let responseText):
-            let search: Observable<Mutation> = SearchUseCase()
-                .search(responseText)
+            let search: Observable<Mutation> = Observable.just(responseText)
+                .filter { !$0.isEmpty }
+                .flatMap { SearchUseCase().search($0) }
                 .compactMap { $0.results }
                 .asObservable()
                 .compactMap { [weak self] in self?.convertModel($0) }
@@ -58,7 +59,6 @@ final class SearchResultViewReactor: Reactor {
         let setResponseText: Observable<Mutation> = searchViewReactor.curShowTypeRelay
             .filter { $0 == .검색결과화면 }
             .withLatestFrom(searchViewReactor.state.map { $0.curSearchBarValue })
-            .debug("curSearchBarValue", trimOutput: false)
             .distinctUntilChanged()
             .map { Mutation.setResponseText($0)}
         
