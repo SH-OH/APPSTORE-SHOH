@@ -19,19 +19,19 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HR9-Tw-Z40">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xAd-QQ-rVP">
-                                    <size key="itemSize" width="370" height="290"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="xAd-QQ-rVP">
+                                    <size key="itemSize" width="370" height="270"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SearchResultCell" id="bc5-un-yit" customClass="SearchResultCell" customModule="KAKAOBANK_SHOH" customModuleProvider="target">
-                                        <rect key="frame" x="-11.5" y="0.0" width="398" height="290"/>
+                                        <rect key="frame" x="2.5" y="0.0" width="370" height="270"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="e6n-uk-QdY">
-                                            <rect key="frame" x="0.0" y="0.0" width="398" height="290"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="370" height="270"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AMX-G4-uA8" customClass="IBImageView" customModule="KAKAOBANK_SHOH" customModuleProvider="target">
@@ -54,13 +54,13 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="카카오뱅크 - 같지만 다른 은행" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TVm-3A-Gln">
-                                                    <rect key="frame" x="85" y="15" width="213" height="21"/>
+                                                    <rect key="frame" x="85" y="15" width="185" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="공인인증서 필요없는 모바일은행" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="un5-xi-v9f">
-                                                    <rect key="frame" x="85" y="39" width="213" height="17"/>
+                                                    <rect key="frame" x="85" y="39" width="185" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -106,7 +106,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sw3-m8-IeX" customClass="IBButton" customModule="KAKAOBANK_SHOH" customModuleProvider="target">
-                                                    <rect key="frame" x="313" y="30" width="70" height="30"/>
+                                                    <rect key="frame" x="285" y="30" width="70" height="30"/>
                                                     <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="FuY-WZ-Rtp"/>
@@ -127,7 +127,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pL0-xD-taj" userLabel="01.스크린샷" customClass="IBImageView" customModule="KAKAOBANK_SHOH" customModuleProvider="target">
-                                                    <rect key="frame" x="66.5" y="105" width="81.5" height="145"/>
+                                                    <rect key="frame" x="40" y="90" width="90" height="160"/>
                                                     <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -142,7 +142,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BKg-sG-l2J" userLabel="02.스크린샷" customClass="IBImageView" customModule="KAKAOBANK_SHOH" customModuleProvider="target">
-                                                    <rect key="frame" x="158" y="105" width="82" height="145"/>
+                                                    <rect key="frame" x="140" y="90" width="90" height="160"/>
                                                     <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -157,7 +157,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gj2-nK-ukz" userLabel="03.스크린샷" customClass="IBImageView" customModule="KAKAOBANK_SHOH" customModuleProvider="target">
-                                                    <rect key="frame" x="250" y="105" width="81.5" height="145"/>
+                                                    <rect key="frame" x="240" y="90" width="90" height="160"/>
                                                     <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -178,7 +178,7 @@
                                                 <constraint firstItem="UpG-L7-MZ3" firstAttribute="leading" secondItem="5If-Uo-W1S" secondAttribute="trailing" id="12T-eH-ZJC"/>
                                                 <constraint firstItem="Sw3-m8-IeX" firstAttribute="centerY" secondItem="AMX-G4-uA8" secondAttribute="centerY" id="1up-Ni-Eiq"/>
                                                 <constraint firstItem="un5-xi-v9f" firstAttribute="top" secondItem="TVm-3A-Gln" secondAttribute="bottom" constant="3" id="24E-Q7-oyT"/>
-                                                <constraint firstAttribute="bottom" secondItem="BKg-sG-l2J" secondAttribute="bottom" constant="40" id="2R0-cH-AKv"/>
+                                                <constraint firstAttribute="bottom" secondItem="BKg-sG-l2J" secondAttribute="bottom" constant="20" id="2R0-cH-AKv"/>
                                                 <constraint firstItem="grD-df-bGq" firstAttribute="bottom" secondItem="RpS-OM-enC" secondAttribute="bottom" id="2kH-nm-IIn"/>
                                                 <constraint firstItem="5If-Uo-W1S" firstAttribute="leading" secondItem="grD-df-bGq" secondAttribute="trailing" id="35j-8E-9N1"/>
                                                 <constraint firstItem="gj2-nK-ukz" firstAttribute="width" secondItem="BKg-sG-l2J" secondAttribute="width" id="5EZ-bN-ZPP"/>
@@ -194,7 +194,7 @@
                                                 <constraint firstItem="pL0-xD-taj" firstAttribute="centerY" secondItem="BKg-sG-l2J" secondAttribute="centerY" id="PND-hu-mcP"/>
                                                 <constraint firstItem="TVm-3A-Gln" firstAttribute="leading" secondItem="AMX-G4-uA8" secondAttribute="trailing" constant="10" id="Uf0-gn-kZ6"/>
                                                 <constraint firstItem="RUn-rN-kmu" firstAttribute="centerY" secondItem="cmb-eu-57A" secondAttribute="centerY" id="W00-gE-EfC"/>
-                                                <constraint firstItem="BKg-sG-l2J" firstAttribute="top" secondItem="AMX-G4-uA8" secondAttribute="bottom" constant="30" id="Y6J-PL-bmx"/>
+                                                <constraint firstItem="BKg-sG-l2J" firstAttribute="top" secondItem="AMX-G4-uA8" secondAttribute="bottom" constant="15" id="Y6J-PL-bmx"/>
                                                 <constraint firstItem="cmb-eu-57A" firstAttribute="bottom" secondItem="UpG-L7-MZ3" secondAttribute="bottom" id="YEF-Da-OCE"/>
                                                 <constraint firstItem="pL0-xD-taj" firstAttribute="width" secondItem="BKg-sG-l2J" secondAttribute="width" id="ZgT-l8-EJm"/>
                                                 <constraint firstItem="RpS-OM-enC" firstAttribute="bottom" secondItem="AMX-G4-uA8" secondAttribute="bottom" id="qbk-pq-vw0"/>

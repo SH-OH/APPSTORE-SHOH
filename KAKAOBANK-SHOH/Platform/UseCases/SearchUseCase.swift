@@ -18,6 +18,12 @@ final class SearchUseCase {
         return NetworkManager.shared.request(SearchModel.self,
                                              urlString: APIDomain.search.url,
                                              parameters: makeParam)
+            .do(onSuccess: { (_) in
+                var list = UserdefaultsManager.getStringArray(.recentSearchedKeywords)
+                if !list.contains(term) {
+                    list.append(term)
+                }
+            })
             .do(onSuccess: { (model) in
                 let nameList = model.results?.compactMap { $0.trackName }
                 print("[osh] - result 앱 이름만 Array로 보기! : \(nameList ?? [])")

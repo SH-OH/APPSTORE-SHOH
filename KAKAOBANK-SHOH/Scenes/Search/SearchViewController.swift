@@ -9,7 +9,6 @@
 import UIKit.UIViewController
 import ReactorKit
 import RxCocoa
-import RxDataSources
 import SnapKit
 
 final class SearchViewController: BaseViewController, StoryboardView {
@@ -20,22 +19,26 @@ final class SearchViewController: BaseViewController, StoryboardView {
     @IBOutlet private weak var recentSearchedCV: UICollectionView!
     @IBOutlet private weak var recentFoundCV: UICollectionView!
     
+    private let resultViewController = StoryboardType
+        .SearchResult
+        .viewController(SearchResultViewController.self)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     func bind(reactor: SearchViewReactor) {
-        searchBar.rx.text
+        searchBar.rx.value
             .map { $0 ?? "" }
             .map { Reactor.Action.recentFind(text: $0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        let searchClicked: Observable<String> = searchBar.rx.searchButtonClicked
+        let searchClicked: Observable<String?> = searchBar.rx.searchButtonClicked
             .withLatestFrom(searchBar.rx.value)
             .map { $0 ?? "" }
-            
-        let collectionViewSelect: Observable<String> = Observable.merge(
+        
+        let collectionViewSelect: Observable<String?> = Observable.merge(
             recentSearchedCV.rx.modelSelected(SearchSectionItem.self).asObservable(),
             recentFoundCV.rx.modelSelected(SearchSectionItem.self).asObservable()
         )
@@ -49,14 +52,24 @@ final class SearchViewController: BaseViewController, StoryboardView {
                     return nil
                 }
             })
+            .share(replay: 1)
+        
+        let searchValueIsEmpty: Observable<String?> = searchBar.rx.value
+            .filter { $0?.isEmpty ?? true }
+        
         Observable.merge(
             searchClicked,
-            collectionViewSelect
+            collectionViewSelect,
+            searchValueIsEmpty.map { _ in nil },
+            cancelButton.rx.tap.map { nil }
         )
-            .map { Reactor.Action.search(text: $0) }
+            .map { Reactor.Action.showResult(text: $0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        collectionViewSelect
+            .bind(to: searchBar.rx.value)
+            .disposed(by: disposeBag)
         
         bindSearchBarAnimation(reactor)
         bindCollectionView(reactor)
@@ -73,7 +86,7 @@ final class SearchViewController: BaseViewController, StoryboardView {
             .map { $0 > 0 ? true : false }
             .distinctUntilChanged()
         
-        let sharedIsOn = Observable.merge(
+        let sharedDidAnimationUp = Observable.merge(
             didBegin.map { true },
             didEnd.map { false },
             isOnByOffset
@@ -85,12 +98,13 @@ final class SearchViewController: BaseViewController, StoryboardView {
             searchBar.rx.value.map { ($0?.isEmpty ?? true) },
             didEnd.map { true }
         )
+            .distinctUntilChanged()
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak recentFoundCV] (isHidden) in
                 recentFoundCV?.isHidden = isHidden
             }).disposed(by: disposeBag)
         
-        sharedIsOn
+        sharedDidAnimationUp
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (isOn) in
                 guard let self = self else { return }
@@ -101,6 +115,7 @@ final class SearchViewController: BaseViewController, StoryboardView {
                     self.view.layoutIfNeeded()
                 }
                 if !isOn {
+                    self.searchBar.rx.value.onNext(nil)
                     self.searchBar.resignFirstResponder()
                 }
                 self.cancelButton.isHidden = !isOn
@@ -111,8 +126,8 @@ final class SearchViewController: BaseViewController, StoryboardView {
         reactor.state.map { $0.showResultView }
             .distinctUntilChanged()
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [attachResult] (show) in
-                attachResult()
+            .subscribe(onNext: { [attachResult, dettachResult] (show) in
+                show ? attachResult(reactor) : dettachResult()
             }).disposed(by: disposeBag)
     }
     
@@ -129,46 +144,31 @@ final class SearchViewController: BaseViewController, StoryboardView {
         reactor.state.map { $0.foundSections }
             .bind(to: recentFoundCV.rx.items(dataSource: dataSource()))
             .disposed(by: disposeBag)
-        
-        reactor.state.map { $0.resultSections }
     }
     
 }
 
 extension SearchViewController {
-    private func attachResult() {
-        let result = StoryboardType
-            .SearchResult
-            .viewController(SearchResultViewController.self)
-        result.reactor = SearchResultViewReactor()
-        self.addChild(result)
-        result.view.snp.makeConstraints { (m) in
+    private func attachResult(_ reactor: SearchViewReactor) {
+        resultViewController.reactor = SearchResultViewReactor(searchViewReactor: reactor)
+        
+        self.addChild(resultViewController)
+        self.view.addSubview(resultViewController.view)
+        resultViewController.view.snp.makeConstraints { (m) in
             m.edges.equalTo(recentFoundCV)
+        }
+    }
+    private func dettachResult() {
+        if children.contains(resultViewController) {
+            resultViewController.willMove(toParent: nil)
+            resultViewController.view.removeFromSuperview()
+            resultViewController.removeFromParent()
         }
     }
 }
 
 // MARK: - DataSource
-extension SearchViewController {
-    private func dataSource() -> RxCollectionViewSectionedReloadDataSource<SearchSection> {
-        return .init(configureCell: { (ds, cv, ip, item) -> UICollectionViewCell in
-            switch item {
-            case let .recentSearched(keyword):
-                let cell = cv.dequeue(SearchedCVCell.self, for: ip)
-                let count = ds.sectionModels.first?.items.count ?? 1
-                let isLast = ip.row == count-1
-                cell.configure(keyword, isLast: isLast)
-                return cell
-            case let .recentFound((foundKeywords, curSearchKeyword)):
-                let cell = cv.dequeue(FoundCVCell.self, for: ip)
-                cell.configure(foundKeywords,
-                               curSearchKeyword)
-                return cell
-            case let .result(reactorData):
-                return .init()
-            }
-        })
-    }
+extension SearchViewController: SearchDataSource {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout

@@ -18,9 +18,21 @@ final class SearchResultViewController: BaseViewController, StoryboardView {
         collectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
+        reactor.state.map { $0.responseText }
+            .distinctUntilChanged()
+            .debounce(.milliseconds(500), scheduler: MainScheduler.instance)
+            .map { SearchResultViewReactor.Action.search(reponseText: $0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
         
+        reactor.state.map { $0.resultSections }
+            .bind(to: collectionView.rx.items(dataSource: dataSource()))
+            .disposed(by: disposeBag)
     }
-    
+}
+
+// MARK: - DataSource
+extension SearchResultViewController: SearchDataSource {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -29,7 +41,7 @@ extension SearchResultViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width: CGFloat = collectionView.bounds.width
-        return CGSize(width: width, height: 60.0)
+        return CGSize(width: width, height: 270)
     }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,

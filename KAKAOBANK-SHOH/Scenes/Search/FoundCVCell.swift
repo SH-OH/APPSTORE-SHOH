@@ -15,7 +15,6 @@ final class FoundCVCell: UICollectionViewCell, Reusable {
     
     func configure(_ foundKeyword: String,
                    _ searchedKeyword: String) {
-        print("found k : \(foundKeyword) , searchbar k : \(searchedKeyword)")
         cellLabel.setAttributedText(foundKeyword,
                                     attrText: searchedKeyword,
                                     attrs: [.foregroundColor: UIColor.black])

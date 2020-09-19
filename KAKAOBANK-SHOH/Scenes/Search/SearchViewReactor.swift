@@ -8,33 +8,32 @@
 
 import ReactorKit
 import Foundation
+import RxCocoa
 
 final class SearchViewReactor: Reactor {
     
     enum Action {
         case recentFind(text: String)
-        case search(text: String)
+        case showResult(text: String?)
     }
     
     enum Mutation {
         case setSearchedSections([SearchSection])
         case setFoundSections([SearchSection])
-        case setResultSections([SearchSection])
         case setShowResultView(Bool)
+        case setCurSearchBarValue(String)
     }
     
     
     struct State {
-//        var searchedSectionData: [String]
-//        var foundSectionData: [(String, String)]
-        
         var searchedSections: [SearchSection]
         var foundSections: [SearchSection]
-        var resultSections: [SearchSection]
         var showResultView: Bool
+        var curSearchBarValue: String
     }
     
     let initialState: State
+//    let searchBarValueRelay: PublishRelay<String?>
     
     init() {
         let testList = [
@@ -53,14 +52,15 @@ final class SearchViewReactor: Reactor {
 //            recentSearchedList: UserdefaultsManager.getStringArray(.recentSearchedKeywords)
             searchedSections: testList,
             foundSections: [],
-            resultSections: [],
-            showResultView: false
+            showResultView: false,
+            curSearchBarValue: ""
         )
+//        self.searchBarValueRelay = .init()
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-        case .recentFind(let reponseText):
+        case .recentFind(let responseText):
             let list = [
             "카카오뱅크",
             "카카오뱅ㅋ",
@@ -72,33 +72,21 @@ final class SearchViewReactor: Reactor {
             ]
 //            let list = UserdefaultsManager.getStringArray(.recentSearchedKeywords)
             let find: Observable<Mutation> = Observable.from(list)
-                .filter { $0.contains(reponseText) }
-                .map { ($0, reponseText) }
+                .filter { $0.contains(responseText) }
+                .map { ($0, responseText) }
                 .map { SearchSectionItem.recentFound($0) }
                 .toArray().asObservable()
                 .map { [SearchSection.section(items: $0)] }
                 .map { Mutation.setFoundSections($0)}
             return find
-        case .search(let reponseText):
-            let search: Observable<Mutation> = SearchUseCase()
-                .search(reponseText)
-                .do(onSuccess: { (_) in
-                    var list = UserdefaultsManager.getStringArray(.recentSearchedKeywords)
-                    if !list.contains(reponseText) {
-                        list.append(reponseText)
-                    }
-                })
-                .compactMap { $0.results }
-                .asObservable()
-                .map { [convertModel] in convertModel($0) }
-                .flatMap { Observable.from($0) }
-                .map { SearchSectionItem.result($0)}
-                .toArray().asObservable()
-                .map { [SearchSection.section(items: $0)] }
-                .map { Mutation.setResultSections($0) }
+                .concat(Observable.just(Mutation.setCurSearchBarValue(responseText)))
+        case .showResult(let responseText):
+            let setShowResultView: Observable<Mutation> = Observable.just(responseText)
+                .map { !($0?.isEmpty ?? true) }
+                .map { Mutation.setShowResultView($0) }
             
-            return search
-                .concat(Observable.just(Mutation.setShowResultView(true)))
+            return setShowResultView
+                .concat(Observable.just(Mutation.setCurSearchBarValue(responseText ?? "")))
         }
     }
     
@@ -111,11 +99,11 @@ final class SearchViewReactor: Reactor {
         case let .setSearchedSections(searchedSections):
             newState.searchedSections = searchedSections
             return newState
-        case let .setResultSections(resultSections):
-            newState.resultSections = resultSections
-            return newState
         case let .setShowResultView(showResultView):
             newState.showResultView = showResultView
+            return newState
+        case let .setCurSearchBarValue(curSearchBarValue):
+            newState.curSearchBarValue = curSearchBarValue
             return newState
         }
     }

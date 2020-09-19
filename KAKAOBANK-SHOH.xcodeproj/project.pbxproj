@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB1179E72515BB4C00D9A410 /* SearchDataSouces.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1179E62515BB4C00D9A410 /* SearchDataSouces.swift */; };
 		CB1CE07425147A1000508BBF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE07325147A1000508BBF /* AppDelegate.swift */; };
 		CB1CE07625147A1000508BBF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE07525147A1000508BBF /* SceneDelegate.swift */; };
 		CB1CE07B25147A1000508BBF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB1CE07925147A1000508BBF /* Main.storyboard */; };
@@ -73,6 +74,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CB1179E62515BB4C00D9A410 /* SearchDataSouces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDataSouces.swift; sourceTree = "<group>"; };
 		CB1CE07025147A1000508BBF /* KAKAOBANK-SHOH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KAKAOBANK-SHOH.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB1CE07325147A1000508BBF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB1CE07525147A1000508BBF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 				CB1CE0F12514B4D200508BBF /* SearchSection.swift */,
 				CB1CE0DF251489F600508BBF /* SearchViewController.swift */,
 				CB1CE0E125148B3100508BBF /* SearchViewReactor.swift */,
+				CB1179E62515BB4C00D9A410 /* SearchDataSouces.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -541,6 +544,7 @@
 				CB1CE0CF25147CC200508BBF /* ErrorHandler.swift in Sources */,
 				CB1CE0E925148D6C00508BBF /* SearchUseCase.swift in Sources */,
 				CB1CE0F72514C36700508BBF /* FoundCVCell.swift in Sources */,
+				CB1179E72515BB4C00D9A410 /* SearchDataSouces.swift in Sources */,
 				CB1CE0C125147C2200508BBF /* Cell+Extensions.swift in Sources */,
 				CB1CE0C625147C5B00508BBF /* Reusable.swift in Sources */,
 			);

@@ -44,7 +44,7 @@ struct SearchResult: Decodable {
     let averageUserRating: Double?
     let contentAdvisoryRating: String?
     let averageUserRatingForCurrentVersion: Double?
-    let userRatingCountForCurrentVersion: Double?
+    let userRatingCountForCurrentVersion: Int?
     let trackViewUrl: String?
     let trackContentRating: String?
     let trackCensoredName: String?
@@ -57,5 +57,5 @@ struct SearchResult: Decodable {
     let artistName: String?
     let description: String?
     let bundleId: String?
-    let userRatingCount: Double?
+    let userRatingCount: Int?
 }
