@@ -60,8 +60,8 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="공인인증서 필요없는 모바일은행" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="un5-xi-v9f">
-                                                    <rect key="frame" x="85" y="39" width="185" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <rect key="frame" x="85" y="39" width="185" height="14.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -121,8 +121,8 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2.57천" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUn-rN-kmu">
-                                                    <rect key="frame" x="177" y="59" width="41" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <rect key="frame" x="165" y="61.5" width="30" height="12"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -188,7 +188,7 @@
                                                 <constraint firstItem="pL0-xD-taj" firstAttribute="height" secondItem="BKg-sG-l2J" secondAttribute="height" id="Gm4-FW-c1o"/>
                                                 <constraint firstItem="UpG-L7-MZ3" firstAttribute="bottom" secondItem="5If-Uo-W1S" secondAttribute="bottom" id="IbY-sp-dTT"/>
                                                 <constraint firstItem="RpS-OM-enC" firstAttribute="leading" secondItem="un5-xi-v9f" secondAttribute="leading" id="JCC-Nn-XND"/>
-                                                <constraint firstItem="RUn-rN-kmu" firstAttribute="leading" secondItem="cmb-eu-57A" secondAttribute="trailing" constant="17" id="KKh-tG-5Ps"/>
+                                                <constraint firstItem="RUn-rN-kmu" firstAttribute="leading" secondItem="cmb-eu-57A" secondAttribute="trailing" constant="5" id="KKh-tG-5Ps"/>
                                                 <constraint firstItem="5If-Uo-W1S" firstAttribute="bottom" secondItem="grD-df-bGq" secondAttribute="bottom" id="La5-4G-B76"/>
                                                 <constraint firstItem="gj2-nK-ukz" firstAttribute="height" secondItem="BKg-sG-l2J" secondAttribute="height" id="Ojx-u0-G9U"/>
                                                 <constraint firstItem="pL0-xD-taj" firstAttribute="centerY" secondItem="BKg-sG-l2J" secondAttribute="centerY" id="PND-hu-mcP"/>

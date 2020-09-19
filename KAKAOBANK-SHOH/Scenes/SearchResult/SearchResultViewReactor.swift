@@ -82,16 +82,33 @@ extension SearchResultViewReactor {
     private func convertModel(_ models: [SearchResult]) -> [SearchResultCellReactor.Data] {
         let now = Date()
         return models.compactMap({ (result) -> SearchResultCellReactor.Data in
-            
             let userCount = result.userRatingCountForCurrentVersion ?? 0
             let max = userCount >= 10000 ? 2 : 3
-            let regexResult = GlobalFunc
-                .regex("\(userCount)", pattern: "^[0-9]{1,\(max)}[^0]$")
+            let prefix = String(
+                "\(userCount)".prefix(max)
+            )
             
-            var toArray = (regexResult.first ?? "0").map { $0 }
-            if toArray.count > 1, userCount >= 1000 {
+            var toArray = prefix.map { $0 }
+            if
+                toArray.last == "0"
+                    || toArray.last == "."
+            {
+                while
+                    toArray.last == "0"
+                        || toArray.last == "."
+                {
+                    toArray = toArray.dropLast()
+                }
+            }
+            
+            if
+                toArray.count > 1
+                    && userCount >= 1000
+                    && userCount < 100000
+            {
                 toArray.insert(".", at: 1)
             }
+            
             var userRatingCount = toArray
                 .map { String($0) }
                 .joined()
