@@ -31,6 +31,14 @@ extension SearchDataSource {
                 cell.reactor = SearchResultCellReactor(data: reactorData)
                 return cell
             }
+        }, configureSupplementaryView: { (ds, cv, kind, ip) -> UICollectionReusableView in
+            switch kind {
+            case UICollectionView.elementKindSectionHeader:
+                let headerView = cv.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "RecentHeader", for: ip)
+                return headerView
+            default:
+                assert(false)
+            }
         })
     }
 }

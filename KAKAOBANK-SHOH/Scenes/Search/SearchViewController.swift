@@ -16,7 +16,6 @@ final class SearchViewController: BaseViewController, StoryboardView {
     @IBOutlet private weak var searchBar: UISearchBar!
     @IBOutlet private weak var cancelButton: UIButton!
     @IBOutlet private weak var separator: UIView!
-    @IBOutlet private weak var searchedContentsView: UIView!
     @IBOutlet private weak var recentCV: UICollectionView!
     @IBOutlet private weak var historyCV: UICollectionView!
     
@@ -34,7 +33,7 @@ final class SearchViewController: BaseViewController, StoryboardView {
             .share(replay: 1)
         
         sharedTextChanged
-            .map { Reactor.Action.recentFind(text: $0) }
+            .map { Reactor.Action.findRecent(text: $0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -58,17 +57,27 @@ final class SearchViewController: BaseViewController, StoryboardView {
             .share(replay: 1)
         
         collectionViewSelect
-            .bind(to: searchBar.rx.value)
+            .bind(to: searchBar.rx.text)
             .disposed(by: disposeBag)
         
+        collectionViewSelect
+            .map { Reactor.Action.didSetCurSearchBarValue($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+            
         Observable.merge(
-            searchClicked.map { _ in },
-            collectionViewSelect.map { _ in },
-            cancelButton.rx.tap.asObservable()
+            searchClicked.map { _ in true },
+            collectionViewSelect.map { _ in true },
+            cancelButton.rx.tap.map { false }
         )
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak searchBar] (_) in
-                searchBar?.resignFirstResponder()
+            .subscribe(onNext: { [weak searchBar] (search) in
+                if !search {
+                    searchBar?.text = nil
+                }
+                if searchBar?.isFirstResponder ?? false {
+                    searchBar?.resignFirstResponder()
+                }
             }).disposed(by: disposeBag)
         
         Observable.merge(
@@ -91,21 +100,21 @@ final class SearchViewController: BaseViewController, StoryboardView {
                 guard let self = self else { return .empty() }
                 switch showType {
                 case .최근검색어화면:
-                    self.searchedContentsView.isHidden = false
+                    self.recentCV.isHidden = false
                     self.historyCV.isHidden = true
                     self.dettachResult()
                 case .히스토리검색화면:
-                    self.searchedContentsView.isHidden = true
+                    self.recentCV.isHidden = true
                     self.historyCV.isHidden = false
                     self.dettachResult()
                 case .검색결과화면:
-                    self.searchedContentsView.isHidden = true
+                    self.recentCV.isHidden = true
                     self.historyCV.isHidden = true
                     self.attachResult(reactor)
                 }
                 return .just(showType)
             })
-            .bind(to: reactor.curShowType)
+            .bind(to: reactor.curShowTypeRelay)
             .disposed(by: disposeBag)
         
         bindSearchBarAnimation(reactor)
@@ -114,38 +123,48 @@ final class SearchViewController: BaseViewController, StoryboardView {
     
     private func bindSearchBarAnimation(_ reactor: SearchViewReactor) {
         let didBegin: ControlEvent<Void> = searchBar.rx.textDidBeginEditing
-        let didEnd: Observable<Void> = Observable.merge(
-            searchBar.rx.searchButtonClicked.asObservable(),
-            cancelButton.rx.tap.asObservable()
-        ).share(replay: 1)
-        
-        let isOnByOffset: Observable<Bool> = recentCV.rx.contentOffset
-            .map { $0.y }
-            .map { $0 > 0 ? true : false }
-            .distinctUntilChanged()
+        let didEnd: Observable<Void> = cancelButton.rx.tap.asObservable()
         
         let sharedDidAnimationUp = Observable.merge(
             didBegin.map { true },
             didEnd.map { false },
-            isOnByOffset
+            reactor.curShowTypeRelay
+                .filter { $0 != .최근검색어화면 }
+                .map { _ in true }
         )
             .distinctUntilChanged()
             .share(replay: 1)
         
         sharedDidAnimationUp
-            .withLatestFrom(reactor.state.map { $0.showViewType }, resultSelector: { ($0, $1) })
-            .filter { $0.1 == .최근검색어화면 }
             .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] (up, _) in
-                guard let self = self else { return }
-                let animations: (() -> Void) = { () in
-                    self.navigationController?.setNavigationBarHidden(up, animated: false)
-                    self.navigationController?.navigationBar.layoutIfNeeded()
-                    self.view.setNeedsLayout()
-                    self.view.layoutIfNeeded()
-                }
+            .flatMap({ (up) -> Observable<Reactor.Action> in
                 self.cancelButton.isHidden = !up
                 self.separator.isHidden = !up
+                let animations: (() -> Void) = { () in
+                    self.navigationController?.setNavigationBarHidden(up, animated: false)
+                    self.navigationController?.view.layoutIfNeeded()
+                }
+                UIView.animate(withDuration: 0.3, animations: animations)
+                if !up {
+                    return Observable.just(Reactor.Action.show(.최근검색어화면))
+                } else {
+                    return Observable.empty()
+                }
+            })
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        recentCV.rx.contentOffset
+            .map { $0.y }
+            .filter { $0 != 0 }
+            .map { $0 > 0 ? false : true }
+            .distinctUntilChanged()
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak navigationController] (isLarge) in
+                let animations: (() -> Void) = { () in
+                    navigationController?.navigationBar.prefersLargeTitles = isLarge
+                    navigationController?.view.layoutIfNeeded()
+                }
                 UIView.animate(withDuration: 0.3, animations: animations)
             }).disposed(by: disposeBag)
     }
@@ -172,25 +191,25 @@ final class SearchViewController: BaseViewController, StoryboardView {
 extension SearchViewController {
     private func attachResult(_ reactor: SearchViewReactor) {
         guard !children.contains(resultViewController) else { return }
-        
         resultViewController.reactor = SearchResultViewReactor(searchViewReactor: reactor)
-        
-        self.addChild(resultViewController)
-        self.view.addSubview(resultViewController.view)
+        addChild(resultViewController)
+        view.addSubview(resultViewController.view)
         resultViewController.view.snp.makeConstraints { (m) in
-            m.edges.equalTo(historyCV)
+            m.edges.equalTo(self.historyCV)
+        }
+        view.layoutIfNeeded()
+        resultViewController.view.alpha = 0
+        resultViewController.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.5) {
+            self.resultViewController.view.alpha = 1
         }
     }
     private func dettachResult() {
         guard children.contains(resultViewController) else { return }
-        
-        print("reactor to nil gogogogo !!!!!???")
-        resultViewController.reactor = nil
-        resultViewController.willMove(toParent: nil)
-        resultViewController.view.removeFromSuperview()
-        resultViewController.removeFromParent()
-        
-        print("after dettach")
+        self.resultViewController.reactor = nil
+        self.resultViewController.willMove(toParent: nil)
+        self.resultViewController.view.removeFromSuperview()
+        self.resultViewController.removeFromParent()
     }
 }
 

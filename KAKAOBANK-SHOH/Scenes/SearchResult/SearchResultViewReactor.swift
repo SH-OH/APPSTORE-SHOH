@@ -30,7 +30,6 @@ final class SearchResultViewReactor: Reactor {
     init(searchViewReactor: SearchViewReactor) {
         self.initialState = .init()
         self.searchViewReactor = searchViewReactor
-        print("[init!!!]\(String(describing: self))")
     }
     
     deinit {
@@ -56,9 +55,10 @@ final class SearchResultViewReactor: Reactor {
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
-        let setResponseText: Observable<Mutation> = searchViewReactor.curShowType
+        let setResponseText: Observable<Mutation> = searchViewReactor.curShowTypeRelay
             .filter { $0 == .검색결과화면 }
-            .withLatestFrom(searchViewReactor.state.map { $0.curSearchBarValue})
+            .withLatestFrom(searchViewReactor.state.map { $0.curSearchBarValue })
+            .debug("curSearchBarValue", trimOutput: false)
             .distinctUntilChanged()
             .map { Mutation.setResponseText($0)}
         
