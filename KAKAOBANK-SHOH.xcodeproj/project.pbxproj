@@ -58,6 +58,7 @@
 		CB1CE106251519A900508BBF /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE105251519A900508BBF /* SearchResultCell.swift */; };
 		CB1CE10825151B7000508BBF /* SearchResultCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE10725151B7000508BBF /* SearchResultCellReactor.swift */; };
 		CB1CE10A2515210200508BBF /* NetworkManager+UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE1092515210200508BBF /* NetworkManager+UIImageView.swift */; };
+		CBCB81F02517333E0044FF77 /* CAGradientLayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCB81EF2517333E0044FF77 /* CAGradientLayer+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +126,7 @@
 		CB1CE105251519A900508BBF /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		CB1CE10725151B7000508BBF /* SearchResultCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCellReactor.swift; sourceTree = "<group>"; };
 		CB1CE1092515210200508BBF /* NetworkManager+UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkManager+UIImageView.swift"; sourceTree = "<group>"; };
+		CBCB81EF2517333E0044FF77 /* CAGradientLayer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CAGradientLayer+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,10 +270,11 @@
 			isa = PBXGroup;
 			children = (
 				CB1CE0FA2514D7C400508BBF /* Array+Extensions.swift */,
+				CBCB81EF2517333E0044FF77 /* CAGradientLayer+Extensions.swift */,
 				CB1CE0C025147C2200508BBF /* Cell+Extensions.swift */,
 				CB1179E825161CBD00D9A410 /* Reactive+Extensions.swift */,
-				CB1CE0F82514D56B00508BBF /* UILabel+Extensions.swift */,
 				CB1179EA25167EB700D9A410 /* UIImageView+Extensions.swift */,
+				CB1CE0F82514D56B00508BBF /* UILabel+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -560,6 +563,7 @@
 				CB1CE0EE25149E8200508BBF /* StoryboardType.swift in Sources */,
 				CB1CE0EB25149A7F00508BBF /* MainTabBarController.swift in Sources */,
 				CB1179F22516882F00D9A410 /* SearchDetailViewReactor.swift in Sources */,
+				CBCB81F02517333E0044FF77 /* CAGradientLayer+Extensions.swift in Sources */,
 				CB1CE10425150CB800508BBF /* IBView.swift in Sources */,
 				CB1CE10825151B7000508BBF /* SearchResultCellReactor.swift in Sources */,
 				CB1CE0F92514D56B00508BBF /* UILabel+Extensions.swift in Sources */,

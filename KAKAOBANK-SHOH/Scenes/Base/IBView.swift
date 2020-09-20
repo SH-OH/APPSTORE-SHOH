@@ -54,4 +54,19 @@ class IBView: UIView {
         get { return UIColor(cgColor: layer.borderColor!) }
         set { layer.borderColor = newValue.cgColor }
     }
+     @IBInspectable var setGradient: UIColor {
+        get { return backgroundColor ?? UIColor.white }
+        set { setGradient(newValue) }
+    }
+    private func setGradient(_ gradientColor: UIColor) {
+        let colors: [UIColor] = [
+            gradientColor.withAlphaComponent(0.25),
+            gradientColor.withAlphaComponent(1)
+        ]
+        let leftGrad: CAGradientLayer = CAGradientLayer(frame: self.bounds,
+                                                        startPoint: CGPoint(x: 0, y: 1),
+                                                        endPoint: CGPoint(x: 1, y: 1),
+                                                        colors: colors)
+        self.layer.addSublayer(leftGrad)
+    }
 }
