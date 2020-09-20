@@ -25,7 +25,8 @@ final class SearchResultViewController: BaseViewController, StoryboardView {
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { (result) in
                 let vc = StoryboardType.SearchDetail.viewController(SearchDetailViewController.self)
-                vc.reactor = SearchDetailViewReactor(result: result)
+                vc.reactor = SearchDetailViewReactor(result: result,
+                                                     searchViewReactor: reactor.searchViewReactor)
                 reactor.searchViewReactor.navigationController.pushViewController(vc, animated: true)
             }).disposed(by: disposeBag)
             

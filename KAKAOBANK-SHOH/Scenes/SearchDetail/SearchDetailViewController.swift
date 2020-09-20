@@ -85,6 +85,83 @@ final class SearchDetailViewController: BaseViewController, StoryboardView {
     }
     
     func bind(reactor: SearchDetailViewReactor) {
+        openButton.rx.tap
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (_) in
+                print("osh - 탭 열기")
+            }).disposed(by: disposeBag)
+        moreButton.rx.tap
+            .withLatestFrom(reactor.state.map { $0.trackViewUrl })
+            .compactMap { $0 }
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (url) in
+                let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+                reactor.searchViewReactor.navigationController.present(vc, animated: true, completion: nil)
+            }).disposed(by: disposeBag)
+        versionHistoryButton.rx.tap
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (_) in
+                print("osh - 탭 버전 기록")
+            }).disposed(by: disposeBag)
+        notesMoreButton.rx.tap
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (_) in
+                print("osh - 새로운 기능 더 보기")
+            }).disposed(by: disposeBag)
+        descriptionMoreButton.rx.tap
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (_) in
+                print("osh - 설명 더 보기")
+            }).disposed(by: disposeBag)
+        sellerAppsButton.rx.tap
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (_) in
+                print("osh - 설명 개발자의 앱 더 보기")
+            }).disposed(by: disposeBag)
+        reviewAllButton.rx.tap
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (_) in
+                print("osh - 평가 및 리뷰 모두 보기")
+            }).disposed(by: disposeBag)
+        writeReviewButton.rx.tap
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (_) in
+                print("osh - 리뷰 작성")
+            }).disposed(by: disposeBag)
+        supportAppButton.rx.tap
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (_) in
+                print("osh - 앱 지원")
+            }).disposed(by: disposeBag)
+        contentsRatingDownButton.rx.tap
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (_) in
+                print("osh - 정보 호환성 열기")
+            }).disposed(by: disposeBag)
+        supportedDownButton.rx.tap
+            .compactMap { [weak supportedLabel] in supportedLabel }
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (supportedLabel) in
+                print("osh - 정보 호환성 열기")
+            }).disposed(by: disposeBag)
+        
+        contentsRatingMoreButton.rx.tap
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (_) in
+                print("osh - 정보 호환성 더보기")
+            }).disposed(by: disposeBag)
+        descriptionMoreButton.rx.tap
+            .withLatestFrom(reactor.state.map { $0.sellerUrl })
+            .compactMap { $0 }
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (url) in
+                print("osh - 정보 개발자 웹 사이트 : \(url)")
+            }).disposed(by: disposeBag)
+        privacyPolicyButton.rx.tap
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (_) in
+                print("osh - 정보 개인정보")
+            }).disposed(by: disposeBag)
         
         reactor.state.map { $0.artworkUrl100 }
             .compactMap { $0 }

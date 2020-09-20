@@ -22,6 +22,7 @@ final class SearchDetailViewReactor: Reactor {
     }
     
     struct State {
+        // UI
         var artworkUrl100: URL?
         var trackCensoredName: String
         var ratingArray: [Double]
@@ -40,13 +41,19 @@ final class SearchDetailViewReactor: Reactor {
         var supported: String
         var languageList: [String]
         var languages: String
-        var sellerUrl: URL?
         var reviewsSections: [SearchDetailSection]
+        
+        // Event
+        var trackViewUrl: URL?
+        var sellerUrl: URL?
+        var artistViewUrl: URL?
     }
     
     let initialState: State
-    
-    init(result: SearchResult) {
+    let searchViewReactor: SearchViewReactor
+    init(result: SearchResult,
+         searchViewReactor: SearchViewReactor) {
+        self.searchViewReactor = searchViewReactor
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         numberFormatter.minimumFractionDigits = 2
@@ -160,11 +167,13 @@ final class SearchDetailViewReactor: Reactor {
             supported: supported,
             languageList: languageList,
             languages: languages,
-            sellerUrl: URL(string: result.sellerUrl ?? ""),
             reviewsSections: [SearchDetailSection.reviews([
                 .review,
                 .review
-            ])]
+            ])],
+            trackViewUrl: URL(string: result.trackViewUrl ?? ""),
+            sellerUrl: URL(string: result.sellerUrl ?? ""),
+            artistViewUrl: URL(string: result.artistViewUrl ?? "")
         )
     }
     

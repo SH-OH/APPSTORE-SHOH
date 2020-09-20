@@ -361,17 +361,17 @@
                                                         </collectionViewFlowLayout>
                                                         <cells>
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SearchDetailCell" id="jpO-Zp-39g" customClass="SearchDetailCell" customModule="KAKAOBANK_SHOH" customModuleProvider="target">
-                                                                <rect key="frame" x="15" y="11.5" width="192" height="341"/>
+                                                                <rect key="frame" x="15" y="32" width="150" height="300"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="vBU-nD-TBU">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="192" height="341"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="300"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="W04-2M-cwH" customClass="IBImageView" customModule="KAKAOBANK_SHOH" customModuleProvider="target">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="192" height="341"/>
+                                                                            <rect key="frame" x="-23" y="-24" width="196" height="348"/>
                                                                             <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="width" constant="192" id="ngC-pc-oBy"/>
+                                                                                <constraint firstAttribute="height" constant="348" id="mLl-ac-Luc"/>
                                                                                 <constraint firstAttribute="width" secondItem="W04-2M-cwH" secondAttribute="height" multiplier="392:696" id="u3J-lN-scV"/>
                                                                             </constraints>
                                                                             <userDefinedRuntimeAttributes>
@@ -388,10 +388,8 @@
                                                                         </imageView>
                                                                     </subviews>
                                                                     <constraints>
-                                                                        <constraint firstItem="W04-2M-cwH" firstAttribute="top" secondItem="vBU-nD-TBU" secondAttribute="top" id="0Mn-nU-UoJ"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="W04-2M-cwH" secondAttribute="bottom" id="TlJ-sl-gMw"/>
-                                                                        <constraint firstItem="W04-2M-cwH" firstAttribute="leading" secondItem="vBU-nD-TBU" secondAttribute="leading" id="l8l-vt-QpR"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="W04-2M-cwH" secondAttribute="trailing" id="tXA-tz-aDm"/>
+                                                                        <constraint firstItem="W04-2M-cwH" firstAttribute="centerX" secondItem="vBU-nD-TBU" secondAttribute="centerX" id="Ybd-B0-nxW"/>
+                                                                        <constraint firstItem="W04-2M-cwH" firstAttribute="centerY" secondItem="vBU-nD-TBU" secondAttribute="centerY" id="zJ1-WU-yKd"/>
                                                                     </constraints>
                                                                 </collectionViewCellContentView>
                                                                 <connections>
@@ -399,7 +397,7 @@
                                                                 </connections>
                                                             </collectionViewCell>
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="2VU-PD-bra">
-                                                                <rect key="frame" x="217" y="32" width="150" height="300"/>
+                                                                <rect key="frame" x="175" y="32" width="150" height="300"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="yqA-PI-YIx">
                                                                     <rect key="frame" x="0.0" y="0.0" width="150" height="300"/>

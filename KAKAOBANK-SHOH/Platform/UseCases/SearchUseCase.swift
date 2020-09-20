@@ -25,9 +25,5 @@ final class SearchUseCase {
                     UserdefaultsManager.setValue(.최신검색어히스토리, value: list)
                 }
             })
-            .do(onSuccess: { (model) in
-                let nameList = model.results?.compactMap { $0.trackName }
-                print("[osh] - result 앱 이름만 Array로 보기! : \(nameList ?? [])")
-            })
     }
 }
