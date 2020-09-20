@@ -24,13 +24,4 @@ final class MainTabBarViewReactor: Reactor {
         self.initialState = .init()
     }
     
-    func mutate(action: Action) -> Observable<Mutation> {
-        return .empty()
-    }
-    
-    func reduce(state: State, mutation: Mutation) -> State {
-        var newState = state
-        return newState
-    }
-    
 }

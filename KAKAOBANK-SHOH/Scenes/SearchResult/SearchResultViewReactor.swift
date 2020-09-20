@@ -12,15 +12,18 @@ import Foundation
 final class SearchResultViewReactor: Reactor {
     enum Action {
         case search(reponseText: String)
+        case createSections([SearchResult])
     }
     
     enum Mutation {
         case setResponseText(String)
+        case setCurResultList([SearchResult])
         case setResultSections([SearchSection])
     }
     
     struct State {
         var responseText: String = ""
+        var curResultList: [SearchResult]?
         var resultSections: [SearchSection] = []
     }
     
@@ -44,14 +47,18 @@ final class SearchResultViewReactor: Reactor {
                 .flatMap { SearchUseCase().search($0) }
                 .compactMap { $0.results }
                 .asObservable()
-                .compactMap { [weak self] in self?.convertModel($0) }
-                .flatMap { Observable.from($0) }
+                .map { Mutation.setCurResultList($0) }
+            
+            return search
+        case .createSections(let resultList):
+            let now: Date = Date()
+            let setSections: Observable<Mutation> = Observable.from(resultList)
+                .compactMap { [weak self] in self?.convertModel($0, now: now)}
                 .map { SearchSectionItem.result($0) }
                 .toArray().asObservable()
                 .map { [SearchSection.result($0)] }
                 .map { Mutation.setResultSections($0) }
-            
-            return search
+            return setSections
         }
     }
     
@@ -68,89 +75,89 @@ final class SearchResultViewReactor: Reactor {
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
-        case .setResultSections(let resultSections):
-            newState.resultSections = resultSections
-            return newState
         case .setResponseText(let responseText):
             newState.responseText = responseText
+            return newState
+        case .setCurResultList(let resultList):
+            newState.curResultList = resultList
+            return newState
+        case .setResultSections(let resultSections):
+            newState.resultSections = resultSections
             return newState
         }
     }
 }
 
 extension SearchResultViewReactor {
-    private func convertModel(_ models: [SearchResult]) -> [SearchResultCellReactor.Data] {
-        let now = Date()
-        return models.compactMap({ (result) -> SearchResultCellReactor.Data in
-            let userCount = result.userRatingCountForCurrentVersion ?? 0
-            let max = userCount >= 10000 ? 2 : 3
-            let prefix = String(
-                "\(userCount)".prefix(max)
-            )
-            
-            var toArray = prefix.map { $0 }
-            if
+    private func convertModel(_ result: SearchResult, now: Date) -> SearchResultCellReactor.Data {
+        let userCount = result.userRatingCountForCurrentVersion ?? 0
+        let max = userCount >= 10000 ? 2 : 3
+        let prefix = String(
+            "\(userCount)".prefix(max)
+        )
+        
+        var toArray = prefix.map { $0 }
+        if
+            toArray.last == "0"
+                || toArray.last == "."
+        {
+            while
                 toArray.last == "0"
                     || toArray.last == "."
             {
-                while
-                    toArray.last == "0"
-                        || toArray.last == "."
-                {
-                    toArray = toArray.dropLast()
-                }
+                toArray = toArray.dropLast()
             }
-            
-            if
-                toArray.count > 1
-                    && userCount >= 1000
-                    && userCount < 100000
-            {
-                toArray.insert(".", at: 1)
-            }
-            
-            var userRatingCount = toArray
-                .map { String($0) }
-                .joined()
-            
-            switch userCount {
-            case 1000..<10000:
-                userRatingCount.append("천")
-            case 10000...:
-                userRatingCount.append("만")
-            default:
-                break
-            }
-            
-            let screenshotUrls = result.screenshotUrls?
-                .compactMap { URL(string: $0) }
-            
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .decimal
-            numberFormatter.minimumFractionDigits = 2
-            numberFormatter.maximumFractionDigits = 2
-            
-            let averageUserRatingForCurrentVersion = numberFormatter
-                .string(from: (result.averageUserRatingForCurrentVersion ?? 0) as NSNumber) ?? "0"
-            let ratingToDouble = Double(averageUserRatingForCurrentVersion) ?? 0
-            
-            var ratingArray: [Double] = []
-            for index in 0..<5 {
-                var rating = ratingToDouble-Double(index)
-                rating = rating <= 0 ? 0 : rating
-                rating = rating >= 1 ? 1 : rating
-                ratingArray.append(rating)
-            }
-            
-            return SearchResultCellReactor.Data(
-                artworkUrl60: URL(string: (result.artworkUrl60 ?? "")),
-                trackName: result.trackName,
-                description: result.description,
-                ratingArray: ratingArray,
-                userRatingCountForCurrentVersion: userRatingCount,
-                screenshotUrls: screenshotUrls,
-                updateDate: now
-            )
-        })
+        }
+        
+        if
+            toArray.count > 1
+                && userCount >= 1000
+                && userCount < 100000
+        {
+            toArray.insert(".", at: 1)
+        }
+        
+        var userRatingCount = toArray
+            .map { String($0) }
+            .joined()
+        
+        switch userCount {
+        case 1000..<10000:
+            userRatingCount.append("천")
+        case 10000...:
+            userRatingCount.append("만")
+        default:
+            break
+        }
+        
+        let screenshotUrls = result.screenshotUrls?
+            .compactMap { URL(string: $0) }
+        
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.minimumFractionDigits = 2
+        numberFormatter.maximumFractionDigits = 2
+        
+        let averageUserRatingForCurrentVersion = numberFormatter
+            .string(from: (result.averageUserRatingForCurrentVersion ?? 0) as NSNumber) ?? "0"
+        let ratingToDouble = Double(averageUserRatingForCurrentVersion) ?? 0
+        
+        var ratingArray: [Double] = []
+        for index in 0..<5 {
+            var rating = ratingToDouble-Double(index)
+            rating = rating <= 0 ? 0 : rating
+            rating = rating >= 1 ? 1 : rating
+            ratingArray.append(rating)
+        }
+        
+        return SearchResultCellReactor.Data(
+            artworkUrl60: URL(string: (result.artworkUrl60 ?? "")),
+            trackName: result.trackCensoredName,
+            description: result.description,
+            ratingArray: ratingArray,
+            userRatingCountForCurrentVersion: userRatingCount,
+            screenshotUrls: screenshotUrls,
+            updateDate: now
+        )
     }
 }

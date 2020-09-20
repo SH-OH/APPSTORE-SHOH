@@ -9,6 +9,7 @@
 import ReactorKit
 import Foundation
 import RxCocoa
+import UIKit.UINavigationController
 
 final class SearchViewReactor: Reactor {
     
@@ -36,25 +37,30 @@ final class SearchViewReactor: Reactor {
     }
     
     let initialState: State
+    let navigationController: UINavigationController
     
     let curShowTypeRelay: PublishRelay<ShowViewType> = .init()
     
-    init() {
+    init(navigationController: UINavigationController) {
         let testList = [
-            "녹음기",
-            "엠넷",
-            "pitu",
-            "의지의 히어로",
-            "구글맵",
-            "진에어",
-            "grab",
-            "녹음기2",
-            "엠넷2",
-            "pitu2",
-            "의지의 히어로2",
-            "구글맵2",
-            "진에어2",
-            "grab2",
+            "테스트",
+            "테스ㅌㅌㅌㅋ",
+            "ㅌㅌㅌㅌㅌ",
+            "텥ㅌㅌ트틑",
+            "테스트트트",
+            "테스트 같지만 - 테스트임",
+            "테스트2",
+            "테스ㅌㅌ2ㅌㅋ",
+            "ㅌㅌㅌㅌㅌ2",
+            "텥ㅌㅌ트2틑",
+            "테스트4트트",
+            "테5스트2 같지만 - 테스트임",
+            "테스3트2",
+            "테스ㅌㅌㅌㅋ",
+            "ㅌㅌ54ㅌㅌ2ㅌ",
+            "텥ㅌㅌ2트틑",
+            "테3스트트트",
+            "테스트 6같지만 - 테스트임"
         ]
         let makeItems = testList
             .map { SearchSectionItem.recentSearched($0) }
@@ -66,19 +72,19 @@ final class SearchViewReactor: Reactor {
             foundSections: [],
             curSearchBarValue: ""
         )
+        self.navigationController = navigationController
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .findRecent(let responseText):
             let list = [
-                "카카오뱅크",
-                "카카오뱅ㅋ",
-                "카카오뱅",
-                "카카오뱅쿠",
-                "카카오뱅킹",
-                "카카오뱅크 - 같지만 다른 은행",
-                "카카오뱅킼",
+                "테스트",
+                "테스ㅌㅌㅌㅋ",
+                "ㅌㅌㅌㅌㅌ",
+                "텥ㅌㅌ트틑",
+                "테스트트트",
+                "테스트 같지만 - 테스트임"
             ]
             //            let list = UserdefaultsManager.getStringArray(.recentSearchedKeywords)
             let find: Observable<Mutation> = Observable.from(list)

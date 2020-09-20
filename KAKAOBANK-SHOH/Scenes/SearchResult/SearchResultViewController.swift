@@ -18,15 +18,34 @@ final class SearchResultViewController: BaseViewController, StoryboardView {
         collectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
+        collectionView.rx.itemSelected
+            .map { $0.item }
+            .withLatestFrom(reactor.state.map { $0.curResultList }, resultSelector: { $1?[safe: $0] })
+            .compactMap { $0 }
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { (result) in
+                let vc = StoryboardType.SearchDetail.viewController(SearchDetailViewController.self)
+                vc.reactor = SearchDetailViewReactor(result: result)
+                reactor.searchViewReactor.navigationController.pushViewController(vc, animated: true)
+            }).disposed(by: disposeBag)
+            
         reactor.state.map { $0.responseText }
             .distinctUntilChanged()
             .map { SearchResultViewReactor.Action.search(reponseText: $0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        reactor.state.map { $0.curResultList }
+            .compactMap { $0 }
+            .distinctUntilChanged()
+            .map { Reactor.Action.createSections($0) }
+            .observeOn(MainScheduler.asyncInstance)
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         reactor.state.map { $0.resultSections }
             .distinctUntilChanged()
-            .bind(to: collectionView.rx.items(dataSource: dataSource(navigationController)))
+            .bind(to: collectionView.rx.items(dataSource: dataSource(reactor.searchViewReactor.navigationController)))
             .disposed(by: disposeBag)
     }
 }

@@ -59,3 +59,5 @@ struct SearchResult: Decodable {
     let bundleId: String?
     let userRatingCount: Int?
 }
+
+extension SearchResult: Hashable {}

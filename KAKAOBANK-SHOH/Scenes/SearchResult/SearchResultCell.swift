@@ -32,10 +32,11 @@ final class SearchResultCell: UICollectionViewCell, Reusable, StoryboardView {
     
     func bind(reactor: SearchResultCellReactor) {
         openButton.rx.tap
-            .observeOn(MainScheduler.instance)
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { (_) in
-                let vc = StoryboardType.SearchDetail.viewController(SearchDetailViewController.self)
-                reactor.navigationController.pushViewController(vc, animated: true)
+//                let vc = StoryboardType.SearchDetail.viewController(SearchDetailViewController.self)
+//                reactor.navigationController.pushViewController(vc, animated: true)
+                print("\(self) - 검색 결과 셀의 열기 탭탭!!!")
             }).disposed(by: disposeBag)
         
         reactor.state.map { $0.artworkUrl }

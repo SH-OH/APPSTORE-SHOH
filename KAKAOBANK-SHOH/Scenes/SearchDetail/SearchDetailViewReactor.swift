@@ -24,7 +24,8 @@ final class SearchDetailViewReactor: Reactor {
     
     let initialState: State
     
-    init() {
+    init(result: SearchResult) {
+        print("\(#function) - init suc~ result :\(result)")
         self.initialState = .init()
     }
 }

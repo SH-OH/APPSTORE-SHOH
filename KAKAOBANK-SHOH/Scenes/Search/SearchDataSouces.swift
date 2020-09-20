@@ -12,7 +12,7 @@ import UIKit.UICollectionViewCell
 protocol SearchDataSource: class {}
 
 extension SearchDataSource {
-    func dataSource(_ navigationController: UINavigationController? = nil) -> RxCollectionViewSectionedReloadDataSource<SearchSection> {
+    func dataSource(_ navigationController: UINavigationController) -> RxCollectionViewSectionedReloadDataSource<SearchSection> {
         return .init(configureCell: { (ds, cv, ip, item) -> UICollectionViewCell in
             switch item {
             case let .recentSearched(keyword):
@@ -27,9 +27,6 @@ extension SearchDataSource {
                                curSearchKeyword)
                 return cell
             case let .result(reactorData):
-                guard let navigationController = navigationController else {
-                    precondition(false, "\(#function) - Not Found NavigationController")
-                }
                 let cell = cv.dequeue(SearchResultCell.self, for: ip)
                 cell.reactor = SearchResultCellReactor(
                     data: reactorData,

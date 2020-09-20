@@ -177,12 +177,12 @@ final class SearchViewController: BaseViewController, StoryboardView {
         
         reactor.state.map { $0.searchedSections }
             .distinctUntilChanged()
-            .bind(to: recentCV.rx.items(dataSource: dataSource()))
+            .bind(to: recentCV.rx.items(dataSource: dataSource(reactor.navigationController)))
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.foundSections }
             .distinctUntilChanged()
-            .bind(to: historyCV.rx.items(dataSource: dataSource()))
+            .bind(to: historyCV.rx.items(dataSource: dataSource(reactor.navigationController)))
             .disposed(by: disposeBag)
     }
     

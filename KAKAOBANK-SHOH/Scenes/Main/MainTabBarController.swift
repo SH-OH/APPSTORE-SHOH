@@ -23,7 +23,7 @@ class MainTabBarController: UITabBarController, StoryboardView {
     private func createViewControllers() {
         var viewControllers: [UIViewController] = []
         let search = StoryboardType.Search.viewController(SearchViewController.self)
-        search.reactor = SearchViewReactor()
+        
         viewControllers.append(search)
         let navs = viewControllers.map { vc -> UINavigationController in
             return UINavigationController(rootViewController: vc).then {
@@ -31,6 +31,7 @@ class MainTabBarController: UITabBarController, StoryboardView {
                 $0.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
             }
         }
+        search.reactor = SearchViewReactor(navigationController: search.navigationController!)
         self.setViewControllers(navs, animated: false)
     }
     
