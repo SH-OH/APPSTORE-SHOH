@@ -8,6 +8,7 @@
 
 import UIKit
 import ReactorKit
+import RxDataSources
 
 final class SearchDetailViewController: BaseViewController, StoryboardView {
     
@@ -56,7 +57,7 @@ final class SearchDetailViewController: BaseViewController, StoryboardView {
     @IBOutlet private weak var writeReviewButton: UIButton!
     @IBOutlet private weak var supportAppButton: UIButton!
     
-    // 07.정보 min height 350. max 420 (호환성: +30, 연령등급 +40)
+    // 07.정보 min height 440. max 510 (호환성: +30, 연령등급 +40)
     @IBOutlet private weak var artistNameLabel: UILabel!
     @IBOutlet private weak var fileSizeLabel: UILabel!
     @IBOutlet private weak var categoryLabel: UILabel!
@@ -64,10 +65,10 @@ final class SearchDetailViewController: BaseViewController, StoryboardView {
     @IBOutlet private weak var supportedLabel: UILabel! {
         didSet { supportedLabel.isHidden = true }
     }
-    @IBOutlet private weak var languageLabel: UIStackView!
+    @IBOutlet private weak var languageLabel: UILabel!
     @IBOutlet private weak var contentsRatingDownButton: UIButton!
-    @IBOutlet private weak var contentsRatingLabel: UILabel! {
-        didSet { contentsRatingLabel.isHidden = true }
+    @IBOutlet private weak var contentsRatingLabel02: UILabel! {
+        didSet { contentsRatingLabel02.isHidden = true }
     }
     @IBOutlet private weak var contentsRatingMoreButton: UIButton! {
         didSet { contentsRatingMoreButton.isHidden = true }
@@ -75,9 +76,6 @@ final class SearchDetailViewController: BaseViewController, StoryboardView {
     @IBOutlet private weak var copyrightLabel: UILabel!
     @IBOutlet private weak var developerWebButton: UIButton!
     @IBOutlet private weak var privacyPolicyButton: UIButton!
-    
-    
-    
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,5 +86,146 @@ final class SearchDetailViewController: BaseViewController, StoryboardView {
     
     func bind(reactor: SearchDetailViewReactor) {
         
+        reactor.state.map { $0.artworkUrl100 }
+            .compactMap { $0 }
+            .bind(to: trackImage.rx.setImage)
+            .disposed(by: disposeBag)
+        reactor.state.map { $0.trackCensoredName }
+            .bind(to: trackNameLabel.rx.text)
+            .disposed(by: disposeBag)
+        reactor.state.map { $0.artistName }
+            .bind(to: subNameLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        let sharedRating = reactor.state.map { $0.ratingArray }
+            .share(replay: 1)
+        sharedRating
+            .compactMap { $0[safe: 0] }
+            .bind(to: ratingStarImage01.rx.ratingImage)
+            .disposed(by: disposeBag)
+        sharedRating
+            .compactMap { $0[safe: 1] }
+            .bind(to: ratingStarImage02.rx.ratingImage)
+            .disposed(by: disposeBag)
+        sharedRating
+            .compactMap { $0[safe: 2] }
+            .bind(to: ratingStarImage03.rx.ratingImage)
+            .disposed(by: disposeBag)
+        sharedRating
+            .compactMap { $0[safe: 3] }
+            .bind(to: ratingStarImage04.rx.ratingImage)
+            .disposed(by: disposeBag)
+        sharedRating
+            .compactMap { $0[safe: 4] }
+            .bind(to: ratingStarImage05.rx.ratingImage)
+            .disposed(by: disposeBag)
+        
+        let sharedUserRatingCount = reactor.state.map { $0.userRatingCount }
+            .share(replay: 1)
+        sharedUserRatingCount
+            .map { $0.userCountToSpell }
+            .map { "\($0)개의 평가" }
+            .bind(to: ratingCountLabel01.rx.text)
+            .disposed(by: disposeBag)
+        sharedUserRatingCount
+            .map { "\($0.toDecimal)개의 평가" }
+            .bind(to: ratingCountLabel02.rx.text)
+            .disposed(by: disposeBag)
+        
+        let sharedContentsRating = reactor.state.map { $0.contentAdvisoryRating }
+            .share(replay: 1)
+        sharedContentsRating
+            .bind(to: contentsRatingLabel01.rx.text)
+            .disposed(by: disposeBag)
+        sharedContentsRating
+            .bind(to: contentsRatingLabel02.rx.text)
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.version }
+            .bind(to: curVersionLabel.rx.text)
+            .disposed(by: disposeBag)
+        reactor.state.map { $0.updateAgo }
+            .bind(to: releaseAgoLabel.rx.text)
+            .disposed(by: disposeBag)
+        reactor.state.map { $0.releaseNotes }
+            .bind(to: releaseNotesLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.description }
+            .bind(to: descriptionLabel.rx.text)
+            .disposed(by: disposeBag)
+        reactor.state.map { $0.sellerName }
+            .bind(to: sellerNameLabel.rx.text)
+            .disposed(by: disposeBag)
+        reactor.state.map { $0.fileSizeBytes }
+            .bind(to: fileSizeLabel.rx.text)
+            .disposed(by: disposeBag)
+        reactor.state.map { $0.genreName }
+            .bind(to: categoryLabel.rx.text)
+            .disposed(by: disposeBag)
+        reactor.state.map { $0.isSupported }
+            .bind(to: supportedDownButton.rx.title(for: .normal))
+            .disposed(by: disposeBag)
+        reactor.state.map { $0.supported }
+            .bind(to: supportedLabel.rx.text)
+            .disposed(by: disposeBag)
+        reactor.state.map { $0.languages }
+            .bind(to: languageLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        bindCV(reactor)
+    }
+    
+    private func bindCV(_ reactor: SearchDetailViewReactor) {
+        screenShotsCV.rx.setDelegate(self)
+            .disposed(by: disposeBag)
+        reviewCV.rx.setDelegate(self)
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.screenShotSections }
+            .bind(to: screenShotsCV.rx.items(dataSource: dataSource()))
+            .disposed(by: disposeBag)
+        reactor.state.map { $0.reviewsSections }
+            .bind(to: reviewCV.rx.items(dataSource: dataSource()))
+            .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension SearchDetailViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        switch collectionView {
+        case screenShotsCV:
+            return CGSize(width: 196, height: 348)
+        case reviewCV:
+            let width: CGFloat = collectionView.bounds.width - 30
+            return CGSize(width: width, height: 145)
+        default:
+            return .zero
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .init(top: 0, left: 15, bottom: 0, right: 15)
+    }
+}
+
+// MARK: - DataSources
+extension SearchDetailViewController {
+    private func dataSource() -> RxCollectionViewSectionedReloadDataSource<SearchDetailSection> {
+        return .init(configureCell: { (ds, cv, ip, item) -> UICollectionViewCell in
+            switch item {
+            case .screenShot(let url):
+                let cell = cv.dequeue(SearchDetailCell.self, for: ip)
+                cell.configure(url)
+                return cell
+            case .review:
+                let cell = cv.dequeueReusableCell(withReuseIdentifier: "SearchReviewCell", for: ip)
+                return cell
+            }
+        })
     }
 }

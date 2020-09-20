@@ -10,6 +10,7 @@ import UIKit.UIViewController
 import ReactorKit
 import RxCocoa
 import SnapKit
+import DeviceKit
 
 final class SearchViewController: BaseViewController, StoryboardView {
     
@@ -41,10 +42,10 @@ final class SearchViewController: BaseViewController, StoryboardView {
             .withLatestFrom(sharedTextChanged)
         
         let collectionViewSelect: Observable<String> = Observable.merge(
-            recentCV.rx.zipSelected(SearchSectionItem.self),
-            historyCV.rx.zipSelected(SearchSectionItem.self)
+            recentCV.rx.modelSelected(SearchSectionItem.self).asObservable(),
+            historyCV.rx.modelSelected(SearchSectionItem.self).asObservable()
         )
-            .compactMap({ (ip, item) -> String? in
+            .compactMap({ (item) -> String? in
                 switch item {
                 case let .recentFound(found):
                     return found.foundKeywords

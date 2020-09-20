@@ -105,6 +105,7 @@ class NetworkManager {
                         }
                         return
                     }
+                    
                     DispatchQueue.main.async {
                         self.setImage(url.absoluteString, image: image)
                         observer(.success(image))

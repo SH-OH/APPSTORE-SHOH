@@ -17,7 +17,7 @@ final class SearchResultCellReactor: Reactor {
         let trackName: String?
         let description: String?
         let ratingArray: [Double]
-        let userRatingCountForCurrentVersion: String?
+        let userRatingCount: String?
         let screenshotUrls: [URL]?
         let updateDate: Date
     }
@@ -48,7 +48,7 @@ final class SearchResultCellReactor: Reactor {
             trackName: data.trackName,
             description: data.description,
             rating: data.ratingArray,
-            userRatingCount: data.userRatingCountForCurrentVersion,
+            userRatingCount: data.userRatingCount,
             screenshotUrls: data.screenshotUrls
         )
         self.navigationController = navigationController

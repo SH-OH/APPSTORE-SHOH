@@ -58,7 +58,11 @@
 		CB1CE106251519A900508BBF /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE105251519A900508BBF /* SearchResultCell.swift */; };
 		CB1CE10825151B7000508BBF /* SearchResultCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE10725151B7000508BBF /* SearchResultCellReactor.swift */; };
 		CB1CE10A2515210200508BBF /* NetworkManager+UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE1092515210200508BBF /* NetworkManager+UIImageView.swift */; };
-		CBCB81F02517333E0044FF77 /* CAGradientLayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCB81EF2517333E0044FF77 /* CAGradientLayer+Extensions.swift */; };
+		CB7FEB1B2517807500E2ECA4 /* Number+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7FEB1A2517807500E2ECA4 /* Number+Extensions.swift */; };
+		CB7FEB1D251794B500E2ECA4 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7FEB1C251794B500E2ECA4 /* Date+Extensions.swift */; };
+		CB7FEB292517B01800E2ECA4 /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = CB7FEB282517B01800E2ECA4 /* DeviceKit */; };
+		CB7FEB2B2517C6CE00E2ECA4 /* SearchDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7FEB2A2517C6CE00E2ECA4 /* SearchDetailCell.swift */; };
+		CB7FEB2F2517C77500E2ECA4 /* SearchDetailSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7FEB2E2517C77500E2ECA4 /* SearchDetailSection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,7 +130,10 @@
 		CB1CE105251519A900508BBF /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		CB1CE10725151B7000508BBF /* SearchResultCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCellReactor.swift; sourceTree = "<group>"; };
 		CB1CE1092515210200508BBF /* NetworkManager+UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkManager+UIImageView.swift"; sourceTree = "<group>"; };
-		CBCB81EF2517333E0044FF77 /* CAGradientLayer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CAGradientLayer+Extensions.swift"; sourceTree = "<group>"; };
+		CB7FEB1A2517807500E2ECA4 /* Number+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Number+Extensions.swift"; sourceTree = "<group>"; };
+		CB7FEB1C251794B500E2ECA4 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		CB7FEB2A2517C6CE00E2ECA4 /* SearchDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailCell.swift; sourceTree = "<group>"; };
+		CB7FEB2E2517C77500E2ECA4 /* SearchDetailSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB1CE0AB25147B2300508BBF /* RxCocoa in Frameworks */,
+				CB7FEB292517B01800E2ECA4 /* DeviceKit in Frameworks */,
 				CB1CE0AD25147B2300508BBF /* RxBlocking in Frameworks */,
 				CB1CE0A925147B2300508BBF /* RxRelay in Frameworks */,
 				CB1CE0B625147B9000508BBF /* Then in Frameworks */,
@@ -168,6 +176,8 @@
 			isa = PBXGroup;
 			children = (
 				CB1179EF251687F600D9A410 /* SearchDetail.storyboard */,
+				CB7FEB2A2517C6CE00E2ECA4 /* SearchDetailCell.swift */,
+				CB7FEB2E2517C77500E2ECA4 /* SearchDetailSection.swift */,
 				CB1179ED251687EF00D9A410 /* SearchDetailViewController.swift */,
 				CB1179F12516882F00D9A410 /* SearchDetailViewReactor.swift */,
 			);
@@ -270,8 +280,9 @@
 			isa = PBXGroup;
 			children = (
 				CB1CE0FA2514D7C400508BBF /* Array+Extensions.swift */,
-				CBCB81EF2517333E0044FF77 /* CAGradientLayer+Extensions.swift */,
 				CB1CE0C025147C2200508BBF /* Cell+Extensions.swift */,
+				CB7FEB1C251794B500E2ECA4 /* Date+Extensions.swift */,
+				CB7FEB1A2517807500E2ECA4 /* Number+Extensions.swift */,
 				CB1179E825161CBD00D9A410 /* Reactive+Extensions.swift */,
 				CB1179EA25167EB700D9A410 /* UIImageView+Extensions.swift */,
 				CB1CE0F82514D56B00508BBF /* UILabel+Extensions.swift */,
@@ -412,6 +423,7 @@
 				CB1CE0B525147B9000508BBF /* Then */,
 				CB1CE0B825147BAE00508BBF /* Differentiator */,
 				CB1CE0BA25147BAE00508BBF /* RxDataSources */,
+				CB7FEB282517B01800E2ECA4 /* DeviceKit */,
 			);
 			productName = "KAKAOBANK-SHOH";
 			productReference = CB1CE07025147A1000508BBF /* KAKAOBANK-SHOH.app */;
@@ -494,6 +506,7 @@
 				CB1CE0B125147B7200508BBF /* XCRemoteSwiftPackageReference "ReactorKit" */,
 				CB1CE0B425147B9000508BBF /* XCRemoteSwiftPackageReference "Then" */,
 				CB1CE0B725147BAE00508BBF /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				CB7FEB272517B01800E2ECA4 /* XCRemoteSwiftPackageReference "DeviceKit" */,
 			);
 			productRefGroup = CB1CE07125147A1000508BBF /* Products */;
 			projectDirPath = "";
@@ -545,11 +558,13 @@
 				CB1CE0FE251509EC00508BBF /* SearchResultViewController.swift in Sources */,
 				CB1CE10A2515210200508BBF /* NetworkManager+UIImageView.swift in Sources */,
 				CB1CE0C825147C7900508BBF /* NetworkManager.swift in Sources */,
+				CB7FEB1B2517807500E2ECA4 /* Number+Extensions.swift in Sources */,
 				CB1CE0D225147CCE00508BBF /* SearchModel.swift in Sources */,
 				CB1CE106251519A900508BBF /* SearchResultCell.swift in Sources */,
 				CB1179EE251687EF00D9A410 /* SearchDetailViewController.swift in Sources */,
 				CB1CE0FB2514D7C400508BBF /* Array+Extensions.swift in Sources */,
 				CB1CE0F52514B53000508BBF /* RecentCVCell.swift in Sources */,
+				CB7FEB2F2517C77500E2ECA4 /* SearchDetailSection.swift in Sources */,
 				CB1CE07425147A1000508BBF /* AppDelegate.swift in Sources */,
 				CB1CE0E525148BDF00508BBF /* BaseViewController.swift in Sources */,
 				CB1CE10225150A6200508BBF /* SearchResultViewReactor.swift in Sources */,
@@ -563,13 +578,14 @@
 				CB1CE0EE25149E8200508BBF /* StoryboardType.swift in Sources */,
 				CB1CE0EB25149A7F00508BBF /* MainTabBarController.swift in Sources */,
 				CB1179F22516882F00D9A410 /* SearchDetailViewReactor.swift in Sources */,
-				CBCB81F02517333E0044FF77 /* CAGradientLayer+Extensions.swift in Sources */,
+				CB7FEB1D251794B500E2ECA4 /* Date+Extensions.swift in Sources */,
 				CB1CE10425150CB800508BBF /* IBView.swift in Sources */,
 				CB1CE10825151B7000508BBF /* SearchResultCellReactor.swift in Sources */,
 				CB1CE0F92514D56B00508BBF /* UILabel+Extensions.swift in Sources */,
 				CB1CE07625147A1000508BBF /* SceneDelegate.swift in Sources */,
 				CB1CE0CF25147CC200508BBF /* ErrorHandler.swift in Sources */,
 				CB1CE0E925148D6C00508BBF /* SearchUseCase.swift in Sources */,
+				CB7FEB2B2517C6CE00E2ECA4 /* SearchDetailCell.swift in Sources */,
 				CB1CE0F72514C36700508BBF /* HistoryCVCell.swift in Sources */,
 				CB1179E72515BB4C00D9A410 /* SearchDataSouces.swift in Sources */,
 				CB1179E925161CBD00D9A410 /* Reactive+Extensions.swift in Sources */,
@@ -945,6 +961,14 @@
 				minimumVersion = 4.0.1;
 			};
 		};
+		CB7FEB272517B01800E2ECA4 /* XCRemoteSwiftPackageReference "DeviceKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devicekit/DeviceKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -997,6 +1021,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CB1CE0B725147BAE00508BBF /* XCRemoteSwiftPackageReference "RxDataSources" */;
 			productName = RxDataSources;
+		};
+		CB7FEB282517B01800E2ECA4 /* DeviceKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB7FEB272517B01800E2ECA4 /* XCRemoteSwiftPackageReference "DeviceKit" */;
+			productName = DeviceKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

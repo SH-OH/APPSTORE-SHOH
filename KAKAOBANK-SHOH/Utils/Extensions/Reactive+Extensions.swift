@@ -10,15 +10,6 @@ import RxSwift
 import RxCocoa
 import UIKit
 
-extension Reactive where Base: UICollectionView {
-    func zipSelected<T>(_ type: T.Type) -> Observable<(IndexPath, T)> {
-        return Observable.zip(
-            base.rx.itemSelected,
-            base.rx.modelSelected(T.self)
-        )
-    }
-}
-
 extension Reactive where Base: UIImageView {
     var ratingImage: Binder<Double> {
         return Binder(base) { imageView, rating in

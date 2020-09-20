@@ -91,44 +91,6 @@ final class SearchResultViewReactor: Reactor {
 extension SearchResultViewReactor {
     private func convertModel(_ result: SearchResult, now: Date) -> SearchResultCellReactor.Data {
         let userCount = result.userRatingCountForCurrentVersion ?? 0
-        let max = userCount >= 10000 ? 2 : 3
-        let prefix = String(
-            "\(userCount)".prefix(max)
-        )
-        
-        var toArray = prefix.map { $0 }
-        if
-            toArray.last == "0"
-                || toArray.last == "."
-        {
-            while
-                toArray.last == "0"
-                    || toArray.last == "."
-            {
-                toArray = toArray.dropLast()
-            }
-        }
-        
-        if
-            toArray.count > 1
-                && userCount >= 1000
-                && userCount < 100000
-        {
-            toArray.insert(".", at: 1)
-        }
-        
-        var userRatingCount = toArray
-            .map { String($0) }
-            .joined()
-        
-        switch userCount {
-        case 1000..<10000:
-            userRatingCount.append("천")
-        case 10000...:
-            userRatingCount.append("만")
-        default:
-            break
-        }
         
         let screenshotUrls = result.screenshotUrls?
             .compactMap { URL(string: $0) }
@@ -155,7 +117,7 @@ extension SearchResultViewReactor {
             trackName: result.trackCensoredName,
             description: result.description,
             ratingArray: ratingArray,
-            userRatingCountForCurrentVersion: userRatingCount,
+            userRatingCount: userCount.userCountToSpell,
             screenshotUrls: screenshotUrls,
             updateDate: now
         )

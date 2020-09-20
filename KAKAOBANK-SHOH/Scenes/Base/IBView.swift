@@ -63,10 +63,14 @@ class IBView: UIView {
             gradientColor.withAlphaComponent(0.25),
             gradientColor.withAlphaComponent(1)
         ]
-        let leftGrad: CAGradientLayer = CAGradientLayer(frame: self.bounds,
-                                                        startPoint: CGPoint(x: 0, y: 1),
-                                                        endPoint: CGPoint(x: 1, y: 1),
-                                                        colors: colors)
+        
+        let leftGrad: CAGradientLayer = CAGradientLayer()
+        leftGrad.frame = self.bounds
+        leftGrad.startPoint = CGPoint(x: 0, y: 1)
+        leftGrad.endPoint = CGPoint(x: 1, y: 1)
+        leftGrad.colors = colors.map { $0.cgColor }
+        leftGrad.shouldRasterize = true
+        
         self.layer.addSublayer(leftGrad)
     }
 }

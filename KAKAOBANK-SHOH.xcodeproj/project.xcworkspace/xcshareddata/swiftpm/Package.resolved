@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "DeviceKit",
+        "repositoryURL": "https://github.com/devicekit/DeviceKit.git",
+        "state": {
+          "branch": null,
+          "revision": "969bd6bf0350ac03e48d912777e1ce449c9ba77f",
+          "version": "4.0.0"
+        }
+      },
+      {
         "package": "ReactorKit",
         "repositoryURL": "https://github.com/ReactorKit/ReactorKit.git",
         "state": {
