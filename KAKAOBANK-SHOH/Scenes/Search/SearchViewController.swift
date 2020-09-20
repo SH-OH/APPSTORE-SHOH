@@ -65,7 +65,7 @@ final class SearchViewController: BaseViewController, StoryboardView {
             .map { Reactor.Action.didSetCurSearchBarValue($0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
-            
+        
         Observable.merge(
             searchClicked.map { _ in true },
             collectionViewSelect.map { _ in true },
@@ -176,12 +176,20 @@ final class SearchViewController: BaseViewController, StoryboardView {
         historyCV.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
+        reactor.recentHistory
+            .distinctUntilChanged()
+            .map { Reactor.Action.setupSearchedSections($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         reactor.state.map { $0.searchedSections }
+            .compactMap { $0 }
             .distinctUntilChanged()
             .bind(to: recentCV.rx.items(dataSource: dataSource(reactor.navigationController)))
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.foundSections }
+            .compactMap { $0 }
             .distinctUntilChanged()
             .bind(to: historyCV.rx.items(dataSource: dataSource(reactor.navigationController)))
             .disposed(by: disposeBag)

@@ -16,6 +16,7 @@ final class SearchViewReactor: Reactor {
     enum ShowViewType { case 최근검색어화면, 히스토리검색화면, 검색결과화면 }
     
     enum Action {
+        case setupSearchedSections([String])
         case findRecent(text: String)
         case didSetCurSearchBarValue(String)
         case show(ShowViewType)
@@ -30,64 +31,28 @@ final class SearchViewReactor: Reactor {
     
     
     struct State {
-        var searchedSections: [SearchSection]
-        var foundSections: [SearchSection]
-        var curSearchBarValue: String
+        var searchedSections: [SearchSection]?
+        var foundSections: [SearchSection]?
+        var curSearchBarValue: String?
         var showViewType: ShowViewType = .최근검색어화면
     }
     
     let initialState: State
     let navigationController: UINavigationController
     
+    let recentHistory: BehaviorRelay<[String]>
     let curShowTypeRelay: PublishRelay<ShowViewType> = .init()
     
     init(navigationController: UINavigationController) {
-        let testList = [
-            "테스트",
-            "테스ㅌㅌㅌㅋ",
-            "ㅌㅌㅌㅌㅌ",
-            "텥ㅌㅌ트틑",
-            "테스트트트",
-            "테스트 같지만 - 테스트임",
-            "테스트2",
-            "테스ㅌㅌ2ㅌㅋ",
-            "ㅌㅌㅌㅌㅌ2",
-            "텥ㅌㅌ트2틑",
-            "테스트4트트",
-            "테5스트2 같지만 - 테스트임",
-            "테스3트2",
-            "테스ㅌㅌㅌㅋ",
-            "ㅌㅌ54ㅌㅌ2ㅌ",
-            "텥ㅌㅌ2트틑",
-            "테3스트트트",
-            "테스트 6같지만 - 테스트임"
-        ]
-        let makeItems = testList
-            .map { SearchSectionItem.recentSearched($0) }
-        let testSection = [SearchSection.recentSearched(makeItems)]
-        
-        self.initialState = State(
-            //            recentSearchedList: UserdefaultsManager.getStringArray(.recentSearchedKeywords)
-            searchedSections: testSection,
-            foundSections: [],
-            curSearchBarValue: ""
-        )
+        self.initialState = .init()
         self.navigationController = navigationController
+        self.recentHistory = .init(value: UserdefaultsManager.getStringArray(.최신검색어히스토리))
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .findRecent(let responseText):
-            let list = [
-                "테스트",
-                "테스ㅌㅌㅌㅋ",
-                "ㅌㅌㅌㅌㅌ",
-                "텥ㅌㅌ트틑",
-                "테스트트트",
-                "테스트 같지만 - 테스트임"
-            ]
-            //            let list = UserdefaultsManager.getStringArray(.recentSearchedKeywords)
-            let find: Observable<Mutation> = Observable.from(list)
+            let find: Observable<Mutation> = Observable.from(UserdefaultsManager.getStringArray(.최신검색어히스토리))
                 .filter { $0.contains(responseText) }
                 .map { ($0, responseText) }
                 .map { SearchSectionItem.recentFound($0) }
@@ -100,7 +65,17 @@ final class SearchViewReactor: Reactor {
         case let .didSetCurSearchBarValue(curSearchBarValue):
             return .just(Mutation.setCurSearchBarValue(curSearchBarValue))
         case let .show(showType):
-            return Observable.just(Mutation.setShowViewType(showType))
+            let setShowViewType: Observable<Mutation> = Observable.just(
+                Mutation.setShowViewType(showType)
+            )
+            return setShowViewType
+        case let .setupSearchedSections(history):
+            let setSearchedSections: Observable<Mutation> = Observable.from(history)
+                .map { SearchSectionItem.recentSearched($0) }
+                .toArray().asObservable()
+                .map { [SearchSection.recentSearched($0)] }
+                .map { Mutation.setSearchedSections($0) }
+            return setSearchedSections
         }
     }
     
@@ -121,4 +96,5 @@ final class SearchViewReactor: Reactor {
             return newState
         }
     }
+    
 }

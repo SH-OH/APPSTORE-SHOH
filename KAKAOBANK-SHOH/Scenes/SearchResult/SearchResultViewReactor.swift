@@ -48,7 +48,6 @@ final class SearchResultViewReactor: Reactor {
                 .compactMap { $0.results }
                 .asObservable()
                 .map { Mutation.setCurResultList($0) }
-            
             return search
         case .createSections(let resultList):
             let now: Date = Date()
@@ -58,6 +57,7 @@ final class SearchResultViewReactor: Reactor {
                 .toArray().asObservable()
                 .map { [SearchSection.result($0)] }
                 .map { Mutation.setResultSections($0) }
+            
             return setSections
         }
     }
@@ -66,10 +66,21 @@ final class SearchResultViewReactor: Reactor {
         let setResponseText: Observable<Mutation> = searchViewReactor.curShowTypeRelay
             .filter { $0 == .검색결과화면 }
             .withLatestFrom(searchViewReactor.state.map { $0.curSearchBarValue })
+            .compactMap { $0 }
             .distinctUntilChanged()
             .map { Mutation.setResponseText($0)}
         
-        return Observable.merge(mutation, setResponseText)
+        let updateHistory: Observable<Mutation> = mutation
+            .flatMap({ [weak searchViewReactor] (mutation) -> Observable<Mutation> in
+                if case .setCurResultList = mutation {
+                    let updateList = UserdefaultsManager.getStringArray(.최신검색어히스토리)
+                    searchViewReactor?.recentHistory.accept(updateList)
+                }
+                return .just(mutation)
+            })
+        return Observable.merge(mutation,
+                                setResponseText,
+                                updateHistory)
     }
     
     func reduce(state: State, mutation: Mutation) -> State {

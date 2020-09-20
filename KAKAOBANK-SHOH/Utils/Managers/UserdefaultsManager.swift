@@ -10,7 +10,7 @@ import Foundation
 
 final class UserdefaultsManager {
     enum UserDefaultEnum: String {
-        case recentSearchedKeywords
+        case 최신검색어히스토리
     }
     
     class func getStringArray(_ key: UserDefaultEnum) -> [String] {
