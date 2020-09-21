@@ -116,7 +116,7 @@ final class SearchDetailViewController: BaseViewController, StoryboardView {
                 let makeItems: [VersionHistorySectionItem] = [
                     VersionHistorySectionItem(
                         version: state.version,
-                        ago: state.updateAgo,
+                        ago: state.updateDate.ago ?? "",
                         notes: state.releaseNotes
                     )
                 ]
@@ -155,9 +155,39 @@ final class SearchDetailViewController: BaseViewController, StoryboardView {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         reviewAllButton.rx.tap
+            .withLatestFrom(reactor.state)
+            .map({ (state) -> [ReviewAllSectionItem] in
+                // ReviewAll 정렬 확인을 위한 테스트 데이터 생성.
+                var items: [ReviewAllSectionItem] = []
+                for index in 0..<10 {
+                    let originRating: Double = Double.random(in: 0..<5)
+                    var ratingArray: [Double] = []
+                    for index in 0..<5 {
+                        var rating = originRating-Double(index)
+                        rating = rating <= 0 ? 0 : rating
+                        rating = rating >= 1 ? 1 : rating
+                        ratingArray.append(rating)
+                    }
+                    let item: ReviewAllSectionItem = ReviewAllSectionItem(
+                        averRating: state.ratingToDouble,
+                        averRatingCount: state.userRatingCount,
+                        writeReviewUrl: state.writeReviewUrl,
+                        sellerUrl: state.sellerUrl,
+                        title: "리뷰 제목 테스트 \(index)",
+                        updateDate: state.updateDate,
+                        reviewContents: state.description,
+                        rating: originRating,
+                        ratingArray: ratingArray
+                    )
+                    items.append(item)
+                }
+                return items
+            })
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { (_) in
-                print("osh - 평가 및 리뷰 모두 보기")
+            .subscribe(onNext: { (items) in
+                let vc = StoryboardType.ReviewAll.viewController(ReviewAllViewController.self)
+                vc.reactor = ReviewAllViewReactor(items: items)
+                reactor.searchViewReactor.navigationController.pushViewController(vc, animated: true)
             }).disposed(by: disposeBag)
         writeReviewButton.rx.tap
             .withLatestFrom(reactor.state.map { $0.writeReviewUrl })
@@ -196,7 +226,7 @@ final class SearchDetailViewController: BaseViewController, StoryboardView {
         contentsRatingMoreButton.rx.tap
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { (_) in
-                print("osh - 정보 호환성 더보기")
+                print("osh - 정보 연령 등급 더 알아보기")
             }).disposed(by: disposeBag)
         Observable.merge(
             supportAppButton.rx.tap.asObservable(),
@@ -281,7 +311,8 @@ final class SearchDetailViewController: BaseViewController, StoryboardView {
         reactor.state.map { $0.version }
             .bind(to: curVersionLabel.rx.text)
             .disposed(by: disposeBag)
-        reactor.state.map { $0.updateAgo }
+        reactor.state.map { $0.updateDate }
+            .map { $0.ago ?? "" }
             .bind(to: releaseAgoLabel.rx.text)
             .disposed(by: disposeBag)
         reactor.state.map { $0.releaseNotes }

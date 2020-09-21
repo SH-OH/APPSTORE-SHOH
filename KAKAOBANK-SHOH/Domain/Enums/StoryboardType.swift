@@ -14,6 +14,7 @@ enum StoryboardType: String {
     case SearchResult
     case SearchDetail
     case VersionHistory
+    case ReviewAll
     
     var initial: UIViewController {
         let storyboard = UIStoryboard.init(name: self.rawValue, bundle: .main)

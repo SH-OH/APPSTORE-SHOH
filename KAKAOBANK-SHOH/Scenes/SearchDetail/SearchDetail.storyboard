@@ -707,7 +707,7 @@
                                                     <constraint firstItem="Jq4-Kv-NQo" firstAttribute="leading" secondItem="xDm-NE-Y8d" secondAttribute="leading" id="E4T-ZO-uHd"/>
                                                     <constraint firstItem="OaO-u6-eep" firstAttribute="top" secondItem="wr5-qX-2a1" secondAttribute="bottom" id="JN0-2g-XbT"/>
                                                     <constraint firstItem="eBW-Ml-hQc" firstAttribute="top" secondItem="WzH-Ri-qqo" secondAttribute="bottom" id="Kee-IM-nXL"/>
-                                                    <constraint firstItem="rd1-Kq-Hi5" firstAttribute="top" secondItem="xQv-C0-Q4t" secondAttribute="top" constant="10" id="QE7-fT-ktY"/>
+                                                    <constraint firstItem="rd1-Kq-Hi5" firstAttribute="top" secondItem="AMR-cV-0f6" secondAttribute="top" constant="10" id="QE7-fT-ktY"/>
                                                     <constraint firstItem="IFG-oX-16W" firstAttribute="trailing" secondItem="Nmq-ex-69i" secondAttribute="trailing" id="TY2-qM-1xD"/>
                                                     <constraint firstItem="IFG-oX-16W" firstAttribute="leading" secondItem="Nmq-ex-69i" secondAttribute="leading" id="VIq-dt-mk7"/>
                                                     <constraint firstItem="ZjC-t5-e4M" firstAttribute="leading" secondItem="IFG-oX-16W" secondAttribute="leading" id="Vqe-nJ-Mir"/>
@@ -804,7 +804,7 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="290" height="145"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
-                                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DwH-zS-YtE" customClass="IBView" customModule="KAKAOBANK_SHOH" customModuleProvider="target">
+                                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DwH-zS-YtE" userLabel="layerView" customClass="IBView" customModule="KAKAOBANK_SHOH" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="290" height="145"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="세이프박스 개선요청 드립니다.!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mI0-Vb-B95">

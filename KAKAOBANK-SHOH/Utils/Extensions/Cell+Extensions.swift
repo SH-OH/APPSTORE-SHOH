@@ -39,4 +39,13 @@ extension UICollectionView {
             }
             return cell
     }
+    final func dequeue<View: UICollectionReusableView>(_ cellType: View.Type = View.self,
+                                                       kind: String,
+                                                       for ip: IndexPath) -> View
+        where View: Reusable {
+            guard let headerView = self.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: cellType.reuseIdentifier, for: ip) as? View else {
+                preconditionFailure("\(cellType)의 재사용 뷰 생성 실패")
+            }
+            return headerView
+    }
 }

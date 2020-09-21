@@ -35,7 +35,7 @@ final class SearchDetailViewReactor: Reactor {
         var genreName: String
         var contentAdvisoryRating: String
         var version: String
-        var updateAgo: String
+        var updateDate: Date
         var releaseNotes: String
         var screenShotSections: [SearchDetailSection]
         var description: String
@@ -170,7 +170,7 @@ final class SearchDetailViewReactor: Reactor {
             genreName: result.genres?.first ?? "",
             contentAdvisoryRating: result.contentAdvisoryRating ?? "",
             version: version,
-            updateAgo: updateDate.ago ?? "",
+            updateDate: updateDate,
             releaseNotes: result.releaseNotes ?? "",
             screenShotSections: screenShotSections,
             description: result.description ?? "",
@@ -204,10 +204,9 @@ final class SearchDetailViewReactor: Reactor {
             return .empty()
         case .writeReview(let url):
             _ = Observable.just(url)
-                .map { UIApplication.shared.canOpenURL($0) }
                 .observeOn(MainScheduler.instance)
-                .subscribe(onNext: { (canOpen) in
-                    if canOpen {
+                .subscribe(onNext: { (url) in
+                    if UIApplication.shared.canOpenURL(url) {
                         UIApplication.shared.open(url,
                                                   options: [:],
                                                   completionHandler: nil)
