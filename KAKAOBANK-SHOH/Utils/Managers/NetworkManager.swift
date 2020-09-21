@@ -151,15 +151,6 @@ class NetworkManager {
         newTask.resume()
         return newTask
     }
-    
-    private func urlEncode(_ text: String) -> String? {
-        // URL인코딩은 공백을+문자로 바꾸고
-        let replace = text.replacingOccurrences(of: " ", with: "+")
-        // 대시(-), 밑줄(_)및 별표(*)를 제외한 모든 문자가 인코딩
-        let char: CharacterSet = CharacterSet(charactersIn: ".-_*")
-        let encoded = replace.addingPercentEncoding(withAllowedCharacters: char.inverted)
-        return encoded
-    }
 }
 
 extension NetworkManager {

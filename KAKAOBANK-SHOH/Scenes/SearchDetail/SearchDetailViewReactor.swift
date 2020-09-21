@@ -10,11 +10,13 @@ import ReactorKit
 import Foundation
 import UIKit.UIDevice
 import DeviceKit
+import StoreKit
 
 final class SearchDetailViewReactor: Reactor {
     
     enum Action {
-        
+        case openWeb(URL)
+        case writeReview(URL)
     }
     
     enum Mutation {
@@ -25,6 +27,7 @@ final class SearchDetailViewReactor: Reactor {
         // UI
         var artworkUrl100: URL?
         var trackCensoredName: String
+        var ratingToDouble: Double
         var ratingArray: [Double]
         var userRatingCount: Int
         var artistName: String
@@ -47,6 +50,7 @@ final class SearchDetailViewReactor: Reactor {
         var trackViewUrl: URL?
         var sellerUrl: URL?
         var artistViewUrl: URL?
+        var writeReviewUrl: URL?
     }
     
     let initialState: State
@@ -56,8 +60,8 @@ final class SearchDetailViewReactor: Reactor {
         self.searchViewReactor = searchViewReactor
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
-        numberFormatter.minimumFractionDigits = 2
-        numberFormatter.maximumFractionDigits = 2
+        numberFormatter.minimumFractionDigits = 1
+        numberFormatter.maximumFractionDigits = 1
         
         let averageUserRatingForCurrentVersion = numberFormatter
             .string(from: (result.averageUserRatingForCurrentVersion ?? 0) as NSNumber) ?? "0"
@@ -151,6 +155,7 @@ final class SearchDetailViewReactor: Reactor {
         self.initialState = State(
             artworkUrl100: URL(string: result.artworkUrl100 ?? ""),
             trackCensoredName: result.trackCensoredName ?? "",
+            ratingToDouble: ratingToDouble,
             ratingArray: ratingArray,
             userRatingCount: result.userRatingCountForCurrentVersion ?? 0,
             artistName: result.artistName ?? "",
@@ -173,8 +178,38 @@ final class SearchDetailViewReactor: Reactor {
             ])],
             trackViewUrl: URL(string: result.trackViewUrl ?? ""),
             sellerUrl: URL(string: result.sellerUrl ?? ""),
-            artistViewUrl: URL(string: result.artistViewUrl ?? "")
+            artistViewUrl: URL(string: result.artistViewUrl ?? ""),
+            writeReviewUrl: URL(string: "itms-apps://itunes.apple.com/app/itunes-u/id\(result.trackId ?? 0)?ls=1&mt=8&action=write-review")
         )
+    }
+    
+    func mutate(action: Action) -> Observable<Mutation> {
+        switch action {
+        case .openWeb(let url):
+            _ = Observable.just(url)
+                .filter { UIApplication.shared.canOpenURL($0) }
+                .observeOn(MainScheduler.instance)
+                .subscribe(onNext: { (url) in
+                    UIApplication.shared.open(url,
+                                              options: [:],
+                                              completionHandler: nil)
+                })
+            return .empty()
+        case .writeReview(let url):
+            _ = Observable.just(url)
+                .map { UIApplication.shared.canOpenURL($0) }
+                .observeOn(MainScheduler.instance)
+                .subscribe(onNext: { (canOpen) in
+                    if canOpen {
+                        UIApplication.shared.open(url,
+                                                  options: [:],
+                                                  completionHandler: nil)
+                    } else {
+                        SKStoreReviewController.requestReview()
+                    }
+                })
+            return .empty()
+        }
     }
     
 }

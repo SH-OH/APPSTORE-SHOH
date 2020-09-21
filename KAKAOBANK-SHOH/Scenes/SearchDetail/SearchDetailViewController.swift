@@ -12,6 +12,17 @@ import RxDataSources
 
 final class SearchDetailViewController: BaseViewController, StoryboardView {
     
+    private var curIndex: CGFloat = 0
+    
+    // MARK: - Constraint
+    @IBOutlet private weak var newFeatureViewHeight: NSLayoutConstraint!
+    @IBOutlet private weak var descriptionViewHeight: NSLayoutConstraint!
+    /// 최소 height 440, 최대 510 (호환성: +30, 연령등급 +40)
+    @IBOutlet private weak var informationViewHeight: NSLayoutConstraint!
+    @IBOutlet private weak var supportedViewHeight: NSLayoutConstraint!
+    @IBOutlet private weak var contentsRatingViewHeight: NSLayoutConstraint!
+    
+    
     // 01.이름
     @IBOutlet private weak var trackImage: UIImageView!
     @IBOutlet private weak var trackNameLabel: UILabel!
@@ -35,14 +46,14 @@ final class SearchDetailViewController: BaseViewController, StoryboardView {
     @IBOutlet private weak var curVersionLabel: UILabel!
     @IBOutlet private weak var versionHistoryButton: UIButton!
     @IBOutlet private weak var releaseAgoLabel: UILabel!
-    @IBOutlet private weak var releaseNotesLabel: UITextView!
+    @IBOutlet private weak var releaseNotesTextView: UITextView!
     @IBOutlet private weak var notesMoreButton: UIButton!
     
     // 03.미리보기
     @IBOutlet private weak var screenShotsCV: UICollectionView!
     
     // 04.설명
-    @IBOutlet private weak var descriptionLabel: UITextView!
+    @IBOutlet private weak var descriptionTextView: UITextView!
     @IBOutlet private weak var descriptionMoreButton: UIButton!
     @IBOutlet private weak var sellerNameLabel: UILabel!
     @IBOutlet private weak var sellerAppsButton: UIButton!
@@ -57,7 +68,7 @@ final class SearchDetailViewController: BaseViewController, StoryboardView {
     @IBOutlet private weak var writeReviewButton: UIButton!
     @IBOutlet private weak var supportAppButton: UIButton!
     
-    // 07.정보 min height 440. max 510 (호환성: +30, 연령등급 +40)
+    // 07.정보
     @IBOutlet private weak var artistNameLabel: UILabel!
     @IBOutlet private weak var fileSizeLabel: UILabel!
     @IBOutlet private weak var categoryLabel: UILabel!
@@ -104,14 +115,28 @@ final class SearchDetailViewController: BaseViewController, StoryboardView {
                 print("osh - 탭 버전 기록")
             }).disposed(by: disposeBag)
         notesMoreButton.rx.tap
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { (_) in
-                print("osh - 새로운 기능 더 보기")
+            .compactMap { [weak releaseNotesTextView] in releaseNotesTextView }
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [
+                weak notesMoreButton,
+                weak newFeatureViewHeight,
+                updateTextHeight
+                ] (textView) in
+                updateTextHeight(textView,
+                                 notesMoreButton,
+                                 &newFeatureViewHeight)
             }).disposed(by: disposeBag)
         descriptionMoreButton.rx.tap
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { (_) in
-                print("osh - 설명 더 보기")
+            .compactMap { [weak descriptionTextView] in descriptionTextView }
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [
+                weak descriptionMoreButton,
+                weak descriptionViewHeight,
+                updateTextHeight
+                ] (textView) in
+                updateTextHeight(textView,
+                                 descriptionMoreButton,
+                                 &descriptionViewHeight)
             }).disposed(by: disposeBag)
         sellerAppsButton.rx.tap
             .observeOn(MainScheduler.instance)
@@ -124,44 +149,59 @@ final class SearchDetailViewController: BaseViewController, StoryboardView {
                 print("osh - 평가 및 리뷰 모두 보기")
             }).disposed(by: disposeBag)
         writeReviewButton.rx.tap
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { (_) in
-                print("osh - 리뷰 작성")
-            }).disposed(by: disposeBag)
-        supportAppButton.rx.tap
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { (_) in
-                print("osh - 앱 지원")
-            }).disposed(by: disposeBag)
-        contentsRatingDownButton.rx.tap
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { (_) in
-                print("osh - 정보 호환성 열기")
-            }).disposed(by: disposeBag)
+            .withLatestFrom(reactor.state.map { $0.writeReviewUrl })
+            .compactMap { $0 }
+            .map { Reactor.Action.writeReview($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
         supportedDownButton.rx.tap
             .compactMap { [weak supportedLabel] in supportedLabel }
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { (supportedLabel) in
-                print("osh - 정보 호환성 열기")
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [
+                weak supportedDownButton,
+                weak supportedViewHeight,
+                weak informationViewHeight,
+                updateInfoMoreByDown
+                ] (supportedLabel) in
+                updateInfoMoreByDown(supportedLabel,
+                                     supportedDownButton,
+                                     &supportedViewHeight,
+                                     &informationViewHeight)
             }).disposed(by: disposeBag)
-        
+        contentsRatingDownButton.rx.tap
+            .compactMap { [weak contentsRatingLabel02] in contentsRatingLabel02 }
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [
+                weak contentsRatingDownButton,
+                weak contentsRatingViewHeight,
+                weak informationViewHeight,
+                updateInfoMoreByDown
+                ] (labal) in
+                updateInfoMoreByDown(labal,
+                                     contentsRatingDownButton,
+                                     &contentsRatingViewHeight,
+                                     &informationViewHeight)
+            }).disposed(by: disposeBag)
         contentsRatingMoreButton.rx.tap
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { (_) in
                 print("osh - 정보 호환성 더보기")
             }).disposed(by: disposeBag)
-        descriptionMoreButton.rx.tap
+        Observable.merge(
+            supportAppButton.rx.tap.asObservable(),
+            developerWebButton.rx.tap.asObservable()
+        )
             .withLatestFrom(reactor.state.map { $0.sellerUrl })
             .compactMap { $0 }
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { (url) in
-                print("osh - 정보 개발자 웹 사이트 : \(url)")
-            }).disposed(by: disposeBag)
+            .map { Reactor.Action.openWeb($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
         privacyPolicyButton.rx.tap
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { (_) in
-                print("osh - 정보 개인정보")
-            }).disposed(by: disposeBag)
+            .map { "https://m.kakaobank.com/PrivacyPolicy;ctg=privacyManagementPolicy" }
+            .compactMap { URL(string: $0) }
+            .map { Reactor.Action.openWeb($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
         
         reactor.state.map { $0.artworkUrl100 }
             .compactMap { $0 }
@@ -172,6 +212,15 @@ final class SearchDetailViewController: BaseViewController, StoryboardView {
             .disposed(by: disposeBag)
         reactor.state.map { $0.artistName }
             .bind(to: subNameLabel.rx.text)
+            .disposed(by: disposeBag)
+        let sharedRatingToDouble = reactor.state.map { $0.ratingToDouble }
+            .map { "\($0)" }
+            .share(replay: 1)
+        sharedRatingToDouble
+            .bind(to: ratingLabel01.rx.text)
+            .disposed(by: disposeBag)
+        sharedRatingToDouble
+            .bind(to: ratingLabel02.rx.text)
             .disposed(by: disposeBag)
         
         let sharedRating = reactor.state.map { $0.ratingArray }
@@ -225,11 +274,14 @@ final class SearchDetailViewController: BaseViewController, StoryboardView {
             .bind(to: releaseAgoLabel.rx.text)
             .disposed(by: disposeBag)
         reactor.state.map { $0.releaseNotes }
-            .bind(to: releaseNotesLabel.rx.text)
+            .bind(to: releaseNotesTextView.rx.text)
             .disposed(by: disposeBag)
         
+        reactor.state.map { $0.artistName }
+            .bind(to: artistNameLabel.rx.text)
+            .disposed(by: disposeBag)
         reactor.state.map { $0.description }
-            .bind(to: descriptionLabel.rx.text)
+            .bind(to: descriptionTextView.rx.text)
             .disposed(by: disposeBag)
         reactor.state.map { $0.sellerName }
             .bind(to: sellerNameLabel.rx.text)
@@ -266,6 +318,38 @@ final class SearchDetailViewController: BaseViewController, StoryboardView {
             .bind(to: reviewCV.rx.items(dataSource: dataSource()))
             .disposed(by: disposeBag)
     }
+    
+    private func updateTextHeight(_ textView: UITextView?,
+                                  _ actionButton: UIButton?,
+                                  _ heightConstraint: inout NSLayoutConstraint?) {
+        let height: CGFloat = textView?.intrinsicContentSize.height ?? 0.0
+        let increase: CGFloat = height - (textView?.bounds.height ?? 0.0)
+        UIView.animate(withDuration: 0.3) { [weak heightConstraint] in
+            heightConstraint?.constant += increase
+            actionButton?.alpha = 0
+            self.view.layoutIfNeeded()
+        }
+    }
+    private func updateInfoMoreByDown(_ label: UILabel?,
+                                      _ downButton: UIButton?,
+                                      _ parentViewHeightConstraint: inout NSLayoutConstraint?,
+                                      _ superViewHeightConstraint: inout NSLayoutConstraint?) {
+        var height: CGFloat = label?.intrinsicContentSize.height ?? 0.0
+        if downButton == contentsRatingDownButton {
+            height = 40
+            self.contentsRatingMoreButton.isHidden = false
+        }
+        label?.isHidden = false
+        UIView.animate(withDuration: 0.3) {
+            [weak parentViewHeightConstraint, weak superViewHeightConstraint] in
+            downButton?.alpha = 0
+            label?.alpha = 1
+            self.contentsRatingMoreButton.alpha = 1
+            parentViewHeightConstraint?.constant += height
+            superViewHeightConstraint?.constant += height
+            self.view.layoutIfNeeded()
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -282,6 +366,16 @@ extension SearchDetailViewController: UICollectionViewDelegateFlowLayout {
         default:
             return .zero
         }
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
     }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -305,4 +399,52 @@ extension SearchDetailViewController {
             }
         })
     }
+    
+    
 }
+
+//extension SearchDetailViewController: UIScrollViewDelegate {
+//    func scrollViewWillEndDragging(_ scrollView: UIScrollView,
+//                                   withVelocity velocity: CGPoint,
+//                                   targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//
+//        print("contentOffset.x : \(scrollView.contentOffset.x), pointee.x : \(targetContentOffset.pointee.x)")
+//
+//        let layout = self.screenShotsCV.collectionViewLayout as? UICollectionViewFlowLayout
+//        let cellSpace: CGFloat = (layout?.itemSize.width ?? 0) + (layout?.minimumLineSpacing ?? 0)
+//
+//        var offset = targetContentOffset.pointee
+//        let index = (offset.x + scrollView.contentInset.left) / cellSpace
+//        var roundIndex = round(index)
+//
+//        switch scrollView.contentOffset.x {
+//        case ..<targetContentOffset.pointee.x:
+//            roundIndex = ceil(index)
+//        case targetContentOffset.pointee.x:
+//            roundIndex = round(index)
+//        case targetContentOffset.pointee.x...:
+//            roundIndex = floor(index)
+//        default:
+//            roundIndex = round(index)
+//        }
+//
+//        switch curIndex {
+//        case ..<roundIndex:
+//            curIndex += 1
+//            roundIndex = curIndex
+//        case roundIndex...:
+//            if curIndex == roundIndex { break }
+//            curIndex -= 1
+//            roundIndex = curIndex
+//        default:
+//            break
+//        }
+//        let x = roundIndex * cellSpace - scrollView.contentInset.left
+//        offset = CGPoint(x: x, y: -scrollView.contentInset.top)
+//        targetContentOffset.pointee = offset
+//
+//    }
+//}
+
+
+

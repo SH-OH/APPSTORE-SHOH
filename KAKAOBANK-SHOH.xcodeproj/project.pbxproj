@@ -63,7 +63,6 @@
 		CB7FEB292517B01800E2ECA4 /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = CB7FEB282517B01800E2ECA4 /* DeviceKit */; };
 		CB7FEB2B2517C6CE00E2ECA4 /* SearchDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7FEB2A2517C6CE00E2ECA4 /* SearchDetailCell.swift */; };
 		CB7FEB2F2517C77500E2ECA4 /* SearchDetailSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7FEB2E2517C77500E2ECA4 /* SearchDetailSection.swift */; };
-		CB7FEB342517F1E500E2ECA4 /* BaseWebView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB7FEB332517F1E500E2ECA4 /* BaseWebView.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,7 +134,6 @@
 		CB7FEB1C251794B500E2ECA4 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		CB7FEB2A2517C6CE00E2ECA4 /* SearchDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailCell.swift; sourceTree = "<group>"; };
 		CB7FEB2E2517C77500E2ECA4 /* SearchDetailSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailSection.swift; sourceTree = "<group>"; };
-		CB7FEB332517F1E500E2ECA4 /* BaseWebView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BaseWebView.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -359,7 +357,6 @@
 			children = (
 				CB1CE0E425148BDF00508BBF /* BaseViewController.swift */,
 				CB1CE10325150CB800508BBF /* IBView.swift */,
-				CB7FEB322517F1C500E2ECA4 /* WebView */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -398,14 +395,6 @@
 				CB1CE10125150A6200508BBF /* SearchResultViewReactor.swift */,
 			);
 			path = SearchResult;
-			sourceTree = "<group>";
-		};
-		CB7FEB322517F1C500E2ECA4 /* WebView */ = {
-			isa = PBXGroup;
-			children = (
-				CB7FEB332517F1E500E2ECA4 /* BaseWebView.storyboard */,
-			);
-			path = WebView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -539,7 +528,6 @@
 				CB1179F0251687F600D9A410 /* SearchDetail.storyboard in Resources */,
 				CB1CE08025147A1300508BBF /* LaunchScreen.storyboard in Resources */,
 				CB1CE07D25147A1300508BBF /* Assets.xcassets in Resources */,
-				CB7FEB342517F1E500E2ECA4 /* BaseWebView.storyboard in Resources */,
 				CB1CE07B25147A1000508BBF /* Main.storyboard in Resources */,
 				CB1CE0DE251489CA00508BBF /* Search.storyboard in Resources */,
 			);

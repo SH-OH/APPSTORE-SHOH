@@ -19,7 +19,6 @@ final class SearchResultCellReactor: Reactor {
         let ratingArray: [Double]
         let userRatingCount: String?
         let screenshotUrls: [URL]?
-        let updateDate: Date
     }
     
     enum Action {

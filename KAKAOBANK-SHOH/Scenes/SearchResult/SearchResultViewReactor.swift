@@ -8,6 +8,7 @@
 
 import ReactorKit
 import Foundation
+import RxCocoa
 
 final class SearchResultViewReactor: Reactor {
     enum Action {
@@ -17,18 +18,21 @@ final class SearchResultViewReactor: Reactor {
     
     enum Mutation {
         case setResponseText(String)
+        case setSearchedText(String)
         case setCurResultList([SearchResult])
         case setResultSections([SearchSection])
     }
     
     struct State {
         var responseText: String = ""
+        var searchedText: String = ""
         var curResultList: [SearchResult]?
         var resultSections: [SearchSection] = []
     }
     
     let initialState: State
     let searchViewReactor: SearchViewReactor
+    var searchedText: String = ""
     
     init(searchViewReactor: SearchViewReactor) {
         self.initialState = .init()
@@ -43,16 +47,19 @@ final class SearchResultViewReactor: Reactor {
         switch action {
         case .search(let responseText):
             let search: Observable<Mutation> = Observable.just(responseText)
-                .filter { !$0.isEmpty }
+                .filter { $0 != self.searchedText }
+                .do(onNext: { (response) in
+                    self.searchedText = response
+                })
                 .flatMap { SearchUseCase().search($0) }
                 .compactMap { $0.results }
                 .asObservable()
                 .map { Mutation.setCurResultList($0) }
+            
             return search
         case .createSections(let resultList):
-            let now: Date = Date()
             let setSections: Observable<Mutation> = Observable.from(resultList)
-                .compactMap { [weak self] in self?.convertModel($0, now: now)}
+                .compactMap { [weak self] in self?.convertModel($0)}
                 .map { SearchSectionItem.result($0) }
                 .toArray().asObservable()
                 .map { [SearchSection.result($0)] }
@@ -71,13 +78,14 @@ final class SearchResultViewReactor: Reactor {
             .map { Mutation.setResponseText($0)}
         
         let updateHistory: Observable<Mutation> = mutation
-            .flatMap({ [weak searchViewReactor] (mutation) -> Observable<Mutation> in
+            .flatMap ({ [weak searchViewReactor] (mutation) -> Observable<Mutation> in
                 if case .setCurResultList = mutation {
                     let updateList = UserdefaultsManager.getStringArray(.최신검색어히스토리)
                     searchViewReactor?.recentHistory.accept(updateList)
                 }
-                return .just(mutation)
+                return .empty()
             })
+        
         return Observable.merge(mutation,
                                 setResponseText,
                                 updateHistory)
@@ -95,12 +103,15 @@ final class SearchResultViewReactor: Reactor {
         case .setResultSections(let resultSections):
             newState.resultSections = resultSections
             return newState
+        case .setSearchedText(let searchedText):
+            newState.searchedText = searchedText
+            return newState
         }
     }
 }
 
 extension SearchResultViewReactor {
-    private func convertModel(_ result: SearchResult, now: Date) -> SearchResultCellReactor.Data {
+    private func convertModel(_ result: SearchResult) -> SearchResultCellReactor.Data {
         let userCount = result.userRatingCountForCurrentVersion ?? 0
         
         let screenshotUrls = result.screenshotUrls?
@@ -129,8 +140,7 @@ extension SearchResultViewReactor {
             description: result.description,
             ratingArray: ratingArray,
             userRatingCount: userCount.userCountToSpell,
-            screenshotUrls: screenshotUrls,
-            updateDate: now
+            screenshotUrls: screenshotUrls
         )
     }
 }

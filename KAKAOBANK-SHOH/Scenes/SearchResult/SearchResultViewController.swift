@@ -22,7 +22,7 @@ final class SearchResultViewController: BaseViewController, StoryboardView {
             .map { $0.item }
             .withLatestFrom(reactor.state.map { $0.curResultList }, resultSelector: { $1?[safe: $0] })
             .compactMap { $0 }
-            .observeOn(MainScheduler.asyncInstance)
+            .observeOn(MainScheduler.instance)
             .subscribe(onNext: { (result) in
                 let vc = StoryboardType.SearchDetail.viewController(SearchDetailViewController.self)
                 vc.reactor = SearchDetailViewReactor(result: result,
@@ -31,21 +31,21 @@ final class SearchResultViewController: BaseViewController, StoryboardView {
             }).disposed(by: disposeBag)
             
         reactor.state.map { $0.responseText }
+            .filter { !$0.isEmpty }
             .distinctUntilChanged()
             .map { SearchResultViewReactor.Action.search(reponseText: $0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.curResultList }
-            .compactMap { $0 }
             .distinctUntilChanged()
+            .compactMap { $0 }
             .map { Reactor.Action.createSections($0) }
-            .observeOn(MainScheduler.asyncInstance)
+            .observeOn(MainScheduler.instance)
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.resultSections }
-            .distinctUntilChanged()
             .bind(to: collectionView.rx.items(dataSource: dataSource(reactor.searchViewReactor.navigationController)))
             .disposed(by: disposeBag)
     }

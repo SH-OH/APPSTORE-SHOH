@@ -27,7 +27,7 @@ enum SearchSectionItem {
         case let .recentSearched(searched):
             hasher.combine(searched)
         case let .result(reactorData):
-            hasher.combine(reactorData.updateDate)
+            hasher.combine(reactorData.trackName)
         }
     }
 }
