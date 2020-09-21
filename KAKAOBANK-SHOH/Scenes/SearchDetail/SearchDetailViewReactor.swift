@@ -152,6 +152,13 @@ final class SearchDetailViewReactor: Reactor {
             languages = languageList.first ?? ""
         }
         
+        var artistViewUrlString = result.artistViewUrl ?? ""
+        var artistViewUrl = URL(string: artistViewUrlString)
+        if let query = artistViewUrl?.query {
+            artistViewUrlString = artistViewUrlString.replacingOccurrences(of: "?\(query)", with: "")
+        }
+        artistViewUrl = URL(string: artistViewUrlString)
+        
         self.initialState = State(
             artworkUrl100: URL(string: result.artworkUrl100 ?? ""),
             trackCensoredName: result.trackCensoredName ?? "",
@@ -178,7 +185,7 @@ final class SearchDetailViewReactor: Reactor {
             ])],
             trackViewUrl: URL(string: result.trackViewUrl ?? ""),
             sellerUrl: URL(string: result.sellerUrl ?? ""),
-            artistViewUrl: URL(string: result.artistViewUrl ?? ""),
+            artistViewUrl: artistViewUrl,
             writeReviewUrl: URL(string: "itms-apps://itunes.apple.com/app/itunes-u/id\(result.trackId ?? 0)?ls=1&mt=8&action=write-review")
         )
     }

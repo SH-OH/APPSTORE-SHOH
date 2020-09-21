@@ -149,10 +149,11 @@ final class SearchDetailViewController: BaseViewController, StoryboardView {
                                  &descriptionViewHeight)
             }).disposed(by: disposeBag)
         sellerAppsButton.rx.tap
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { (_) in
-                print("osh - 설명 개발자의 앱 더 보기")
-            }).disposed(by: disposeBag)
+            .withLatestFrom(reactor.state.map { $0.artistViewUrl })
+            .compactMap { $0 }
+            .map { Reactor.Action.openWeb($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
         reviewAllButton.rx.tap
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { (_) in
