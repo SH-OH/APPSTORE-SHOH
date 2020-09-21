@@ -110,9 +110,19 @@ final class SearchDetailViewController: BaseViewController, StoryboardView {
                 reactor.searchViewReactor.navigationController.present(vc, animated: true, completion: nil)
             }).disposed(by: disposeBag)
         versionHistoryButton.rx.tap
+            .withLatestFrom(reactor.state)
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { (_) in
-                print("osh - 탭 버전 기록")
+            .subscribe(onNext: { (state) in
+                let makeItems: [VersionHistorySectionItem] = [
+                    VersionHistorySectionItem(
+                        version: state.version,
+                        ago: state.updateAgo,
+                        notes: state.releaseNotes
+                    )
+                ]
+                let vc = StoryboardType.VersionHistory.viewController(VersionHistoryViewController.self)
+                vc.reactor = VersionHistoryViewReactor(items: makeItems)
+                reactor.searchViewReactor.navigationController.pushViewController(vc, animated: true)
             }).disposed(by: disposeBag)
         notesMoreButton.rx.tap
             .compactMap { [weak releaseNotesTextView] in releaseNotesTextView }
@@ -402,49 +412,3 @@ extension SearchDetailViewController {
     
     
 }
-
-//extension SearchDetailViewController: UIScrollViewDelegate {
-//    func scrollViewWillEndDragging(_ scrollView: UIScrollView,
-//                                   withVelocity velocity: CGPoint,
-//                                   targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-//
-//        print("contentOffset.x : \(scrollView.contentOffset.x), pointee.x : \(targetContentOffset.pointee.x)")
-//
-//        let layout = self.screenShotsCV.collectionViewLayout as? UICollectionViewFlowLayout
-//        let cellSpace: CGFloat = (layout?.itemSize.width ?? 0) + (layout?.minimumLineSpacing ?? 0)
-//
-//        var offset = targetContentOffset.pointee
-//        let index = (offset.x + scrollView.contentInset.left) / cellSpace
-//        var roundIndex = round(index)
-//
-//        switch scrollView.contentOffset.x {
-//        case ..<targetContentOffset.pointee.x:
-//            roundIndex = ceil(index)
-//        case targetContentOffset.pointee.x:
-//            roundIndex = round(index)
-//        case targetContentOffset.pointee.x...:
-//            roundIndex = floor(index)
-//        default:
-//            roundIndex = round(index)
-//        }
-//
-//        switch curIndex {
-//        case ..<roundIndex:
-//            curIndex += 1
-//            roundIndex = curIndex
-//        case roundIndex...:
-//            if curIndex == roundIndex { break }
-//            curIndex -= 1
-//            roundIndex = curIndex
-//        default:
-//            break
-//        }
-//        let x = roundIndex * cellSpace - scrollView.contentInset.left
-//        offset = CGPoint(x: x, y: -scrollView.contentInset.top)
-//        targetContentOffset.pointee = offset
-//
-//    }
-//}
-
-
-

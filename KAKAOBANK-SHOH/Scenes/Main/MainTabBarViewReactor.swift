@@ -12,8 +12,7 @@ final class MainTabBarViewReactor: Reactor {
     
     typealias Action = NoAction
     
-    enum Mutation {
-    }
+    typealias Mutation = NoMutation
     
     struct State {
     }

@@ -7,7 +7,6 @@
 //
 
 import UIKit.UICollectionViewCell
-import RxSwift
 
 final class SearchDetailCell: UICollectionViewCell, Reusable {
     

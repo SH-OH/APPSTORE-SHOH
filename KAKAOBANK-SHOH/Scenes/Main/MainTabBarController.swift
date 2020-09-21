@@ -29,6 +29,8 @@ class MainTabBarController: UITabBarController, StoryboardView {
             return UINavigationController(rootViewController: vc).then {
                 $0.navigationBar.prefersLargeTitles = true
                 $0.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
+                $0.navigationBar.barTintColor = .white
+                $0.navigationBar.shadowImage = UIImage()
             }
         }
         search.reactor = SearchViewReactor(navigationController: search.navigationController!)
@@ -36,6 +38,5 @@ class MainTabBarController: UITabBarController, StoryboardView {
     }
     
     func bind(reactor: MainTabBarViewReactor) {
-        
     }
 }

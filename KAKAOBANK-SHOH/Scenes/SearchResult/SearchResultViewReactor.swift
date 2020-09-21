@@ -83,7 +83,7 @@ final class SearchResultViewReactor: Reactor {
                     let updateList = UserdefaultsManager.getStringArray(.최신검색어히스토리)
                     searchViewReactor?.recentHistory.accept(updateList)
                 }
-                return .empty()
+                return .just(mutation)
             })
         
         return Observable.merge(mutation,
