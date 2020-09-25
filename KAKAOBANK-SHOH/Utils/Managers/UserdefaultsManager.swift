@@ -9,21 +9,35 @@
 import Foundation
 
 final class UserdefaultsManager {
-    enum UserDefaultEnum: String {
-        case 최신검색어히스토리
+    enum UserDefaultEnum {
+        case 최신검색어히스토리([String] = [])
+        
+        var name: String {
+            let name: String = String(
+                "\(self)".prefix(while: { $0 != "(" })
+            )
+            return name
+        }
+        
+        var value: Any {
+            switch self {
+            case .최신검색어히스토리(let value):
+                return value
+            }
+        }
     }
     
     class func getStringArray(_ key: UserDefaultEnum) -> [String] {
-        return UserDefaults.standard.stringArray(forKey: key.rawValue) ?? []
+        return UserDefaults.standard.stringArray(forKey: key.name) ?? []
     }
     
-    class func setValue(_ key: UserDefaultEnum, value: Any?) {
+    class func setValue(_ key: UserDefaultEnum) {
         let userDefaults = UserDefaults.standard
-        userDefaults.set(value, forKey: key.rawValue)
+        userDefaults.set(key.value, forKey: key.name)
         userDefaults.synchronize()
     }
     
     class func removeKey(_ key: UserDefaultEnum) {
-        UserDefaults.standard.removeObject(forKey: key.rawValue)
+        UserDefaults.standard.removeObject(forKey: key.name)
     }
 }

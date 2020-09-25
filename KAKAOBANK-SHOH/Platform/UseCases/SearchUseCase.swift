@@ -19,10 +19,11 @@ final class SearchUseCase {
                                              urlString: APIDomain.search.url,
                                              parameters: makeParam)
             .do(onSuccess: { (_) in
-                var list = UserdefaultsManager.getStringArray(.최신검색어히스토리)
+                
+                var list = UserdefaultsManager.getStringArray(.최신검색어히스토리())
                 if !list.contains(term) {
                     list.append(term)
-                    UserdefaultsManager.setValue(.최신검색어히스토리, value: list)
+                    UserdefaultsManager.setValue(.최신검색어히스토리(list))
                 }
             })
     }
