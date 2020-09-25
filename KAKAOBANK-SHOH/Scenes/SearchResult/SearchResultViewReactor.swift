@@ -80,7 +80,7 @@ final class SearchResultViewReactor: Reactor {
         let updateHistory: Observable<Mutation> = mutation
             .flatMap ({ [weak searchViewReactor] (mutation) -> Observable<Mutation> in
                 if case .setCurResultList = mutation {
-                    let updateList = UserdefaultsManager.getStringArray(.최신검색어히스토리)
+                    let updateList = UserdefaultsManager.getStringArray(.최신검색어히스토리())
                     searchViewReactor?.recentHistory.accept(updateList)
                 }
                 return .just(mutation)

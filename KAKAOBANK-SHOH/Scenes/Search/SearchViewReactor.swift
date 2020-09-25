@@ -46,13 +46,13 @@ final class SearchViewReactor: Reactor {
     init(navigationController: UINavigationController) {
         self.initialState = .init()
         self.navigationController = navigationController
-        self.recentHistory = .init(value: UserdefaultsManager.getStringArray(.최신검색어히스토리))
+        self.recentHistory = .init(value: UserdefaultsManager.getStringArray(.최신검색어히스토리()))
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .findRecent(let responseText):
-            let find: Observable<Mutation> = Observable.from(UserdefaultsManager.getStringArray(.최신검색어히스토리))
+            let find: Observable<Mutation> = Observable.from(UserdefaultsManager.getStringArray(.최신검색어히스토리()))
                 .filter { $0.contains(responseText) }
                 .map { ($0, responseText) }
                 .map { SearchSectionItem.recentFound($0) }
