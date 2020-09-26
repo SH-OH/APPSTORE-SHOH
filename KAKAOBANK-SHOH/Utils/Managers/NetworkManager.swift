@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import UIKit.UIView
 
-class NetworkManager {
+final class NetworkManager {
     
     enum HTTPMethod {
         case get
@@ -18,8 +18,10 @@ class NetworkManager {
     }
     
     enum Queue {
-        static let defaultQueue: DispatchQueue = DispatchQueue(label: "queue.NetworkManager.default", qos: .utility)
-        static let imageQueue: DispatchQueue = DispatchQueue(label: "queue.NetworkManager.imageCache", qos: .utility)
+        static let defaultQueue: DispatchQueue = DispatchQueue(label: "queue.NetworkManager.default",
+                                                               qos: .utility)
+        static let imageQueue: DispatchQueue = DispatchQueue(label: "queue.NetworkManager.imageCache",
+                                                             qos: .utility)
     }
     
     static let shared = NetworkManager()
@@ -27,8 +29,6 @@ class NetworkManager {
     var timeout: Double = 20
     
     private(set) var session: URLSession
-    
-    private let cache: NSCache<NSString, UIImage> = .init()
     
     private init() {
         self.session = .shared
@@ -85,9 +85,10 @@ class NetworkManager {
         }
     }
     
-    func retrieveImage(_ url: URL, queue: DispatchQueue = Queue.imageQueue) -> Single<UIImage> {
+    func retrieveImage(_ url: URL,
+                       queue: DispatchQueue = Queue.imageQueue) -> Single<UIImage> {
         return Single<UIImage>.create { (observer) -> Disposable in
-            if let cachedImage = self.getImage(url.absoluteString) {
+            if let cachedImage = ImageCacheManager.shared.getImage(url.absoluteString) {
                 DispatchQueue.main.async {
                     observer(.success(cachedImage))
                 }
@@ -105,9 +106,8 @@ class NetworkManager {
                         }
                         return
                     }
-                    
                     DispatchQueue.main.async {
-                        self.setImage(url.absoluteString, image: image)
+                        ImageCacheManager.shared.setImage(url.absoluteString, image: image)
                         observer(.success(image))
                     }
                 case .failure(let error):
@@ -124,10 +124,10 @@ class NetworkManager {
     
     @discardableResult
     private func performDataTask(_ request: URLRequest,
-                 method: HTTPMethod = .get,
-                 parameters: [String: Any]? = nil,
-                 queue: DispatchQueue = Queue.defaultQueue,
-                 completion: @escaping (Swift.Result<Data, Error>) -> ()) -> URLSessionDataTask {
+                                 method: HTTPMethod = .get,
+                                 parameters: [String: Any]? = nil,
+                                 queue: DispatchQueue = Queue.defaultQueue,
+                                 completion: @escaping (Swift.Result<Data, Error>) -> ()) -> URLSessionDataTask {
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
         }
@@ -150,14 +150,5 @@ class NetworkManager {
         }
         newTask.resume()
         return newTask
-    }
-}
-
-extension NetworkManager {
-    func setImage(_ key: String, image: UIImage) {
-        self.cache.setObject(image, forKey: key as NSString)
-    }
-    func getImage(_ key: String) -> UIImage? {
-        return self.cache.object(forKey: key as NSString)
     }
 }
