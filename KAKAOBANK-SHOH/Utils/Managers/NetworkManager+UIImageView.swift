@@ -13,6 +13,7 @@ import RxCocoa
 extension Reactive where Base: UIImageView {
     var setImage: Binder<URL> {
         return Binder(base) { imageView, url in
+            self.base.image = nil
             _ = NetworkManager.shared.retrieveImage(url)
                 .subscribe(onSuccess: { (image) in
                     self.base.image = image

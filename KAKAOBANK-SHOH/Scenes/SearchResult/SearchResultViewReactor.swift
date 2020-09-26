@@ -14,6 +14,7 @@ final class SearchResultViewReactor: Reactor {
     enum Action {
         case search(reponseText: String)
         case createSections([SearchResult])
+        case clear
     }
     
     enum Mutation {
@@ -48,8 +49,8 @@ final class SearchResultViewReactor: Reactor {
         case .search(let responseText):
             let search: Observable<Mutation> = Observable.just(responseText)
                 .filter { $0 != self.searchedText }
-                .do(onNext: { (response) in
-                    self.searchedText = response
+                .do(onNext: { [weak self] (response) in
+                    self?.searchedText = response
                 })
                 .flatMap { SearchUseCase().search($0) }
                 .compactMap { $0.results }
@@ -66,6 +67,8 @@ final class SearchResultViewReactor: Reactor {
                 .map { Mutation.setResultSections($0) }
             
             return setSections
+        case .clear:
+            return .just(Mutation.setCurResultList([]))
         }
     }
     
