@@ -64,57 +64,20 @@ final class NetworkManager {
                                             method: method,
                                             parameters: parameters,
                                             queue: queue) { (result) in
-                switch result {
-                case .success(let data):
-                    do {
-                        let json = try JSONDecoder().decode(T.self, from: data)
-                        observer(.success(json))
-                        print("success : \(data)")
-                    } catch {
-                        observer(.error(error))
-                        print("parsing error : \(error)")
-                    }
-                case .failure(let error):
-                    observer(.error(error))
-                    print("failure error : \(error)")
-                }
-            }
-            return Disposables.create {
-                task.cancel()
-            }
-        }
-    }
-    
-    func retrieveImage(_ url: URL,
-                       queue: DispatchQueue = Queue.imageQueue) -> Single<UIImage> {
-        return Single<UIImage>.create { (observer) -> Disposable in
-            if let cachedImage = ImageCacheManager.shared.getImage(url.absoluteString) {
-                DispatchQueue.main.async {
-                    observer(.success(cachedImage))
-                }
-                return Disposables.create()
-            }
-            let request = URLRequest(url: url,
-                                     timeoutInterval: self.timeout)
-            let task = self.performDataTask(request) { (result) in
-                switch result {
-                case .success(let data):
-                    guard let image = UIImage(data: data) else {
-                        let _error = ErrorHandler.check(nil)
-                        DispatchQueue.main.async {
-                            observer(.error(_error))
-                        }
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        ImageCacheManager.shared.setImage(url.absoluteString, image: image)
-                        observer(.success(image))
-                    }
-                case .failure(let error):
-                    DispatchQueue.main.async {
-                        observer(.error(error))
-                    }
-                }
+                                                switch result {
+                                                case .success(let data):
+                                                    do {
+                                                        let json = try JSONDecoder().decode(T.self, from: data)
+                                                        observer(.success(json))
+                                                        print("success : \(data)")
+                                                    } catch {
+                                                        observer(.error(error))
+                                                        print("parsing error : \(error)")
+                                                    }
+                                                case .failure(let error):
+                                                    observer(.error(error))
+                                                    print("failure error : \(error)")
+                                                }
             }
             return Disposables.create {
                 task.cancel()
@@ -150,5 +113,48 @@ final class NetworkManager {
         }
         newTask.resume()
         return newTask
+    }
+}
+
+// MARK: - RetrieveImage
+extension NetworkManager {
+    func retrieveImage(_ url: URL,
+                       queue: DispatchQueue = Queue.imageQueue) -> Single<UIImage> {
+        return Single<UIImage>.create { (observer) -> Disposable in
+            var task: URLSessionDataTask?
+            ImageCacheManager.shared.getImage(url.absoluteString, completion: { cachedImage in
+                if let cachedImage = cachedImage {
+                    DispatchQueue.main.async {
+                        observer(.success(cachedImage))
+                    }
+                } else {
+                    let request = URLRequest(url: url,
+                                             timeoutInterval: self.timeout)
+                    task = self.performDataTask(request) { (result) in
+                        switch result {
+                        case .success(let data):
+                            guard let image = UIImage(data: data) else {
+                                let _error = ErrorHandler.check(nil)
+                                DispatchQueue.main.async {
+                                    observer(.error(_error))
+                                }
+                                return
+                            }
+                            DispatchQueue.main.async {
+                                ImageCacheManager.shared.setImage(url.absoluteString, image: image)
+                                observer(.success(image))
+                            }
+                        case .failure(let error):
+                            DispatchQueue.main.async {
+                                observer(.error(error))
+                            }
+                        }
+                    }
+                }
+            })
+            return Disposables.create {
+                task?.cancel()
+            }
+        }
     }
 }

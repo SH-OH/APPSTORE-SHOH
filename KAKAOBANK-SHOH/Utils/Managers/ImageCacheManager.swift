@@ -22,13 +22,17 @@ final class ImageCacheManager {
                                      qos: .utility)
     }
     
-    func getImage(_ key: String) -> UIImage? {
-        return self.cache.object(forKey: key as NSString)
+    func getImage(_ key: String, completion: @escaping ((UIImage?) -> Void)) {
+        ioQueue.async { [weak cache] in
+            let completionWrapper = CompletionWrapper<UIImage?>(completion: completion, defaultValue: nil)
+            let getImage: UIImage? = cache?.object(forKey: key as NSString)
+            completionWrapper.result(getImage)
+        }
     }
     
     func setImage(_ key: String, image: UIImage) {
-        ioQueue.async {
-            self.cache.setObject(image, forKey: key as NSString)
+        ioQueue.async { [weak cache] in
+            cache?.setObject(image, forKey: key as NSString)
         }
     }
 }
