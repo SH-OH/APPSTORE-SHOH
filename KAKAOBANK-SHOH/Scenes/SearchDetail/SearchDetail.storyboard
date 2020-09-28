@@ -28,7 +28,7 @@
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aKC-Ht-okf" customClass="IBImageView" customModule="KAKAOBANK_SHOH" customModuleProvider="target">
                                                         <rect key="frame" x="15" y="10" width="100" height="100"/>
-                                                        <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="100" id="VzX-bv-Fel"/>
                                                             <constraint firstAttribute="width" constant="100" id="qAg-Xy-uHY"/>
@@ -367,7 +367,7 @@
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="W04-2M-cwH" customClass="IBImageView" customModule="KAKAOBANK_SHOH" customModuleProvider="target">
                                                                             <rect key="frame" x="-23" y="-24" width="196" height="348"/>
-                                                                            <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="348" id="mLl-ac-Luc"/>
                                                                                 <constraint firstAttribute="width" secondItem="W04-2M-cwH" secondAttribute="height" multiplier="392:696" id="u3J-lN-scV"/>
