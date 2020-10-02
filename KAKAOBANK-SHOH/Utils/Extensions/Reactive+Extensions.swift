@@ -17,3 +17,12 @@ extension Reactive where Base: UIImageView {
         }
     }
 }
+
+extension Reactive where Base: UICollectionView {
+    var isHiddenBackgroundView: Binder<Bool> {
+        return Binder(base) { collectionView, isHidden in
+            guard let backgroundView = collectionView.backgroundView else { return }
+            backgroundView.isHidden = isHidden
+        }
+    }
+}

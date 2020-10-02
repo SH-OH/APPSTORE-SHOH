@@ -12,7 +12,10 @@ import RxCocoa
 
 final class SearchResultViewController: BaseViewController, StoryboardView {
     
-    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var collectionView: UICollectionView! {
+        didSet { self.collectionView.backgroundView = setupBackgroundView(self.collectionView.bounds) }
+    }
+    private weak var searchedbackgroundViewLabel: UILabel!
     
     func bind(reactor: SearchResultViewReactor) {
         collectionView.rx.setDelegate(self)
@@ -37,6 +40,18 @@ final class SearchResultViewController: BaseViewController, StoryboardView {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        reactor.state.map { $0.responseText }
+            .distinctUntilChanged()
+            .map { "'\($0)'" }
+            .bind(to: searchedbackgroundViewLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.isHiddenBackgroundView }
+            .distinctUntilChanged()
+            .observeOn(MainScheduler.instance)
+            .bind(to: collectionView.rx.isHiddenBackgroundView)
+            .disposed(by: disposeBag)
+        
         reactor.state.map { $0.curResultList }
             .distinctUntilChanged()
             .compactMap { $0 }
@@ -48,6 +63,30 @@ final class SearchResultViewController: BaseViewController, StoryboardView {
         reactor.state.map { $0.resultSections }
             .bind(to: collectionView.rx.items(dataSource: dataSource(reactor.searchViewReactor.navigationController)))
             .disposed(by: disposeBag)
+    }
+    
+    private func setupBackgroundView(_ frame: CGRect) -> UIView {
+        let backgroundView = UIView().then {
+            $0.frame = frame
+            $0.backgroundColor = .white
+        }
+        let emptyLabel = UILabel().then {
+            $0.text = "결과 없음"
+            $0.font = .boldSystemFont(ofSize: 25)
+            backgroundView.addSubview($0)
+            $0.snp.makeConstraints { $0.center.equalToSuperview() }
+        }
+        searchedbackgroundViewLabel = UILabel().then {
+            $0.text = "-"
+            $0.font = .systemFont(ofSize: 18)
+            $0.textColor = .lightGray
+            backgroundView.addSubview($0)
+            $0.snp.makeConstraints { m in
+                m.centerX.equalToSuperview()
+                m.top.equalTo(emptyLabel.snp.bottom).offset(5)
+            }
+        }
+        return backgroundView
     }
 }
 
