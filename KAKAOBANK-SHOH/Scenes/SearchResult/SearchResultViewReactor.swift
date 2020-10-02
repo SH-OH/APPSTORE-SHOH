@@ -19,14 +19,13 @@ final class SearchResultViewReactor: Reactor {
     
     enum Mutation {
         case setResponseText(String)
-        case setSearchedText(String)
         case setCurResultList([SearchResult])
         case setResultSections([SearchSection])
     }
     
     struct State {
         var responseText: String = ""
-        var searchedText: String = ""
+        var isHiddenBackgroundView: Bool = false
         var curResultList: [SearchResult]?
         var resultSections: [SearchSection] = []
     }
@@ -96,12 +95,10 @@ final class SearchResultViewReactor: Reactor {
             return newState
         case .setCurResultList(let resultList):
             newState.curResultList = resultList
+            newState.isHiddenBackgroundView = !resultList.isEmpty
             return newState
         case .setResultSections(let resultSections):
             newState.resultSections = resultSections
-            return newState
-        case .setSearchedText(let searchedText):
-            newState.searchedText = searchedText
             return newState
         }
     }
