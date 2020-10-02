@@ -33,7 +33,6 @@ final class SearchResultViewReactor: Reactor {
     
     let initialState: State
     let searchViewReactor: SearchViewReactor
-    var searchedText: String = ""
     
     init(searchViewReactor: SearchViewReactor) {
         self.initialState = .init()
@@ -48,10 +47,6 @@ final class SearchResultViewReactor: Reactor {
         switch action {
         case .search(let responseText):
             let search: Observable<Mutation> = Observable.just(responseText)
-                .filter { $0 != self.searchedText }
-                .do(onNext: { [weak self] (response) in
-                    self?.searchedText = response
-                })
                 .flatMap { SearchUseCase().search($0) }
                 .compactMap { $0.results }
                 .asObservable()
@@ -89,8 +84,7 @@ final class SearchResultViewReactor: Reactor {
                 return .just(mutation)
             })
         
-        return Observable.merge(mutation,
-                                setResponseText,
+        return Observable.merge(setResponseText,
                                 updateHistory)
     }
     
