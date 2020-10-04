@@ -49,6 +49,7 @@ final class SearchResultViewController: BaseViewController, StoryboardView {
         
         reactor.state.map { $0.isHiddenBackgroundView }
             .distinctUntilChanged()
+            .observeOn(MainScheduler.asyncInstance)
             .bind(to: collectionView.rx.isHiddenBackgroundView)
             .disposed(by: disposeBag)
         
