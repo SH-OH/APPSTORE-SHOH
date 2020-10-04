@@ -55,9 +55,11 @@ final class NetworkManager {
             if let compUrl = components?.url {
                 request = URLRequest(url: compUrl,
                                      timeoutInterval: self.timeout)
-            } else {
-                request = URLRequest(url: URL(string: urlString)!,
+            } else if let url = URL(string: urlString) {
+                request = URLRequest(url: url,
                                      timeoutInterval: self.timeout)
+            } else {
+                return Disposables.create()
             }
             
             let task = self.performDataTask(request,
