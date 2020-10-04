@@ -21,6 +21,7 @@ final class SearchResultViewReactor: Reactor {
         case setResponseText(String)
         case setCurResultList([SearchResult])
         case setResultSections([SearchSection])
+        case setIsHiddenBackgroundView(Bool)
     }
     
     struct State {
@@ -50,8 +51,9 @@ final class SearchResultViewReactor: Reactor {
                 .compactMap { $0.results }
                 .asObservable()
                 .map { Mutation.setCurResultList($0) }
+            let setHiddenBackgroundView: Observable<Mutation> = .just(Mutation.setIsHiddenBackgroundView(true))
             
-            return search
+            return setHiddenBackgroundView.concat(search)
         case .createSections(let resultList):
             let setSections: Observable<Mutation> = Observable.from(resultList)
                 .compactMap { [weak self] in self?.convertModel($0)}
@@ -99,6 +101,9 @@ final class SearchResultViewReactor: Reactor {
             return newState
         case .setResultSections(let resultSections):
             newState.resultSections = resultSections
+            return newState
+        case .setIsHiddenBackgroundView(let isHiddenBackgroundView):
+            newState.isHiddenBackgroundView = isHiddenBackgroundView
             return newState
         }
     }

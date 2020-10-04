@@ -37,6 +37,7 @@ final class SearchResultViewController: BaseViewController, StoryboardView {
             .filter { !$0.isEmpty }
             .distinctUntilChanged()
             .map { SearchResultViewReactor.Action.search(reponseText: $0) }
+            .observeOn(MainScheduler.asyncInstance)
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -48,7 +49,6 @@ final class SearchResultViewController: BaseViewController, StoryboardView {
         
         reactor.state.map { $0.isHiddenBackgroundView }
             .distinctUntilChanged()
-            .observeOn(MainScheduler.instance)
             .bind(to: collectionView.rx.isHiddenBackgroundView)
             .disposed(by: disposeBag)
         
@@ -56,7 +56,7 @@ final class SearchResultViewController: BaseViewController, StoryboardView {
             .distinctUntilChanged()
             .compactMap { $0 }
             .map { Reactor.Action.createSections($0) }
-            .observeOn(MainScheduler.instance)
+            .observeOn(MainScheduler.asyncInstance)
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
