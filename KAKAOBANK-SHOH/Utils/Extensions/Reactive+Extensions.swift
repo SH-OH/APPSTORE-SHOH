@@ -23,6 +23,11 @@ extension Reactive where Base: UICollectionView {
         return Binder(base) { collectionView, isHidden in
             guard let backgroundView = collectionView.backgroundView else { return }
             backgroundView.isHidden = isHidden
+            let alpha: CGFloat = isHidden ? 0.0 : 1.0
+            UIView.animate(withDuration: 0.3) {
+                backgroundView.alpha = alpha
+                collectionView.layoutIfNeeded()
+            }
         }
     }
 }
