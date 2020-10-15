@@ -14,25 +14,25 @@ final class SearchResultViewReactor: Reactor {
     enum Action {
         case search(reponseText: String)
         case createSections([SearchResult])
+        case clear
     }
     
     enum Mutation {
         case setResponseText(String)
-        case setSearchedText(String)
         case setCurResultList([SearchResult])
         case setResultSections([SearchSection])
+        case setIsHiddenBackgroundView(Bool)
     }
     
     struct State {
         var responseText: String = ""
-        var searchedText: String = ""
+        var isHiddenBackgroundView: Bool = false
         var curResultList: [SearchResult]?
         var resultSections: [SearchSection] = []
     }
     
     let initialState: State
     let searchViewReactor: SearchViewReactor
-    var searchedText: String = ""
     
     init(searchViewReactor: SearchViewReactor) {
         self.initialState = .init()
@@ -47,16 +47,13 @@ final class SearchResultViewReactor: Reactor {
         switch action {
         case .search(let responseText):
             let search: Observable<Mutation> = Observable.just(responseText)
-                .filter { $0 != self.searchedText }
-                .do(onNext: { (response) in
-                    self.searchedText = response
-                })
                 .flatMap { SearchUseCase().search($0) }
                 .compactMap { $0.results }
                 .asObservable()
                 .map { Mutation.setCurResultList($0) }
+            let setHiddenBackgroundView: Observable<Mutation> = .just(Mutation.setIsHiddenBackgroundView(true))
             
-            return search
+            return setHiddenBackgroundView.concat(search)
         case .createSections(let resultList):
             let setSections: Observable<Mutation> = Observable.from(resultList)
                 .compactMap { [weak self] in self?.convertModel($0)}
@@ -66,6 +63,8 @@ final class SearchResultViewReactor: Reactor {
                 .map { Mutation.setResultSections($0) }
             
             return setSections
+        case .clear:
+            return .just(Mutation.setCurResultList([]))
         }
     }
     
@@ -80,14 +79,13 @@ final class SearchResultViewReactor: Reactor {
         let updateHistory: Observable<Mutation> = mutation
             .flatMap ({ [weak searchViewReactor] (mutation) -> Observable<Mutation> in
                 if case .setCurResultList = mutation {
-                    let updateList = UserdefaultsManager.getStringArray(.최신검색어히스토리)
+                    let updateList = UserdefaultsManager.getStringArray(.최신검색어히스토리())
                     searchViewReactor?.recentHistory.accept(updateList)
                 }
                 return .just(mutation)
             })
         
-        return Observable.merge(mutation,
-                                setResponseText,
+        return Observable.merge(setResponseText,
                                 updateHistory)
     }
     
@@ -99,12 +97,13 @@ final class SearchResultViewReactor: Reactor {
             return newState
         case .setCurResultList(let resultList):
             newState.curResultList = resultList
+            newState.isHiddenBackgroundView = !resultList.isEmpty
             return newState
         case .setResultSections(let resultSections):
             newState.resultSections = resultSections
             return newState
-        case .setSearchedText(let searchedText):
-            newState.searchedText = searchedText
+        case .setIsHiddenBackgroundView(let isHiddenBackgroundView):
+            newState.isHiddenBackgroundView = isHiddenBackgroundView
             return newState
         }
     }

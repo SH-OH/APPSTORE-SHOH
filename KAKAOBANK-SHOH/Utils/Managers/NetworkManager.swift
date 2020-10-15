@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import UIKit.UIView
 
-class NetworkManager {
+final class NetworkManager {
     
     enum HTTPMethod {
         case get
@@ -18,8 +18,10 @@ class NetworkManager {
     }
     
     enum Queue {
-        static let defaultQueue: DispatchQueue = DispatchQueue(label: "queue.NetworkManager.default", qos: .utility)
-        static let imageQueue: DispatchQueue = DispatchQueue(label: "queue.NetworkManager.imageCache", qos: .utility)
+        static let defaultQueue: DispatchQueue = DispatchQueue(label: "queue.NetworkManager.default",
+                                                               qos: .utility)
+        static let imageQueue: DispatchQueue = DispatchQueue(label: "queue.NetworkManager.imageCache",
+                                                             qos: .utility)
     }
     
     static let shared = NetworkManager()
@@ -27,8 +29,6 @@ class NetworkManager {
     var timeout: Double = 20
     
     private(set) var session: URLSession
-    
-    private let cache: NSCache<NSString, UIImage> = .init()
     
     private init() {
         self.session = .shared
@@ -55,66 +55,31 @@ class NetworkManager {
             if let compUrl = components?.url {
                 request = URLRequest(url: compUrl,
                                      timeoutInterval: self.timeout)
-            } else {
-                request = URLRequest(url: URL(string: urlString)!,
+            } else if let url = URL(string: urlString) {
+                request = URLRequest(url: url,
                                      timeoutInterval: self.timeout)
+            } else {
+                return Disposables.create()
             }
             
             let task = self.performDataTask(request,
                                             method: method,
                                             parameters: parameters,
                                             queue: queue) { (result) in
-                switch result {
-                case .success(let data):
-                    do {
-                        let json = try JSONDecoder().decode(T.self, from: data)
-                        observer(.success(json))
-                        print("success : \(data)")
-                    } catch {
-                        observer(.error(error))
-                        print("parsing error : \(error)")
-                    }
-                case .failure(let error):
-                    observer(.error(error))
-                    print("failure error : \(error)")
-                }
-            }
-            return Disposables.create {
-                task.cancel()
-            }
-        }
-    }
-    
-    func retrieveImage(_ url: URL, queue: DispatchQueue = Queue.imageQueue) -> Single<UIImage> {
-        return Single<UIImage>.create { (observer) -> Disposable in
-            if let cachedImage = self.getImage(url.absoluteString) {
-                DispatchQueue.main.async {
-                    observer(.success(cachedImage))
-                }
-                return Disposables.create()
-            }
-            let request = URLRequest(url: url,
-                                     timeoutInterval: self.timeout)
-            let task = self.performDataTask(request) { (result) in
-                switch result {
-                case .success(let data):
-                    guard let image = UIImage(data: data) else {
-                        let _error = ErrorHandler.check(nil)
-                        DispatchQueue.main.async {
-                            observer(.error(_error))
-                        }
-                        return
-                    }
-                    
-                    DispatchQueue.main.async {
-                        self.setImage(url.absoluteString, image: image)
-                        observer(.success(image))
-                    }
-                case .failure(let error):
-                    DispatchQueue.main.async {
-                        observer(.error(error))
-                    }
-                }
+                                                switch result {
+                                                case .success(let data):
+                                                    do {
+                                                        let json = try JSONDecoder().decode(T.self, from: data)
+                                                        observer(.success(json))
+                                                        print("success : \(data)")
+                                                    } catch {
+                                                        observer(.error(error))
+                                                        print("parsing error : \(error)")
+                                                    }
+                                                case .failure(let error):
+                                                    observer(.error(error))
+                                                    print("failure error : \(error)")
+                                                }
             }
             return Disposables.create {
                 task.cancel()
@@ -124,10 +89,10 @@ class NetworkManager {
     
     @discardableResult
     private func performDataTask(_ request: URLRequest,
-                 method: HTTPMethod = .get,
-                 parameters: [String: Any]? = nil,
-                 queue: DispatchQueue = Queue.defaultQueue,
-                 completion: @escaping (Swift.Result<Data, Error>) -> ()) -> URLSessionDataTask {
+                                 method: HTTPMethod = .get,
+                                 parameters: [String: Any]? = nil,
+                                 queue: DispatchQueue = Queue.defaultQueue,
+                                 completion: @escaping (Swift.Result<Data, Error>) -> ()) -> URLSessionDataTask {
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
         }
@@ -153,11 +118,45 @@ class NetworkManager {
     }
 }
 
+// MARK: - RetrieveImage
 extension NetworkManager {
-    func setImage(_ key: String, image: UIImage) {
-        self.cache.setObject(image, forKey: key as NSString)
-    }
-    func getImage(_ key: String) -> UIImage? {
-        return self.cache.object(forKey: key as NSString)
+    func retrieveImage(_ url: URL,
+                       queue: DispatchQueue = Queue.imageQueue) -> Single<UIImage> {
+        return Single<UIImage>.create { (observer) -> Disposable in
+            var task: URLSessionDataTask?
+            ImageCacheManager.shared.getImage(url.absoluteString, completion: { cachedImage in
+                if let cachedImage = cachedImage {
+                    DispatchQueue.main.async {
+                        observer(.success(cachedImage))
+                    }
+                } else {
+                    let request = URLRequest(url: url,
+                                             timeoutInterval: self.timeout)
+                    task = self.performDataTask(request) { (result) in
+                        switch result {
+                        case .success(let data):
+                            guard let image = UIImage(data: data) else {
+                                let _error = ErrorHandler.check(nil)
+                                DispatchQueue.main.async {
+                                    observer(.error(_error))
+                                }
+                                return
+                            }
+                            DispatchQueue.main.async {
+                                ImageCacheManager.shared.setImage(url.absoluteString, image: image)
+                                observer(.success(image))
+                            }
+                        case .failure(let error):
+                            DispatchQueue.main.async {
+                                observer(.error(error))
+                            }
+                        }
+                    }
+                }
+            })
+            return Disposables.create {
+                task?.cancel()
+            }
+        }
     }
 }

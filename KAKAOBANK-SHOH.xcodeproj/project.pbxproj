@@ -69,6 +69,8 @@
 		CB1CE106251519A900508BBF /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE105251519A900508BBF /* SearchResultCell.swift */; };
 		CB1CE10825151B7000508BBF /* SearchResultCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE10725151B7000508BBF /* SearchResultCellReactor.swift */; };
 		CB1CE10A2515210200508BBF /* NetworkManager+UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1CE1092515210200508BBF /* NetworkManager+UIImageView.swift */; };
+		CB397340252210D300AF16C3 /* CompletionWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB39733F252210D300AF16C3 /* CompletionWrapper.swift */; };
+		CB4E285A251EC56100B97DF2 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4E2859251EC56100B97DF2 /* ImageCacheManager.swift */; };
 		CB7FEB1B2517807500E2ECA4 /* Number+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7FEB1A2517807500E2ECA4 /* Number+Extensions.swift */; };
 		CB7FEB1D251794B500E2ECA4 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7FEB1C251794B500E2ECA4 /* Date+Extensions.swift */; };
 		CB7FEB292517B01800E2ECA4 /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = CB7FEB282517B01800E2ECA4 /* DeviceKit */; };
@@ -152,6 +154,8 @@
 		CB1CE105251519A900508BBF /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		CB1CE10725151B7000508BBF /* SearchResultCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCellReactor.swift; sourceTree = "<group>"; };
 		CB1CE1092515210200508BBF /* NetworkManager+UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkManager+UIImageView.swift"; sourceTree = "<group>"; };
+		CB39733F252210D300AF16C3 /* CompletionWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionWrapper.swift; sourceTree = "<group>"; };
+		CB4E2859251EC56100B97DF2 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		CB7FEB1A2517807500E2ECA4 /* Number+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Number+Extensions.swift"; sourceTree = "<group>"; };
 		CB7FEB1C251794B500E2ECA4 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		CB7FEB2A2517C6CE00E2ECA4 /* SearchDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailCell.swift; sourceTree = "<group>"; };
@@ -316,6 +320,7 @@
 		CB1CE0BF25147BEB00508BBF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				CB39733E252210C300AF16C3 /* Wrapper */,
 				CB1CE0C225147C3300508BBF /* Extensions */,
 				CB1CE0C325147C4300508BBF /* Managers */,
 				CB1CE0C425147C5400508BBF /* Protocol */,
@@ -340,9 +345,10 @@
 		CB1CE0C325147C4300508BBF /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				CB4E2859251EC56100B97DF2 /* ImageCacheManager.swift */,
 				CB1CE0C725147C7900508BBF /* NetworkManager.swift */,
-				CB1CE0C925147C8600508BBF /* UserdefaultsManager.swift */,
 				CB1CE1092515210200508BBF /* NetworkManager+UIImageView.swift */,
+				CB1CE0C925147C8600508BBF /* UserdefaultsManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -444,6 +450,14 @@
 				CB1CE10125150A6200508BBF /* SearchResultViewReactor.swift */,
 			);
 			path = SearchResult;
+			sourceTree = "<group>";
+		};
+		CB39733E252210C300AF16C3 /* Wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				CB39733F252210D300AF16C3 /* CompletionWrapper.swift */,
+			);
+			path = Wrapper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -645,10 +659,12 @@
 				CB1CE0CF25147CC200508BBF /* ErrorHandler.swift in Sources */,
 				CB0DFAE52518BF4D007D9FBD /* ReviewAllViewController.swift in Sources */,
 				CB1CE0E925148D6C00508BBF /* SearchUseCase.swift in Sources */,
+				CB4E285A251EC56100B97DF2 /* ImageCacheManager.swift in Sources */,
 				CB7FEB2B2517C6CE00E2ECA4 /* SearchDetailCell.swift in Sources */,
 				CB1CE0F72514C36700508BBF /* HistoryCVCell.swift in Sources */,
 				CB1179E72515BB4C00D9A410 /* SearchDataSouces.swift in Sources */,
 				CB1179E925161CBD00D9A410 /* Reactive+Extensions.swift in Sources */,
+				CB397340252210D300AF16C3 /* CompletionWrapper.swift in Sources */,
 				CB1CE0C125147C2200508BBF /* Cell+Extensions.swift in Sources */,
 				CB1CE0C625147C5B00508BBF /* Reusable.swift in Sources */,
 			);
